@@ -38,6 +38,7 @@
         return gk_fileData[filename] || "";
         }
         </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -193,13 +194,13 @@
             padding: 0 5px;
         }
 
-        .products, .charolas, .extras {
+        .products, .charolas, .extras, .hotcakes {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
         }
 
-        .product-item, .charola-item, .extra-item {
+        .product-item, .charola-item, .extra-item, .hotcake-item {
             background-color: white;
             border-radius: 10px;
             padding: 15px;
@@ -208,12 +209,12 @@
             transition: transform 0.3s ease;
         }
 
-        .product-item:hover, .charola-item:hover, .extra-item:hover {
+        .product-item:hover, .charola-item:hover, .extra-item:hover, .hotcake-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
 
-        .product-item select, .charola-item select, .extra-item select {
+        .product-item select, .charola-item select, .extra-item select, .hotcake-item select {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -222,7 +223,7 @@
             font-size: 0.9em;
         }
 
-        .product-item button, .charola-item button, .extra-item button {
+        .product-item button, .charola-item button, .extra-item button, .hotcake-item button {
             background-color: #FF5733;
             color: white;
             border: none;
@@ -235,12 +236,12 @@
             width: 100%;
         }
 
-        .product-item button:hover, .charola-item button:hover, .extra-item button:hover {
+        .product-item button:hover, .charola-item button:hover, .extra-item button:hover, .hotcake-item button:hover {
             background-color: #FF4F41;
             transform: scale(1.05);
         }
 
-        .product-item button:disabled, .charola-item button:disabled, .extra-item button:disabled {
+        .product-item button:disabled, .charola-item button:disabled, .extra-item button:disabled, .hotcake-item button:disabled {
             background-color: #ccc;
             cursor: not-allowed;
         }
@@ -328,7 +329,7 @@
         }
 
         @media (max-width: 768px) {
-            .gallery, .products, .charolas, .extras {
+            .gallery, .products, .charolas, .extras, .hotcakes {
                 grid-template-columns: repeat(2, 1fr);
             }
             .proximamente {
@@ -342,7 +343,7 @@
         }
 
         @media (max-width: 480px) {
-            .gallery, .products, .charolas, .extras {
+            .gallery, .products, .charolas, .extras, .hotcakes {
                 grid-template-columns: 1fr;
             }
             h2 {
@@ -354,7 +355,7 @@
             .gallery-item img {
                 height: 120px;
             }
-            .product-item select, .charola-item select, .extra-item select {
+            .product-item select, .charola-item select, .extra-item select, .hotcake-item select {
                 font-size: 0.8em;
             }
             #map {
@@ -379,6 +380,7 @@
             <a href="#gomitas">Bolsa de Gomitas</a>
             <a href="#charolas">Charolas</a>
             <a href="#extras">Extras</a>
+            <a href="#hotcakes">Mini Hotcakes</a>
             <a href="#proximamente">Próximamente</a>
             <a href="#cart">Pedidos</a>
         </div>
@@ -657,13 +659,85 @@
         </div>
     </section>
 
+    <section id="hotcakes">
+        <img src="assets/Logo_HF.png" alt="Mini Hotcakes Logo" style="max-width: 80px; display: block; margin: 0 auto 15px;">
+        <h2>Mini Hotcakes</h2>
+        <p style="text-align: center; margin-bottom: 15px; font-size: 0.9em;">¡Nuevos y deliciosos! Selecciona tus opciones de jarabes, toppings y frutas.</p>
+        <div class="hotcakes">
+            <div class="hotcake-item">
+                <h3>Mini Hotcakes Clásicos</h3>
+                <p>2 piezas</p>
+                <select id="hotcakes-clasicos-jarabes">
+                    <option value="Ninguno">Sin jarabe</option>
+                    <option value="Jarabes">Jarabes (Precio pendiente)</option>
+                </select>
+                <select id="hotcakes-clasicos-toppings">
+                    <option value="Ninguno">Sin toppings</option>
+                    <option value="Toppings">Toppings (Precio pendiente)</option>
+                </select>
+                <select id="hotcakes-clasicos-frutas">
+                    <option value="Ninguna">Sin frutas</option>
+                    <option value="Frutas">Frutas (Precio pendiente)</option>
+                </select>
+                <button onclick="addHotcakeToCart('Mini Hotcakes Clásicos', document.getElementById('hotcakes-clasicos-jarabes').value, document.getElementById('hotcakes-clasicos-toppings').value, document.getElementById('hotcakes-clasicos-frutas').value, '2pz')">Agregar al carrito</button>
+            </div>
+            <div class="hotcake-item">
+                <h3>Mini Hotcakes con Chocolate</h3>
+                <p>3 piezas</p>
+                <select id="hotcakes-chocolate-jarabes">
+                    <option value="Ninguno">Sin jarabe</option>
+                    <option value="Jarabes">Jarabes (Precio pendiente)</option>
+                </select>
+                <select id="hotcakes-chocolate-toppings">
+                    <option value="Ninguno">Sin toppings</option>
+                    <option value="Toppings">Toppings (Precio pendiente)</option>
+                </select>
+                <select id="hotcakes-chocolate-frutas">
+                    <option value="Ninguna">Sin frutas</option>
+                    <option value="Frutas">Frutas (Precio pendiente)</option>
+                </select>
+                <button onclick="addHotcakeToCart('Mini Hotcakes con Chocolate', document.getElementById('hotcakes-chocolate-jarabes').value, document.getElementById('hotcakes-chocolate-toppings').value, document.getElementById('hotcakes-chocolate-frutas').value, '3pz')">Agregar al carrito</button>
+            </div>
+            <div class="hotcake-item">
+                <h3>Mini Hotcakes Especiales</h3>
+                <p>4 piezas</p>
+                <select id="hotcakes-especiales-jarabes">
+                    <option value="Ninguno">Sin jarabe</option>
+                    <option value="Jarabes">Jarabes (Precio pendiente)</option>
+                </select>
+                <select id="hotcakes-especiales-toppings">
+                    <option value="Ninguno">Sin toppings</option>
+                    <option value="Toppings">Toppings (Precio pendiente)</option>
+                </select>
+                <select id="hotcakes-especiales-frutas">
+                    <option value="Ninguna">Sin frutas</option>
+                    <option value="Frutas">Frutas (Precio pendiente)</option>
+                </select>
+                <button onclick="addHotcakeToCart('Mini Hotcakes Especiales', document.getElementById('hotcakes-especiales-jarabes').value, document.getElementById('hotcakes-especiales-toppings').value, document.getElementById('hotcakes-especiales-frutas').value, '4pz')">Agregar al carrito</button>
+            </div>
+            <div class="hotcake-item">
+                <h3>Mini Hotcakes Deluxe</h3>
+                <p>5 piezas</p>
+                <select id="hotcakes-deluxe-jarabes">
+                    <option value="Ninguno">Sin jarabe</option>
+                    <option value="Jarabes">Jarabes (Precio pendiente)</option>
+                </select>
+                <select id="hotcakes-deluxe-toppings">
+                    <option value="Ninguno">Sin toppings</option>
+                    <option value="Toppings">Toppings (Precio pendiente)</option>
+                </select>
+                <select id="hotcakes-deluxe-frutas">
+                    <option value="Ninguna">Sin frutas</option>
+                    <option value="Frutas">Frutas (Precio pendiente)</option>
+                </select>
+                <button onclick="addHotcakeToCart('Mini Hotcakes Deluxe', document.getElementById('hotcakes-deluxe-jarabes').value, document.getElementById('hotcakes-deluxe-toppings').value, document.getElementById('hotcakes-deluxe-frutas').value, '5pz')">Agregar al carrito</button>
+            </div>
+        </div>
+    </section>
+
     <section id="proximamente">
         <h2>Próximamente</h2>
         <div class="proximamente">
-            <div>
-                <h3>Mini Hotcakes</h3>
-                <p>✨ Próximamente ✨</p>
-            </div>
             <div>
                 <h3>Fresas con Crema</h3>
                 <p>🍓 Próximamente 🍓</p>
@@ -808,12 +882,19 @@
             updateCart();
         }
 
+        function addHotcakeToCart(product, jarabe, topping, fruta, size) {
+            const price = 0; // Placeholder, replace with actual price logic
+            cart.push({ product, jarabe, topping, fruta, size, price });
+            console.log('Added to cart:', { product, jarabe, topping, fruta, size, price });
+            updateCart();
+        }
+
         function updateCart() {
             const cartItems = document.getElementById('cart-items');
             cartItems.innerHTML = '<h3>Productos</h3>';
             let total = 0;
             cart.forEach(item => {
-                cartItems.innerHTML += `<p>${item.product} (${item.type}${item.size ? ' - ' + item.size : ''}${item.gomitas ? ' - ' + item.gomitas.join(', ') : ''}) - $${item.price}</p>`;
+                cartItems.innerHTML += `<p>${item.product} (${item.type || ''}${item.size ? ' - ' + item.size : ''}${item.gomitas ? ' - ' + item.gomitas.join(', ') : ''}${item.jarabe && item.jarabe !== 'Ninguno' ? ' - Jarabe: ' + item.jarabe : ''}${item.topping && item.topping !== 'Ninguno' ? ' - Topping: ' + item.topping : ''}${item.fruta && item.fruta !== 'Ninguna' ? ' - Fruta: ' + item.fruta : ''}) - $${item.price}</p>`;
                 total += item.price;
             });
             document.getElementById('total').textContent = total;
@@ -863,7 +944,7 @@
                 return;
             }
 
-            let products = cart.map(item => `${item.product} (${item.type}${item.size ? ' - ' + item.size : ''}${item.gomitas ? ' - ' + item.gomitas.join(', ') : ''}) - $${item.price}`).join('\n');
+            let products = cart.map(item => `${item.product} (${item.type || ''}${item.size ? ' - ' + item.size : ''}${item.gomitas ? ' - ' + item.gomitas.join(', ') : ''}${item.jarabe && item.jarabe !== 'Ninguno' ? ' - Jarabe: ' + item.jarabe : ''}${item.topping && item.topping !== 'Ninguno' ? ' - Topping: ' + item.topping : ''}${item.fruta && item.fruta !== 'Ninguna' ? ' - Fruta: ' + item.fruta : ''}) - $${item.price}`).join('\n');
 
             const message = `🍭 P&C Candys te consiente 🍭
 📅 Pedido programado para: ${date.toISOString().split('T')[0]}
