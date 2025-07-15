@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <!-- Configura la vista para dispositivos móviles con escala inicial 1.0 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - P&C Candys</title>
+    <title>P&C Candys</title>
     <style>
         /* Establece la fuente y el fondo general de la página */
         body {
@@ -23,6 +23,7 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #d32f2f;
+            position: relative;
         }
         /* Estilo del logo en el encabezado */
         .logo {
@@ -40,35 +41,82 @@
             font-size: 2.5vw;
             margin-right: 10px;
         }
-        /* Estilo de la sección de inicio */
-        .inicio-section {
+        /* Estilo del botón de menú hamburguesa */
+        .menu-toggle {
+            font-size: 4vw;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: none; /* Oculto por defecto en pantallas grandes */
+            margin-right: 10px;
+        }
+        /* Estilo del menú desplegable */
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex; /* Mostrado como fila en pantallas grandes */
+            align-items: center;
+        }
+        .nav-menu li {
+            margin-left: 2vw;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 3vw;
+        }
+        /* Menú desplegable para móviles */
+        .nav-menu.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #f44336;
+            padding: 10px 0;
+        }
+        /* Estilo de la sección de menú */
+        .menu-section {
             padding: 5vw;
             text-align: center;
         }
-        /* Títulos y párrafos en la sección de inicio */
-        .inicio-section h1 {
+        .menu-section h1 {
             color: #1e88e5;
             font-size: 5vw;
             margin-bottom: 2vw;
         }
-        .inicio-section p {
+        .menu-section p {
             color: #757575;
             font-size: 3vw;
             margin-bottom: 4vw;
         }
-        /* Estilo del carrusel (estático, requiere JS para ser dinámico) */
-        .carousel {
-            display: flex;
-            overflow-x: auto;
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 3vw;
             max-width: 90vw;
             margin: 0 auto;
         }
-        .carousel img {
+        .menu-item {
+            text-align: center;
+        }
+        .menu-item img {
             width: 100%;
             height: 20vw;
             object-fit: cover;
             border-radius: 5px;
+        }
+        .menu-item h3 {
+            margin: 2vw 0;
+            color: #1e88e5;
+            font-size: 3.5vw;
+        }
+        .menu-item a {
+            text-decoration: none;
+            color: #1e88e5;
         }
         /* Estilo del pie de página */
         footer {
@@ -85,33 +133,78 @@
             font-size: 4vw;
         }
         /* Ajustes para pantallas grandes (mínimo 768px) */
+        @media (max-width: 767px) {
+            .menu-toggle {
+                display: block; /* Muestra el botón de menú en móviles */
+            }
+            .nav-menu {
+                display: none; /* Oculta el menú por defecto en móviles */
+            }
+            .nav-menu li {
+                margin: 2vw 0;
+            }
+        }
         @media (min-width: 768px) {
             .logo { font-size: 24px; }
             .location { font-size: 16px; padding: 5px 10px; }
-            .inicio-section h1 { font-size: 32px; }
-            .inicio-section p { font-size: 18px; }
-            .carousel img { height: 150px; }
+            .menu-section h1 { font-size: 32px; }
+            .menu-section p { font-size: 18px; }
+            .menu-item img { height: 150px; }
+            .menu-item h3 { font-size: 20px; }
+            .nav-menu a { font-size: 16px; }
             .social-icons a { font-size: 24px; }
         }
     </style>
 </head>
 <body>
-    <!-- Encabezado con logo y ubicación -->
+    <!-- Encabezado con logo, ubicación y botón de menú -->
     <header>
         <div class="logo">🍭 P&C Candys</div>
+        <button class="menu-toggle">☰</button> <!-- Botón de las tres líneas -->
         <div class="location">
             Querétaro - <a href="#">Cambiar mi ubicación</a> 🌐
         </div>
+        <!-- Menú de navegación -->
+        <ul class="nav-menu">
+            <li><a href="inicio.html">Inicio</a></li>
+            <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
+            <li><a href="charolas.html">Charolas</a></li>
+            <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
+            <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
+            <li><a href="extras.html">Extras</a></li>
+            <li><a href="pedidos.html">Pedidos</a></li>
+        </ul>
     </header>
 
-    <!-- Sección de Inicio -->
-    <section class="inicio-section">
-        <h1>Inicio</h1>
-        <p>Somos una dulcería dedicada a endulzar tus momentos con productos frescos y deliciosos.</p>
-        <div class="carousel">
-            <img src="imagen1.jpg" alt="Imagen 1">
-            <img src="imagen2.jpg" alt="Imagen 2">
-            <img src="imagen3.jpg" alt="Imagen 3">
+    <!-- Sección de Menú -->
+    <section class="menu-section">
+        <h1>P&C Candys Menú</h1>
+        <p>Así es como sabe un buen momento.</p>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <img src="placeholder1.jpg" alt="Bebidas">
+                <h3>Bebidas</h3>
+            </div>
+            <div class="menu-item">
+                <img src="placeholder2.jpg" alt="Bolsa de Gomitas">
+                <h3><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></h3>
+            </div>
+            <div class="menu-item">
+                <img src="placeholder3.jpg" alt="Charolas">
+                <h3><a href="charolas.html">Charolas</a></h3>
+            </div>
+            <div class="menu-item">
+                <img src="placeholder4.jpg" alt="Mini Hot Cakes">
+                <h3><a href="mini_hot_cakes.html">Mini Hot Cakes</a></h3>
+            </div>
+            <div class="menu-item">
+                <img src="placeholder5.jpg" alt="Fresas con Crema">
+                <h3><a href="fresas_con_crema.html">Fresas con Crema</a></h3>
+            </div>
+            <div class="menu-item">
+                <img src="placeholder6.jpg" alt="Extras">
+                <h3><a href="extras.html">Extras</a></h3>
+            </div>
         </div>
     </section>
 
@@ -126,5 +219,16 @@
         </div>
         <p>Nuestros alimentos son procesados con equipo y en un ambiente en contacto con alérgenos como: gluten de trigo, huevo, pescado, nueces de árbol, cacahuates, mariscos, leche, derivados lácteos, soya y trigo.</p>
     </footer>
+
+    <!-- Script básico para toggle del menú (requiere JavaScript) -->
+    <script>
+        // Obtiene el botón y el menú
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        // Agrega evento para mostrar/ocultar el menú al hacer clic
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
