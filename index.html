@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Define el conjunto de caracteres como UTF-8 -->
     <meta charset="UTF-8">
+    <!-- Configura la vista para dispositivos móviles con escala inicial 1.0 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P&C Candys</title>
+    <title>Inicio - P&C Candys</title>
     <style>
+        /* Establece la fuente y el fondo general de la página */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -12,6 +15,7 @@
             background-color: #f5f5f5;
             color: #333;
         }
+        /* Estilo del encabezado con color rojo y diseño flexible */
         header {
             background-color: #f44336;
             padding: 10px;
@@ -20,12 +24,14 @@
             align-items: center;
             border-bottom: 2px solid #d32f2f;
         }
+        /* Estilo del logo en el encabezado */
         .logo {
             font-size: 4vw;
             font-weight: bold;
             color: white;
             margin-left: 10px;
         }
+        /* Estilo de la sección de ubicación */
         .location {
             background-color: white;
             padding: 2vw;
@@ -34,41 +40,37 @@
             font-size: 2.5vw;
             margin-right: 10px;
         }
-        .menu-section {
+        /* Estilo de la sección de inicio */
+        .inicio-section {
             padding: 5vw;
             text-align: center;
         }
-        .menu-section h1 {
+        /* Títulos y párrafos en la sección de inicio */
+        .inicio-section h1 {
             color: #1e88e5;
             font-size: 5vw;
             margin-bottom: 2vw;
         }
-        .menu-section p {
+        .inicio-section p {
             color: #757575;
             font-size: 3vw;
             margin-bottom: 4vw;
         }
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        /* Estilo del carrusel (estático, requiere JS para ser dinámico) */
+        .carousel {
+            display: flex;
+            overflow-x: auto;
             gap: 3vw;
             max-width: 90vw;
             margin: 0 auto;
         }
-        .menu-item {
-            text-align: center;
-        }
-        .menu-item img {
+        .carousel img {
             width: 100%;
             height: 20vw;
             object-fit: cover;
             border-radius: 5px;
         }
-        .menu-item h3 {
-            margin: 2vw 0;
-            color: #1e88e5;
-            font-size: 3.5vw;
-        }
+        /* Estilo del pie de página */
         footer {
             background-color: #1976d2;
             color: white;
@@ -82,32 +84,19 @@
             text-decoration: none;
             font-size: 4vw;
         }
-        .back-to-top {
-            background-color: #f44336;
-            color: white;
-            padding: 2vw 4vw;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 3vw;
-            margin-top: 3vw;
-        }
-        .back-to-top:hover {
-            background-color: #d32f2f;
-        }
+        /* Ajustes para pantallas grandes (mínimo 768px) */
         @media (min-width: 768px) {
             .logo { font-size: 24px; }
             .location { font-size: 16px; padding: 5px 10px; }
-            .menu-section h1 { font-size: 32px; }
-            .menu-section p { font-size: 18px; }
-            .menu-item img { height: 150px; }
-            .menu-item h3 { font-size: 20px; }
+            .inicio-section h1 { font-size: 32px; }
+            .inicio-section p { font-size: 18px; }
+            .carousel img { height: 150px; }
             .social-icons a { font-size: 24px; }
-            .back-to-top { font-size: 16px; padding: 10px 20px; }
         }
     </style>
 </head>
 <body>
+    <!-- Encabezado con logo y ubicación -->
     <header>
         <div class="logo">🍭 P&C Candys</div>
         <div class="location">
@@ -115,38 +104,18 @@
         </div>
     </header>
 
-    <section class="menu-section">
-        <h1>P&C Candys Menú</h1>
-        <p>Así es como sabe un buen momento.</p>
-        <div class="menu-grid">
-            <div class="menu-item">
-                <img src="placeholder1.jpg" alt="Bebidas">
-                <h3>Bebidas</h3>
-            </div>
-            <div class="menu-item">
-                <img src="placeholder2.jpg" alt="Bolsa de Gomitas">
-                <h3><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></h3>
-            </div>
-            <div class="menu-item">
-                <img src="placeholder3.jpg" alt="Charolas">
-                <h3><a href="charolas.html">Charolas</a></h3>
-            </div>
-            <div class="menu-item">
-                <img src="placeholder4.jpg" alt="Mini Hot Cakes">
-                <h3><a href="mini_hot_cakes.html">Mini Hot Cakes</a></h3>
-            </div>
-            <div class="menu-item">
-                <img src="placeholder5.jpg" alt="Fresas con Crema">
-                <h3><a href="fresas_con_crema.html">Fresas con Crema</a></h3>
-            </div>
-            <div class="menu-item">
-                <img src="placeholder6.jpg" alt="Extras">
-                <h3><a href="extras.html">Extras</a></h3>
-            </div>
+    <!-- Sección de Inicio -->
+    <section class="inicio-section">
+        <h1>Inicio</h1>
+        <p>Somos una dulcería dedicada a endulzar tus momentos con productos frescos y deliciosos.</p>
+        <div class="carousel">
+            <img src="imagen1.jpg" alt="Imagen 1">
+            <img src="imagen2.jpg" alt="Imagen 2">
+            <img src="imagen3.jpg" alt="Imagen 3">
         </div>
-        <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">Volver Arriba</button>
     </section>
 
+    <!-- Pie de página con redes sociales -->
     <footer>
         <h3>Redes Sociales</h3>
         <div class="social-icons">
