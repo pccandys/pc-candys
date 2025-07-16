@@ -73,36 +73,65 @@
             font-size: 5vw;
             margin-bottom: 2vw;
         }
-        .cart-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 2vw 4vw;
-            border: none;
-            border-radius: 5px;
-            font-size: 3vw;
-            cursor: pointer;
-            margin-bottom: 3vw;
-        }
-        .cart-button:hover {
-            background-color: #45a049;
-        }
         .order-form {
-            margin: 3vw 0;
-            padding: 4vw;
+            max-width: 90vw;
+            margin: 0 auto;
             background-color: white;
-            border: 1px solid #ddd;
+            padding: 3vw;
             border-radius: 5px;
-            text-align: left;
+            border: 1px solid #ddd;
         }
-        .order-form p {
-            font-size: 3vw;
-            margin: 2vw 0;
+        .order-form label {
+            display: block;
+            font-size: 2.5vw;
+            margin-bottom: 1vw;
+            color: #1e88e5;
         }
         .order-form input, .order-form select {
-            margin: 1vw 0;
-            padding: 2vw;
-            font-size: 3vw;
             width: 90%;
+            padding: 1.5vw;
+            margin-bottom: 2vw;
+            font-size: 2.5vw;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #map {
+            width: 90%;
+            height: 300px;
+            margin: 2vw auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .order-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 2vw 4vw;
+            border-radius: 5px;
+            font-size: 2.5vw;
+            cursor: pointer;
+        }
+        .order-form button:hover {
+            background-color: #45a049;
+        }
+        #orderItems {
+            margin: 2vw 0;
+            text-align: left;
+        }
+        #orderItems p {
+            font-size: 2.5vw;
+            margin: 1vw 0;
+        }
+        #orderSummary {
+            margin-top: 3vw;
+            background-color: #f9f9f9;
+            padding: 2vw;
+            border-radius: 5px;
+            display: none;
+        }
+        #orderSummary p {
+            font-size: 2.5vw;
+            margin: 1vw 0;
         }
         footer {
             background-color: #1976d2;
@@ -119,23 +148,20 @@
             font-size: 4vw;
         }
         @media (max-width: 767px) {
-            .menu-toggle {
-                display: block;
-            }
-            .nav-menu {
-                display: none;
-            }
-            .nav-menu li {
-                margin: 2vw 0;
-            }
+            .menu-toggle { display: block; }
+            .nav-menu { display: none; }
+            .nav-menu li { margin: 2vw 0; }
+            #map { height: 200px; }
         }
         @media (min-width: 768px) {
             .logo { font-size: 24px; }
             .page-space { font-size: 16px; }
             .order-section h1 { font-size: 32px; }
-            .cart-button { font-size: 16px; padding: 10px 20px; }
-            .order-form p { font-size: 16px; }
-            .order-form input, .order-form select { font-size: 16px; padding: 5px; }
+            .order-form label { font-size: 16px; }
+            .order-form input, .order-form select { font-size: 14px; padding: 8px; }
+            .order-form button { font-size: 14px; padding: 10px 20px; }
+            #orderItems p, #orderSummary p { font-size: 14px; }
+            #map { height: 400px; }
             .nav-menu a { font-size: 16px; }
             .social-icons a { font-size: 24px; }
         }
@@ -158,41 +184,34 @@
     </header>
 
     <section class="order-section">
-        <h1>Pedidos</h1>
-        <button class="cart-button">🛒 Carrito</button>
+        <h1>Realiza tu Pedido</h1>
         <div class="order-form">
-            <p>🍭 P&C Candys te consiente 🍭</p>
-            <p>📅 Pedido programado para: <input type="date"></p>
-            <p>📍 Entrega en: <input type="text" placeholder="Dirección"></p>
-            <p>🗺️ Mapa: <input type="text" placeholder="Latitud, Longitud" title="Habilita JavaScript para ver Google Maps"></p>
-            <p>💰 Total: $[Monto pendiente]</p>
-            <p>👤 Nombre: <input type="text" placeholder="Tu nombre"></p>
-            <p>📞 Número de teléfono: <input type="tel" placeholder="Tu teléfono"></p>
-            <p>💳 Método de pago: 
-                <select>
-                    <option value="efectivo">Efectivo</option>
-                    <option value="tarjeta">Tarjeta</option>
-                    <option value="transferencia">Transferencia</option>
-                </select>
-            </p>
-            <p>🛍️ Tipo de charola: 
-                <select>
-                    <option value="charola1">Charola 1</option>
-                    <option value="charola2">Charola 2</option>
-                    <option value="charola3">Charola 3</option>
-                    <option value="charola4">Charola 4</option>
-                    <option value="charola5">Charola 5</option>
-                </select>
-            </p>
-            <p>✨ Tipo de gomitas: 
-                <select>
-                    <option value="natural">Natural</option>
-                    <option value="ahogada">Ahogada</option>
-                    <option value="empanizada">Empanizada</option>
-                </select>
-            </p>
-            <p>📦 ¡Gracias por tu pedido!</p>
+            <div id="orderItems">
+                <h3>Productos Seleccionados:</h3>
+                <p id="orderList">No has seleccionado productos aún.</p>
+            </div>
+            <label for="orderDate">📅 Pedido programado para:</label>
+            <input type="date" id="orderDate" required>
+            <label for="address">📍 Entrega en:</label>
+            <input type="text" id="address" placeholder="Dirección" required>
+            <label>🗺️ Selecciona tu ubicación en el mapa:</label>
+            <div id="map"></div>
+            <input type="hidden" id="latitude">
+            <input type="hidden" id="longitude">
+            <label for="clientName">👤 Nombre:</label>
+            <input type="text" id="clientName" placeholder="Tu nombre" required>
+            <label for="phone">📞 Número de teléfono:</label>
+            <input type="tel" id="phone" placeholder="Ej. 555-123-4567" required>
+            <label for="paymentMethod">💳 Método de pago:</label>
+            <select id="paymentMethod" required>
+                <option value="">Selecciona</option>
+                <option value="efectivo">Efectivo</option>
+                <option value="tarjeta">Tarjeta</option>
+                <option value="transferencia">Transferencia</option>
+            </select>
+            <button onclick="submitOrder()">Enviar Pedido</button>
         </div>
+        <div id="orderSummary"></div>
     </section>
 
     <footer>
@@ -206,11 +225,104 @@
     </footer>
 
     <script>
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+        // Mostrar productos seleccionados al cargar la página
+        window.onload = function() {
+            updateOrderList();
+            initMap();
+        };
+
+        function updateOrderList() {
+            const orderList = document.getElementById('orderList');
+            if (orders.length > 0) {
+                orderList.innerHTML = orders.map(item => `${item.name} (${item.variety}) - $${item.price}`).join('<br>');
+            } else {
+                orderList.textContent = 'No has seleccionado productos aún.';
+            }
+        }
+
+        // Inicializar mapa de Google Maps
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 19.4326, lng: -99.1332 }, // Centro inicial (Ciudad de México)
+                zoom: 12,
+            });
+
+            const marker = new google.maps.Marker({
+                map: map,
+                draggable: true,
+                title: "Arrastra para seleccionar tu ubicación"
+            });
+
+            // Agregar evento de clic en el mapa
+            map.addListener('click', (event) => {
+                const lat = event.latLng.lat();
+                const lng = event.latLng.lng();
+                marker.setPosition(event.latLng);
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lng;
+            });
+
+            // Actualizar coordenadas al arrastrar el marcador
+            marker.addListener('dragend', (event) => {
+                const lat = event.latLng.lat();
+                const lng = event.latLng.lng();
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lng;
+            });
+        }
+
+        function submitOrder() {
+            const orderDate = document.getElementById('orderDate').value;
+            const address = document.getElementById('address').value;
+            const latitude = document.getElementById('latitude').value;
+            const longitude = document.getElementById('longitude').value;
+            const clientName = document.getElementById('clientName').value;
+            const phone = document.getElementById('phone').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+
+            if (!orderDate || !address || !latitude || !longitude || !clientName || !phone || !paymentMethod) {
+                alert("Por favor, completa todos los campos obligatorios o selecciona una ubicación en el mapa.");
+                return;
+            }
+
+            const total = orders.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+            const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
+            const orderDetails = orders.map(item => `${item.name} (${item.variety}) - $${item.price}`).join('\n');
+
+            const message = `
+🍭 P&C Candys te consiente 🍭  
+📅 Pedido programado para: ${orderDate}  
+📍 Entrega en: ${address}  
+🗺️ Mapa: ${mapLink}  
+💰 Total: $${total}  
+👤 Nombre: ${clientName}  
+📞 Número de teléfono: ${phone}  
+💳 Método de pago: ${paymentMethod}  
+🛍️ Productos:  
+${orderDetails}  
+📦 ¡Gracias por tu pedido!  
+Ubicación en tiempo real: Lat ${latitude}, Long ${longitude}
+            `.replace(/ /g, '%20').replace(/\n/g, '%0A');
+
+            const whatsappUrl = `https://wa.me/524481012425?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+
+            // Limpiar después de enviar
+            orders = [];
+            localStorage.setItem('orders', JSON.stringify(orders));
+            document.getElementById('orderItems').style.display = 'none';
+            document.getElementById('orderSummary').style.display = 'none';
+            document.getElementById('orderForm').reset();
+        }
+
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
         });
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 </body>
 </html>
