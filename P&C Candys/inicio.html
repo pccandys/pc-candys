@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - P&C Candys</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: #f44336;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #d32f2f;
+            position: relative;
+        }
+        .logo {
+            font-size: 4vw;
+            font-weight: bold;
+            color: white;
+            margin-left: 10px;
+        }
+        .page-space {
+            margin-right: 10px;
+        }
+        .menu-toggle {
+            font-size: 4vw;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: none;
+            margin-right: 10px;
+        }
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        .nav-menu li {
+            margin-left: 2vw;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 3vw;
+        }
+        .nav-menu.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #f44336;
+            padding: 10px 0;
+        }
+        .inicio-section {
+            padding: 5vw;
+            text-align: center;
+        }
+        .inicio-section h1 {
+            color: #1e88e5;
+            font-size: 5vw;
+            margin-bottom: 2vw;
+        }
+        .inicio-section p {
+            color: #757575;
+            font-size: 3vw;
+            margin-bottom: 4vw;
+        }
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 3vw;
+            max-width: 90vw;
+            margin: 0 auto;
+        }
+        .carousel img {
+            width: 100%;
+            height: 20vw;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #1976d2;
+            color: white;
+            padding: 3vw;
+            text-align: center;
+            margin-top: 5vw;
+            margin-bottom: 0;
+        }
+        .social-icons a {
+            color: white;
+            margin: 0 2vw;
+            text-decoration: none;
+            font-size: 4vw;
+        }
+        @media (max-width: 767px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-menu {
+                display: none;
+            }
+            .nav-menu li {
+                margin: 2vw 0;
+            }
+        }
+        @media (min-width: 768px) {
+            .logo { font-size: 24px; }
+            .page-space { font-size: 16px; }
+            .inicio-section h1 { font-size: 32px; }
+            .inicio-section p { font-size: 18px; }
+            .carousel img { height: 150px; }
+            .nav-menu a { font-size: 16px; }
+            .social-icons a { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🍭 P&C Candys</div>
+        <div class="page-space"></div>
+        <button class="menu-toggle">☰</button>
+        <ul class="nav-menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
+            <li><a href="charolas.html">Charolas</a></li>
+            <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
+            <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
+            <li><a href="extras.html">Extras</a></li>
+            <li><a href="pedidos.html">Pedidos</a></li>
+        </ul>
+    </header>
+
+    <section class="inicio-section">
+        <h1>Inicio</h1>
+        <p>Somos una dulcería dedicada a endulzar tus momentos con productos frescos y deliciosos.</p>
+        <div class="carousel">
+            <img src="imagen1.jpg" alt="Imagen 1">
+            <img src="imagen2.jpg" alt="Imagen 2">
+            <img src="imagen3.jpg" alt="Imagen 3">
+        </div>
+    </section>
+
+    <footer>
+        <h3>Redes Sociales</h3>
+        <div class="social-icons">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">WhatsApp</a>
+            <a href="#">TikTok</a>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
