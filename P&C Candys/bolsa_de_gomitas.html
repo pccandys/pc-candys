@@ -73,23 +73,53 @@
             font-size: 5vw;
             margin-bottom: 2vw;
         }
-        .menu-item {
-            margin: 3vw 0;
-            padding: 4vw;
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 3vw;
+            max-width: 90vw;
+            margin: 0 auto;
+        }
+        .product-card {
             background-color: white;
             border: 1px solid #ddd;
             border-radius: 5px;
-        }
-        select {
-            margin: 2vw 0;
             padding: 2vw;
-            font-size: 3vw;
-            width: 100%;
+            text-align: center;
         }
-        ul {
-            list-style: none;
-            padding: 0;
-            font-size: 3vw;
+        .product-card img {
+            width: 100%;
+            height: 15vw;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .product-card h3 {
+            margin: 1vw 0;
+            color: #1e88e5;
+            font-size: 3.5vw;
+        }
+        .product-card p {
+            font-size: 2.5vw;
+            color: #757575;
+        }
+        .product-card select {
+            margin: 1vw 0;
+            padding: 1vw;
+            font-size: 2.5vw;
+            width: 80%;
+        }
+        .product-card button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 1.5vw 3vw;
+            border-radius: 5px;
+            font-size: 2.5vw;
+            cursor: pointer;
+            margin: 1vw 0;
+        }
+        .product-card button:hover {
+            background-color: #45a049;
         }
         footer {
             background-color: #1976d2;
@@ -106,23 +136,25 @@
             font-size: 4vw;
         }
         @media (max-width: 767px) {
-            .menu-toggle {
-                display: block;
+            .menu-toggle { display: block; }
+            .nav-menu { display: none; }
+            .nav-menu li { margin: 2vw 0; }
+            .product-grid {
+                grid-template-columns: 1fr;
+                max-height: calc(15vw * 3 + 3vw * 2);
+                overflow-y: auto;
             }
-            .nav-menu {
-                display: none;
-            }
-            .nav-menu li {
-                margin: 2vw 0;
-            }
+            .product-card img { height: 20vw; }
         }
         @media (min-width: 768px) {
             .logo { font-size: 24px; }
             .page-space { font-size: 16px; }
             .menu-section h1 { font-size: 32px; }
-            .menu-item { padding: 20px; }
-            select { font-size: 16px; padding: 5px; }
-            ul { font-size: 16px; }
+            .product-card img { height: 120px; }
+            .product-card h3 { font-size: 18px; }
+            .product-card p { font-size: 14px; }
+            .product-card select { font-size: 14px; padding: 5px; }
+            .product-card button { font-size: 14px; padding: 8px 16px; }
             .nav-menu a { font-size: 16px; }
             .social-icons a { font-size: 24px; }
         }
@@ -146,27 +178,139 @@
 
     <section class="menu-section">
         <h1>Bolsa de Gomitas</h1>
-        <div class="menu-item">
-            <p>12 tipos disponibles:</p>
-            <ul>
-                <li>Bolsa 1: [Nombre pendiente] - $[Precio pendiente]</li>
-                <li>Bolsa 2: [Nombre pendiente] - $[Precio pendiente]</li>
-                <li>Bolsa 3: [Nombre pendiente] - $[Precio pendiente]</li>
-                <li>Bolsa 4: [Nombre pendiente] - $[Precio pendiente]</li>
-                <li>Bolsa 5: [Nombre pendiente] - $[Precio pendiente]</li>
-                <li>Bolsa 6: [Nombre pendiente] - $[Precio pendiente]</li>
-                <li>Bolsa 7: [Nombre pendiente] - $[Precio pendiente]</li>
-                <li>Bolsa 8: [Nombre pendiente] - $[Precio pendiente]</li>
-                <li>Bolsa 9: [Nombre pendiente] - $[Precio pendiente]</li>
-                <li>Bolsa 10: [Nombre pendiente] - $[Precio pendiente]</li>
-                <li>Bolsa 11: [Nombre pendiente] - $[Precio pendiente]</li>
-                <li>Bolsa 12: [Nombre pendiente] - $[Precio pendiente]</li>
-            </ul>
-            <select>
-                <option value="natural">Natural</option>
-                <option value="ahogada">Ahogada</option>
-                <option value="empanizada">Empanizada</option>
-            </select>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="gomita1.jpg" alt="Gomita 1">
+                <h3>[Nombre Pendiente 1]</h3>
+                <p>Descripción pendiente - $[Precio Pendiente]</p>
+                <select id="variety1">
+                    <option value="natural">Natural</option>
+                    <option value="ahogada">Ahogada</option>
+                    <option value="empanizada">Empanizada</option>
+                </select>
+                <button onclick="addToOrder('[Nombre Pendiente 1]', '[Precio Pendiente]', 'variety1')">Agregar a Pedidos</button>
+            </div>
+            <div class="product-card">
+                <img src="gomita2.jpg" alt="Gomita 2">
+                <h3>[Nombre Pendiente 2]</h3>
+                <p>Descripción pendiente - $[Precio Pendiente]</p>
+                <select id="variety2">
+                    <option value="natural">Natural</option>
+                    <option value="ahogada">Ahogada</option>
+                    <option value="empanizada">Empanizada</option>
+                </select>
+                <button onclick="addToOrder('[Nombre Pendiente 2]', '[Precio Pendiente]', 'variety2')">Agregar a Pedidos</button>
+            </div>
+            <div class="product-card">
+                <img src="gomita3.jpg" alt="Gomita 3">
+                <h3>[Nombre Pendiente 3]</h3>
+                <p>Descripción pendiente - $[Precio Pendiente]</p>
+                <select id="variety3">
+                    <option value="natural">Natural</option>
+                    <option value="ahogada">Ahogada</option>
+                    <option value="empanizada">Empanizada</option>
+                </select>
+                <button onclick="addToOrder('[Nombre Pendiente 3]', '[Precio Pendiente]', 'variety3')">Agregar a Pedidos</button>
+            </div>
+            <div class="product-card">
+                <img src="gomita4.jpg" alt="Gomita 4">
+                <h3>[Nombre Pendiente 4]</h3>
+                <p>Descripción pendiente - $[Precio Pendiente]</p>
+                <select id="variety4">
+                    <option value="natural">Natural</option>
+                    <option value="ahogada">Ahogada</option>
+                    <option value="empanizada">Empanizada</option>
+                </select>
+                <button onclick="addToOrder('[Nombre Pendiente 4]', '[Precio Pendiente]', 'variety4')">Agregar a Pedidos</button>
+            </div>
+            <div class="product-card">
+                <img src="gomita5.jpg" alt="Gomita 5">
+                <h3>[Nombre Pendiente 5]</h3>
+                <p>Descripción pendiente - $[Precio Pendiente]</p>
+                <select id="variety5">
+                    <option value="natural">Natural</option>
+                    <option value="ahogada">Ahogada</option>
+                    <option value="empanizada">Empanizada</option>
+                </select>
+                <button onclick="addToOrder('[Nombre Pendiente 5]', '[Precio Pendiente]', 'variety5')">Agregar a Pedidos</button>
+            </div>
+            <div class="product-card">
+                <img src="gomita6.jpg" alt="Gomita 6">
+                <h3>[Nombre Pendiente 6]</h3>
+                <p>Descripción pendiente - $[Precio Pendiente]</p>
+                <select id="variety6">
+                    <option value="natural">Natural</option>
+                    <option value="ahogada">Ahogada</option>
+                    <option value="empanizada">Empanizada</option>
+                </select>
+                <button onclick="addToOrder('[Nombre Pendiente 6]', '[Precio Pendiente]', 'variety6')">Agregar a Pedidos</button>
+            </div>
+            <div class="product-card">
+                <img src="gomita7.jpg" alt="Gomita 7">
+                <h3>[Nombre Pendiente 7]</h3>
+                <p>Descripción pendiente - $[Precio Pendiente]</p>
+                <select id="variety7">
+                    <option value="natural">Natural</option>
+                    <option value="ahogada">Ahogada</option>
+                    <option value="empanizada">Empanizada</option>
+                </select>
+                <button onclick="addToOrder('[Nombre Pendiente 7]', '[Precio Pendiente]', 'variety7')">Agregar a Pedidos</button>
+            </div>
+            <div class="product-card">
+                <img src="gomita8.jpg" alt="Gomita 8">
+                <h3>[Nombre Pendiente 8]</h3>
+                <p>Descripción pendiente - $[Precio Pendiente]</p>
+                <select id="variety8">
+                    <option value="natural">Natural</option>
+                    <option value="ahogada">Ahogada</option>
+                    <option value="empanizada">Empanizada</option>
+                </select>
+                <button onclick="addToOrder('[Nombre Pendiente 8]', '[Precio Pendiente]', 'variety8')">Agregar a Pedidos</button>
+            </div>
+            <div class="product-card">
+                <img src="gomita9.jpg" alt="Gomita 9">
+                <h3>[Nombre Pendiente 9]</h3>
+                <p>Descripción pendiente - $[Precio Pendiente]</p>
+                <select id="variety9">
+                    <option value="natural">Natural</option>
+                    <option value="ahogada">Ahogada</option>
+                    <option value="empanizada">Empanizada</option>
+                </select>
+                <button onclick="addToOrder('[Nombre Pendiente 9]', '[Precio Pendiente]', 'variety9')">Agregar a Pedidos</button>
+            </div>
+            <div class="product-card">
+                <img src="gomita10.jpg" alt="Gomita 10">
+                <h3>[Nombre Pendiente 10]</h3>
+                <p>Descripción pendiente - $[Precio Pendiente]</p>
+                <select id="variety10">
+                    <option value="natural">Natural</option>
+                    <option value="ahogada">Ahogada</option>
+                    <option value="empanizada">Empanizada</option>
+                </select>
+                <button onclick="addToOrder('[Nombre Pendiente 10]', '[Precio Pendiente]', 'variety10')">Agregar a Pedidos</button>
+            </div>
+            <div class="product-card">
+                <img src="gomita11.jpg" alt="Gomita 11">
+                <h3>[Nombre Pendiente 11]</h3>
+                <p>Descripción pendiente - $[Precio Pendiente]</p>
+                <select id="variety11">
+                    <option value="natural">Natural</option>
+                    <option value="ahogada">Ahogada</option>
+                    <option value="empanizada">Empanizada</option>
+                </select>
+                <button onclick="addToOrder('[Nombre Pendiente 11]', '[Precio Pendiente]', 'variety11')">Agregar a Pedidos</button>
+            </div>
+            <div class="product-card">
+                <img src="gomita12.jpg" alt="Gomita 12">
+                <h3>[Nombre Pendiente 12]</h3>
+                <p>Descripción pendiente - $[Precio Pendiente]</p>
+                <select id="variety12">
+                    <option value="natural">Natural</option>
+                    <option value="ahogada">Ahogada</option>
+                    <option value="empanizada">Empanizada</option>
+                </select>
+                <button onclick="addToOrder('[Nombre Pendiente 12]', '[Precio Pendiente]', 'variety12')">Agregar a Pedidos</button>
+            </div>
         </div>
     </section>
 
@@ -181,6 +325,15 @@
     </footer>
 
     <script>
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+        function addToOrder(name, price, varietyId) {
+            const variety = document.getElementById(varietyId).value;
+            orders.push({ name, price: parseFloat(price) || 0, variety });
+            localStorage.setItem('orders', JSON.stringify(orders));
+            alert(`${name} (${variety}) agregado a pedidos. Total items: ${orders.length}`);
+        }
+
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
         menuToggle.addEventListener('click', () => {
