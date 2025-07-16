@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedidos - P&C Candys</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -97,7 +98,7 @@
         }
         #map {
             width: 90%;
-            height: 300px;
+            height: 400px;
             margin: 2vw auto;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -196,8 +197,8 @@
             <input type="text" id="address" placeholder="Dirección" required>
             <label>🗺️ Selecciona tu ubicación en el mapa:</label>
             <div id="map"></div>
-            <input type="hidden" id="latitude">
-            <input type="hidden" id="longitude">
+            <input type="hidden" id="latitud">
+            <input type="hidden" id="longitud">
             <label for="clientName">👤 Nombre:</label>
             <input type="text" id="clientName" placeholder="Tu nombre" required>
             <label for="phone">📞 Número de teléfono:</label>
@@ -236,48 +237,42 @@
         function updateOrderList() {
             const orderList = document.getElementById('orderList');
             if (orders.length > 0) {
-                orderList.innerHTML = orders.map(item => `${item.name} (${item.variety}) - $${item.price}`).join('<br>');
+                orderList.innerHTML = orders.map(item => `${item.name} (${item.variety || ''}) - $${item.price}`).join('<br>');
             } else {
                 orderList.textContent = 'No has seleccionado productos aún.';
             }
         }
 
-        // Inicializar mapa de Google Maps
+        // Inicializar mapa con Leaflet y OpenStreetMap
         function initMap() {
-            const map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 19.4326, lng: -99.1332 }, // Centro inicial (Ciudad de México)
-                zoom: 12,
+            var map = L.map('map').setView([19.4326, -99.1332], 13); // Ciudad de México como ejemplo
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            var marker = L.marker([19.4326, -99.1332], { draggable: true }).addTo(map);
+            var latInput = document.getElementById('latitud');
+            var lngInput = document.getElementById('longitud');
+
+            marker.on('dragend', function(e) {
+                var latlng = marker.getLatLng();
+                latInput.value = latlng.lat.toFixed(6);
+                lngInput.value = latlng.lng.toFixed(6);
             });
 
-            const marker = new google.maps.Marker({
-                map: map,
-                draggable: true,
-                title: "Arrastra para seleccionar tu ubicación"
-            });
-
-            // Agregar evento de clic en el mapa
-            map.addListener('click', (event) => {
-                const lat = event.latLng.lat();
-                const lng = event.latLng.lng();
-                marker.setPosition(event.latLng);
-                document.getElementById('latitude').value = lat;
-                document.getElementById('longitude').value = lng;
-            });
-
-            // Actualizar coordenadas al arrastrar el marcador
-            marker.addListener('dragend', (event) => {
-                const lat = event.latLng.lat();
-                const lng = event.latLng.lng();
-                document.getElementById('latitude').value = lat;
-                document.getElementById('longitude').value = lng;
+            map.on('click', function(e) {
+                marker.setLatLng(e.latlng);
+                latInput.value = e.latlng.lat.toFixed(6);
+                lngInput.value = e.latlng.lng.toFixed(6);
             });
         }
 
         function submitOrder() {
             const orderDate = document.getElementById('orderDate').value;
             const address = document.getElementById('address').value;
-            const latitude = document.getElementById('latitude').value;
-            const longitude = document.getElementById('longitude').value;
+            const latitude = document.getElementById('latitud').value;
+            const longitude = document.getElementById('longitud').value;
             const clientName = document.getElementById('clientName').value;
             const phone = document.getElementById('phone').value;
             const paymentMethod = document.getElementById('paymentMethod').value;
@@ -288,8 +283,8 @@
             }
 
             const total = orders.reduce((sum, item) => sum + item.price, 0).toFixed(2);
-            const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
-            const orderDetails = orders.map(item => `${item.name} (${item.variety}) - $${item.price}`).join('\n');
+            const mapLink = `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=13/${latitude}/${longitude}`;
+            const orderDetails = orders.map(item => `${item.name} (${item.variety || ''}) - $${item.price}`).join('\n');
 
             const message = `
 🍭 P&C Candys te consiente 🍭  
@@ -303,7 +298,7 @@
 🛍️ Productos:  
 ${orderDetails}  
 📦 ¡Gracias por tu pedido!  
-Ubicación en tiempo real: Lat ${latitude}, Long ${longitude}
+Ubicación: Lat ${latitude}, Long ${longitude}
             `.replace(/ /g, '%20').replace(/\n/g, '%0A');
 
             const whatsappUrl = `https://wa.me/524481012425?text=${message}`;
@@ -314,7 +309,7 @@ Ubicación en tiempo real: Lat ${latitude}, Long ${longitude}
             localStorage.setItem('orders', JSON.stringify(orders));
             document.getElementById('orderItems').style.display = 'none';
             document.getElementById('orderSummary').style.display = 'none';
-            document.getElementById('orderForm').reset();
+            document.querySelector('.order-form').reset();
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
@@ -323,6 +318,5 @@ Ubicación en tiempo real: Lat ${latitude}, Long ${longitude}
             navMenu.classList.toggle('active');
         });
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 </body>
 </html>
