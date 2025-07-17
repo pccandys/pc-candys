@@ -108,9 +108,9 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 1.5vw 3vw; /* Reducido de 2vw 4vw */
+            padding: 1.5vw 3vw;
             border-radius: 5px;
-            font-size: 2vw; /* Reducido de 2.5vw */
+            font-size: 2vw;
             cursor: pointer;
             margin: 1vw 1vw;
             display: inline-block;
@@ -144,7 +144,7 @@
             .menu-item h3 { font-size: 18px; }
             .menu-item select { font-size: 14px; padding: 8px; }
             .menu-item .selected-gummies p { font-size: 12px; }
-            .menu-item button { font-size: 12px; padding: 6px 12px; margin: 8px; } /* Ajuste para desktop */
+            .menu-item button { font-size: 12px; padding: 6px 12px; margin: 8px; }
             .nav-menu a { font-size: 16px; }
             .social-icons a { font-size: 24px; }
         }
@@ -347,19 +347,9 @@
             }
             const order = { name, price: parseFloat(price) + extraPrice, variety, category: variety === 'Extra' ? 'extras' : 'charola', quantities };
             orders.push(order);
-            localStorage.setItem('orders', JSON.stringify(orders)); // Ensure orders are saved
-            alert(`${name} (${variety}) ${Object.keys(quantities).length > 0 ? 'con ' + JSON.stringify(quantities) : ''} ${extraPrice > 0 ? '+ Manzana (+$15)' : ''} agregado a pedidos. Total items: ${orders.length}`);
-            if (name !== 'Manzana con chamoy') {
-                selectedGummies[trayId.replace(/[A-Za-z]*$/, '')].clear();
-                document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Selected`).innerHTML = '';
-                document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Gummies`).disabled = false;
-                document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Gummies`).value = "";
-                Array.from(document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Gummies`).options).forEach(option => {
-                    option.disabled = false;
-                });
-                document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Apple`).value = 'No';
-                document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}AppleInfo`).innerHTML = '';
-            }
+            localStorage.setItem('orders', JSON.stringify(orders)); // Save to localStorage
+            alert(`${name} (${variety}) ${Object.keys(quantities).length > 0 ? 'con ' + JSON.stringify(quantities) : ''} ${extraPrice > 0 ? '+ Manzana (+$15)' : ''} agregado a pedidos.`);
+            window.location.href = 'pedidos.html'; // Redirect to pedidos.html after adding
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
