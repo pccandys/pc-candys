@@ -306,7 +306,6 @@
                 select.disabled = true;
             }
 
-            // Update select options to disable already selected items
             Array.from(select.options).forEach(option => {
                 option.disabled = selectedGummies[tray].has(option.value) && option.value !== "";
             });
@@ -335,7 +334,7 @@
             let extraPrice = 0;
             if (name !== 'Manzana con chamoy') {
                 selectedGummies[trayId.replace(/[A-Za-z]*$/, '')].forEach(gummy => {
-                    quantities[gummy] = 1; // Assuming 1 unit per selected type
+                    quantities[gummy] = 1;
                 });
                 if (Object.keys(quantities).length === 0) {
                     alert("Por favor, selecciona al menos un tipo de gomita.");
@@ -345,11 +344,13 @@
                     extraPrice = 15;
                 }
             }
-            const order = { name, price: parseFloat(price) + extraPrice, variety, category: variety === 'Extra' ? 'extras' : 'charola', quantities };
+            const order = { name, price: parseFloat(price) + extraPrice, variety, category: 'charola', quantities };
             orders.push(order);
-            localStorage.setItem('orders', JSON.stringify(orders)); // Save to localStorage
-            alert(`${name} (${variety}) ${Object.keys(quantities).length > 0 ? 'con ' + JSON.stringify(quantities) : ''} ${extraPrice > 0 ? '+ Manzana (+$15)' : ''} agregado a pedidos.`);
-            window.location.href = 'pedidos.html'; // Redirect to pedidos.html after adding
+            localStorage.setItem('orders', JSON.stringify(orders)); // Save immediately
+            console.log("Pedido guardado en localStorage:", order); // Depuración
+            setTimeout(() => {
+                window.location.href = 'pedidos.html'; // Redirect after saving
+            }, 100); // Pequeño retraso para asegurar que se guarde
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
