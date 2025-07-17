@@ -20,25 +20,12 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #d32f2f;
-            position: relative;
         }
         .logo {
-            font-size: 4vw;
+            font-size: 24px;
             font-weight: bold;
             color: white;
             margin-left: 10px;
-        }
-        .page-space {
-            margin-right: 10px;
-        }
-        .menu-toggle {
-            font-size: 4vw;
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            display: none;
-            margin-right: 10px;
         }
         .nav-menu {
             list-style: none;
@@ -48,58 +35,48 @@
             align-items: center;
         }
         .nav-menu li {
-            margin-left: 2vw;
+            margin-left: 20px;
         }
         .nav-menu a {
             color: white;
             text-decoration: none;
-            font-size: 3vw;
-        }
-        .nav-menu.active {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background-color: #f44336;
-            padding: 10px 0;
+            font-size: 16px;
         }
         .order-section {
-            padding: 5vw;
+            padding: 20px;
             text-align: center;
         }
         .order-section h1 {
             color: #1e88e5;
-            font-size: 5vw;
-            margin-bottom: 2vw;
+            font-size: 32px;
+            margin-bottom: 20px;
         }
         .order-form {
-            max-width: 90vw;
+            max-width: 600px;
             margin: 0 auto;
             background-color: white;
-            padding: 3vw;
+            padding: 20px;
             border-radius: 5px;
             border: 1px solid #ddd;
         }
         .order-form label {
             display: block;
-            font-size: 2.5vw;
-            margin-bottom: 1vw;
+            font-size: 16px;
+            margin-bottom: 10px;
             color: #1e88e5;
         }
         .order-form input, .order-form select {
             width: 90%;
-            padding: 1.5vw;
-            margin-bottom: 2vw;
-            font-size: 2.5vw;
+            padding: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
         #map {
             width: 90%;
             height: 400px;
-            margin: 2vw auto;
+            margin: 15px auto;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -107,94 +84,82 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 2vw 4vw;
+            padding: 10px 20px;
             border-radius: 5px;
-            font-size: 2.5vw;
+            font-size: 14px;
             cursor: pointer;
         }
         .order-form button:hover {
             background-color: #45a049;
         }
         #orderItems {
-            margin: 2vw 0;
+            margin: 15px 0;
             text-align: left;
         }
         #orderItems .order-item {
             background-color: #f9f9f9;
-            padding: 1.5vw;
-            margin: 1vw 0;
+            padding: 10px;
+            margin: 10px 0;
             border-radius: 5px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         #orderItems .order-item p {
-            font-size: 2vw;
+            font-size: 14px;
             margin: 0;
         }
         #orderItems .order-item button {
             background-color: #f44336;
-            padding: 1vw 2vw;
-            font-size: 1.5vw;
-            margin-left: 1vw;
+            padding: 6px 12px;
+            font-size: 12px;
+            margin-left: 10px;
         }
         #orderItems .order-item button:hover {
             background-color: #d32f2f;
         }
         #orderSummary {
-            margin-top: 3vw;
+            margin-top: 20px;
             background-color: #f9f9f9;
-            padding: 2vw;
+            padding: 15px;
             border-radius: 5px;
             display: none;
         }
         #orderSummary p {
-            font-size: 2.5vw;
-            margin: 1vw 0;
+            font-size: 14px;
+            margin: 10px 0;
         }
         footer {
             background-color: #1976d2;
             color: white;
-            padding: 3vw;
+            padding: 20px;
             text-align: center;
-            margin-top: 5vw;
-            margin-bottom: 0;
+            margin-top: 50px;
         }
         .social-icons a {
             color: white;
-            margin: 0 2vw;
+            margin: 0 20px;
             text-decoration: none;
-            font-size: 4vw;
+            font-size: 24px;
         }
         @media (max-width: 767px) {
-            .menu-toggle { display: block; }
+            .logo { font-size: 4vw; }
             .nav-menu { display: none; }
-            .nav-menu li { margin: 2vw 0; }
-            #map { height: 200px; }
+            .order-section h1 { font-size: 5vw; }
+            .order-form label { font-size: 2.5vw; }
+            .order-form input, .order-form select { font-size: 2.5vw; padding: 1.5vw; }
+            .order-form button { font-size: 2.5vw; padding: 1.5vw 3vw; }
             #orderItems .order-item p { font-size: 2vw; }
-            #orderItems .order-item button { font-size: 1.5vw; }
-        }
-        @media (min-width: 768px) {
-            .logo { font-size: 24px; }
-            .page-space { font-size: 16px; }
-            .order-section h1 { font-size: 32px; }
-            .order-form label { font-size: 16px; }
-            .order-form input, .order-form select { font-size: 14px; padding: 8px; }
-            .order-form button { font-size: 14px; padding: 10px 20px; }
-            #orderItems .order-item p { font-size: 14px; }
-            #orderItems .order-item button { font-size: 12px; padding: 6px 12px; }
-            #orderSummary p { font-size: 14px; }
-            #map { height: 400px; }
-            .nav-menu a { font-size: 16px; }
-            .social-icons a { font-size: 24px; }
+            #orderItems .order-item button { font-size: 1.5vw; padding: 1vw 2vw; }
+            #orderSummary p { font-size: 2.5vw; }
+            #map { height: 200px; }
+            .social-icons a { font-size: 4vw; }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">🍭 P&C Candys</div>
-        <div class="page-space"></div>
-        <button class="menu-toggle">☰</button>
         <ul class="nav-menu">
             <li><a href="index.html">Inicio</a></li>
             <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
@@ -263,10 +228,9 @@
             orderList.innerHTML = '';
             if (orders.length > 0) {
                 orders.forEach((order, index) => {
-                    const basePrice = order.name === 'Charola Deluxe' ? 90 : order.name === 'Mini Mix' ? 40 : order.name === 'Maxi Mix' ? 60 : 160;
                     const item = document.createElement('div');
                     item.className = 'order-item';
-                    let gomitasText = Object.keys(order.quantities).length > 0 ? `Gomitas: ${JSON.stringify(order.quantities)}` : 'Sin gomitas seleccionadas';
+                    let gomitasText = order.quantities.length > 0 ? `Gomitas: ${order.quantities.join(', ')}` : 'Sin gomitas';
                     let appleText = order.hasApple ? ' + Manzana (+$15)' : '';
                     item.innerHTML = `
                         <p>${order.name} (${order.variety}) - $${order.price} - ${gomitasText}${appleText}</p>
@@ -286,13 +250,13 @@
         }
 
         function initMap() {
-            map = L.map('map').setView([19.4326, -99.1332], 13); // Ciudad de México como ejemplo
+            map = L.map('map').setView([20.5888, -100.3899], 13); // Querétaro como ejemplo
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
 
-            var marker = L.marker([19.4326, -99.1332], { draggable: true }).addTo(map);
+            var marker = L.marker([20.5888, -100.3899], { draggable: true }).addTo(map);
             var latInput = document.getElementById('latitud');
             var lngInput = document.getElementById('longitud');
 
@@ -347,8 +311,8 @@
         function submitOrder() {
             const orderDate = document.getElementById('orderDate').value || 'No especificado';
             const address = document.getElementById('address').value || 'No especificado';
-            const latitude = document.getElementById('latitud').value || 'No disponible';
-            const longitude = document.getElementById('longitud').value || 'No disponible';
+            const latitude = document.getElementById('latitud').value || '20.5888';
+            const longitude = document.getElementById('longitud').value || '-100.3899';
             const clientName = document.getElementById('clientName').value || 'No especificado';
             const phone = document.getElementById('phone').value || 'No especificado';
             const paymentMethod = document.getElementById('paymentMethod').value || 'No especificado';
@@ -359,33 +323,30 @@
             }
 
             const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
-            let productDetails = orders.map(order => `${order.name} (${order.variety}) - $${order.price} - Gomitas: ${JSON.stringify(order.quantities)}${order.hasApple ? ' + Manzana (+$15)' : ''}`).join('\n');
+            let productDetails = orders.map(order => `${order.name} (${order.variety}) - $${order.price} - Gomitas: ${order.quantities.join(', ')}${order.hasApple ? ' + Manzana (+$15)' : ''}`).join('\n');
             const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
 
             const message = `
-Pedido seleccionado – P&C Candys
+👉 *Pedido seleccionado – P&C Candys* 👈
 
-Gracias por tu pedido con P&C Candys.
+¡Gracias por tu pedido con P&C Candys! 🍬
 Aquí están los detalles:
 
-Fecha: ${orderDate}
-Entrega: ${address}
-Mapa: ${mapLink}
-Nombre: ${clientName}
-Pedido: ${productDetails || 'No especificado'}
-Teléfono: ${phone}
-Método de pago: ${paymentMethod}
-Total: $${total}
+📅 Fecha: ${orderDate}
+📍 Entrega: ${address}
+🗺️ Mapa: ${mapLink}
+👤 Nombre: ${clientName}
+🛒 Pedido: ${productDetails || 'No especificado'}
+📞 Teléfono: ${phone}
+💳 Método de pago: ${paymentMethod}
+💰 Total: $${total}
 
-Nos aseguraremos de preparar tu pedido con la mayor dedicación y cuidado, porque cada detalle importa para nosotros.
-Gracias por confiar en P&C Candys, ¡estamos trabajando para endulzar tu día!
+Nos aseguraremos de preparar tu pedido con amor y cuidado. ¡Gracias por endulzar tu día con nosotros! 😊
             `.trim();
 
-            console.log("Mensaje sin codificar: ", message);
+            console.log("Mensaje:", message);
             const encodedMessage = encodeURIComponent(message);
-            console.log("Mensaje codificado: ", encodedMessage);
             const whatsappUrl = `https://wa.me/524481012425?text=${encodedMessage}`;
-            console.log("URL de WhatsApp: ", whatsappUrl);
             window.open(whatsappUrl, '_blank');
 
             orders = [];
@@ -393,12 +354,6 @@ Gracias por confiar en P&C Candys, ¡estamos trabajando para endulzar tu día!
             updateOrderList();
             document.querySelector('.order-form').reset();
         }
-
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
     </script>
 </body>
 </html>
