@@ -119,9 +119,27 @@
             margin: 2vw 0;
             text-align: left;
         }
-        #orderItems p {
-            font-size: 2.5vw;
+        #orderItems .order-item {
+            background-color: #f9f9f9;
+            padding: 1.5vw;
             margin: 1vw 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #orderItems .order-item p {
+            font-size: 2vw;
+            margin: 0;
+        }
+        #orderItems .order-item button {
+            background-color: #f44336;
+            padding: 1vw 2vw;
+            font-size: 1.5vw;
+            margin-left: 1vw;
+        }
+        #orderItems .order-item button:hover {
+            background-color: #d32f2f;
         }
         #orderSummary {
             margin-top: 3vw;
@@ -153,6 +171,8 @@
             .nav-menu { display: none; }
             .nav-menu li { margin: 2vw 0; }
             #map { height: 200px; }
+            #orderItems .order-item p { font-size: 2vw; }
+            #orderItems .order-item button { font-size: 1.5vw; }
         }
         @media (min-width: 768px) {
             .logo { font-size: 24px; }
@@ -161,7 +181,9 @@
             .order-form label { font-size: 16px; }
             .order-form input, .order-form select { font-size: 14px; padding: 8px; }
             .order-form button { font-size: 14px; padding: 10px 20px; }
-            #orderItems p, #orderSummary p { font-size: 14px; }
+            #orderItems .order-item p { font-size: 14px; }
+            #orderItems .order-item button { font-size: 12px; padding: 6px 12px; }
+            #orderSummary p { font-size: 14px; }
             #map { height: 400px; }
             .nav-menu a { font-size: 16px; }
             .social-icons a { font-size: 24px; }
@@ -189,7 +211,7 @@
         <div class="order-form">
             <div id="orderItems">
                 <h3>Productos Seleccionados:</h3>
-                <p id="orderList">No has seleccionado productos aún.</p>
+                <div id="orderList"></div>
             </div>
             <label for="orderDate">Pedido programado para:</label>
             <input type="date" id="orderDate" required>
@@ -239,38 +261,27 @@
 
         function updateOrderList() {
             const orderList = document.getElementById('orderList');
+            orderList.innerHTML = '';
             if (orders.length > 0) {
-                const hasGomitas = orders.some(item => item.category === 'gomitas');
-                const hasCharola = orders.some(item => item.category === 'charola');
-                const hasMiniHotcakes = orders.some(item => item.category === 'mini_hotcakes');
-                const hasFresas = orders.some(item => item.category === 'fresas');
-                const hasExtras = orders.some(item => item.category === 'extras');
-                let displayText = orders.map(item => `${item.name} (${item.variety || ''}) - $${item.price}`).join('<br>');
-                let productDetails = '';
-
-                if (hasGomitas && !hasCharola) {
-                    const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                    productDetails += `Bolsa de gomitas (${gomitasType})`;
-                } else if (hasCharola) {
-                    const charolaType = orders.find(item => item.category === 'charola')?.name || 'No especificado';
-                    const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                    productDetails += `Charola (${charolaType}, ${gomitasType})`;
-                }
-                if (hasMiniHotcakes) {
-                    productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
-                }
-                if (hasFresas) {
-                    productDetails += `${productDetails ? '\n' : ''}Fresas con crema`;
-                }
-                if (hasExtras) {
-                    const extras = orders.filter(item => item.category === 'extras').map(item => item.name).join(', ');
-                    productDetails += `${productDetails ? '\n' : ''}Extras: ${extras}`;
-                }
-                orderList.innerHTML = displayText || 'No has seleccionado productos aún.';
-                if (productDetails) orderList.innerHTML += `<br>${productDetails}`;
+                orders.forEach((order, index) => {
+                    const basePrice = order.name === 'Charola Deluxe' ? 90 : order.name === 'Mini Mix' ? 40 : order.name === 'Maxi Mix' ? 60 : 160;
+                    const item = document.createElement('div');
+                    item.className = 'order-item';
+                    item.innerHTML = `
+                        <p>${order.name} (${order.variety}) - $${order.price} - Gomitas: ${JSON.stringify(order.quantities)}${order.price > basePrice ? ' + Manzana (+$15)' : ''}</p>
+                        <button onclick="removeOrder(${index})">Eliminar</button>
+                    `;
+                    orderList.appendChild(item);
+                });
             } else {
-                orderList.textContent = 'No has seleccionado productos aún.';
+                orderList.innerHTML = '<p>No has seleccionado productos aún.</p>';
             }
+        }
+
+        function removeOrder(index) {
+            orders.splice(index, 1);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            updateOrderList();
         }
 
         // Inicializar mapa con Leaflet y OpenStreetMap
@@ -349,27 +360,20 @@
             }
 
             const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
-            const hasGomitas = orders.some(item => item.category === 'gomitas');
             const hasCharola = orders.some(item => item.category === 'charola');
-            const hasMiniHotcakes = orders.some(item => item.category === 'mini_hotcakes');
-            const hasFresas = orders.some(item => item.category === 'fresas');
-            const hasExtras = orders.some(item => item.category === 'extras');
             let productDetails = '';
-            if (hasGomitas && !hasCharola) {
-                const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                productDetails += `Bolsa de gomitas (${gomitasType})`;
-            } else if (hasCharola) {
+            if (hasCharola) {
                 const charolaType = orders.find(item => item.category === 'charola')?.name || 'No especificado';
                 const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
                 productDetails += `Charola (${charolaType}, ${gomitasType})`;
             }
-            if (hasMiniHotcakes) {
+            if (orders.some(item => item.category === 'mini_hotcakes')) {
                 productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
             }
-            if (hasFresas) {
+            if (orders.some(item => item.category === 'fresas')) {
                 productDetails += `${productDetails ? '\n' : ''}Fresas con crema`;
             }
-            if (hasExtras) {
+            if (orders.some(item => item.category === 'extras')) {
                 const extras = orders.filter(item => item.category === 'extras').map(item => item.name).join(', ');
                 productDetails += `${productDetails ? '\n' : ''}Extras: ${extras}`;
             }
@@ -404,8 +408,7 @@ Gracias por confiar en P&C Candys, ¡estamos trabajando para endulzar tu día!
             // Limpiar después de enviar
             orders = [];
             localStorage.setItem('orders', JSON.stringify(orders));
-            document.getElementById('orderItems').style.display = 'none';
-            document.getElementById('orderSummary').style.display = 'none';
+            updateOrderList();
             document.querySelector('.order-form').reset();
         }
 
