@@ -195,7 +195,8 @@
             <input type="date" id="orderDate" required>
             <label for="address">📍 Entrega en:</label>
             <input type="text" id="address" placeholder="Dirección" required>
-            <label>🗺️ Selecciona tu ubicación en el mapa:</label>
+            <label>🗺️ Selecciona tu ubicación:</label>
+            <button onclick="getLocation()">Usar mi ubicación actual</button>
             <div id="map"></div>
             <input type="hidden" id="latitud">
             <input type="hidden" id="longitud">
@@ -225,6 +226,7 @@
         </div>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         let orders = JSON.parse(localStorage.getItem('orders')) || [];
 
@@ -255,17 +257,54 @@
             var latInput = document.getElementById('latitud');
             var lngInput = document.getElementById('longitud');
 
+            // Actualizar coordenadas al mover el marcador
             marker.on('dragend', function(e) {
                 var latlng = marker.getLatLng();
                 latInput.value = latlng.lat.toFixed(6);
                 lngInput.value = latlng.lng.toFixed(6);
             });
 
+            // Actualizar coordenadas al hacer clic en el mapa
             map.on('click', function(e) {
                 marker.setLatLng(e.latlng);
                 latInput.value = e.latlng.lat.toFixed(6);
                 lngInput.value = e.latlng.lng.toFixed(6);
             });
+        }
+
+        // Obtener ubicación en tiempo real
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        var lat = position.coords.latitude;
+                        var lng = position.coords.longitude;
+                        document.getElementById('latitud').value = lat.toFixed(6);
+                        document.getElementById('longitud').value = lng.toFixed(6);
+                        var map = L.map('map').setView([lat, lng], 13);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            maxZoom: 19,
+                            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        }).addTo(map);
+                        var marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+                        marker.on('dragend', function(e) {
+                            var latlng = marker.getLatLng();
+                            document.getElementById('latitud').value = latlng.lat.toFixed(6);
+                            document.getElementById('longitud').value = lng.toFixed(6);
+                        });
+                        map.on('click', function(e) {
+                            marker.setLatLng(e.latlng);
+                            document.getElementById('latitud').value = e.latlng.lat.toFixed(6);
+                            document.getElementById('longitud').value = e.latlng.lng.toFixed(6);
+                        });
+                    },
+                    function(error) {
+                        alert("No se pudo obtener tu ubicación. Por favor, selecciona manualmente en el mapa.");
+                    }
+                );
+            } else {
+                alert("Geolocalización no soportada por este navegador. Selecciona manualmente en el mapa.");
+            }
         }
 
         function submitOrder() {
@@ -278,13 +317,17 @@
             const paymentMethod = document.getElementById('paymentMethod').value;
 
             if (!orderDate || !address || !latitude || !longitude || !clientName || !phone || !paymentMethod) {
-                alert("Por favor, completa todos los campos obligatorios o selecciona una ubicación en el mapa.");
+                alert("Por favor, completa todos los campos obligatorios o selecciona una ubicación.");
                 return;
             }
 
             const total = orders.reduce((sum, item) => sum + item.price, 0).toFixed(2);
             const mapLink = `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=13/${latitude}/${longitude}`;
             const orderDetails = orders.map(item => `${item.name} (${item.variety || ''}) - $${item.price}`).join('\n');
+
+            // Verificar si hay costo de envío (ejemplo: $50 si la distancia es mayor a 5 km)
+            const shippingCost = 50; // Esto puede ajustarse según tu lógica (e.g., distancia real)
+            let shippingMessage = shippingCost > 0 ? `\n📦 Costo de envío: $${shippingCost} (te notificaremos)` : '';
 
             const message = `
 🍭 P&C Candys te consiente 🍭  
@@ -296,7 +339,7 @@
 📞 Número de teléfono: ${phone}  
 💳 Método de pago: ${paymentMethod}  
 🛍️ Productos:  
-${orderDetails}  
+${orderDetails}${shippingMessage}  
 📦 ¡Gracias por tu pedido!  
 Ubicación: Lat ${latitude}, Long ${longitude}
             `.replace(/ /g, '%20').replace(/\n/g, '%0A');
