@@ -88,6 +88,10 @@
             color: #1e88e5;
             margin-bottom: 1vw;
         }
+        .menu-item p {
+            margin: 0 0 1vw 0;
+            font-size: 2.8vw;
+        }
         .menu-item select {
             width: 90%;
             padding: 1.5vw;
@@ -104,6 +108,7 @@
             border-radius: 5px;
             font-size: 2.5vw;
             cursor: pointer;
+            margin-top: 1vw;
         }
         .menu-item button:hover {
             background-color: #45a049;
@@ -132,6 +137,7 @@
             .page-space { font-size: 16px; }
             .menu-section h1 { font-size: 32px; }
             .menu-item h3 { font-size: 18px; }
+            .menu-item p { font-size: 16px; }
             .menu-item select { font-size: 14px; padding: 8px; }
             .menu-item button { font-size: 14px; padding: 10px 20px; }
             .nav-menu a { font-size: 16px; }
@@ -159,49 +165,98 @@
         <h1>🍭 MENÚ 2: CHAROLAS</h1>
         <div class="menu-item">
             <h3>✨ Naturales | Ahogadas | Empanizadas</h3>
+            
+            <!-- MINI MIX -->
             <h3>Mini Mix</h3>
-            <p>1 a 4 tipos de gomitas</p>
+            <p>1 a 4 tipos de gomitas.</p>
             <select id="miniMixVariety">
                 <option value="Naturales">Naturales</option>
                 <option value="Ahogadas">Ahogadas</option>
                 <option value="Empanizadas">Empanizadas</option>
             </select>
-            <button onclick="addToOrder('Mini Mix', 40, 'miniMixVariety')">Naturales - $40</button>
-            <button onclick="addToOrder('Mini Mix', 50, 'miniMixVariety')">Ahogadas - $50</button>
-            <button onclick="addToOrder('Mini Mix', 60, 'miniMixVariety')">Empanizadas - $60</button>
+            <p>Selecciona tus gomitas:</p>
+            <select id="miniMixGomitas" multiple size="6">
+                <option>❤️ Corazones</option>
+                <option>🔥 Xtreme</option>
+                <option>🍑 Aros de durazno</option>
+                <option>🍏 Aros de manzana</option>
+                <option>🍓 Frutas enchiladas</option>
+                <option>🐛 Orugas y panditas</option>
+                <option>🥭 Manguitos</option>
+                <option>🍊 Gajos de naranja</option>
+                <option>🐬 Delfines</option>
+                <option>🐧 Pingüinos</option>
+            </select>
+            <button onclick="addCharola('Mini Mix', 'miniMixVariety', 'miniMixGomitas')">Agregar Mini Mix</button>
 
+            <!-- CHAROLA DELUXE -->
             <h3>Charola Deluxe</h3>
-            <p>5 tipos + 1 Manzana con chamoy</p>
+            <p>5 tipos + 1 Manzana con chamoy.</p>
             <select id="deluxeVariety">
                 <option value="Naturales">Naturales</option>
                 <option value="Ahogadas">Ahogadas</option>
                 <option value="Empanizadas">Empanizadas</option>
             </select>
-            <button onclick="addToOrder('Charola Deluxe', 90, 'deluxeVariety')">Naturales - $90</button>
-            <button onclick="addToOrder('Charola Deluxe', 100, 'deluxeVariety')">Ahogadas - $100</button>
-            <button onclick="addToOrder('Charola Deluxe', 110, 'deluxeVariety')">Empanizadas - $110</button>
+            <p>Selecciona 5 gomitas:</p>
+            <select id="deluxeGomitas" multiple size="6">
+                <option>❤️ Corazones</option>
+                <option>🔥 Xtreme</option>
+                <option>🍑 Aros de durazno</option>
+                <option>🍏 Aros de manzana</option>
+                <option>🍓 Frutas enchiladas</option>
+                <option>🐛 Orugas y panditas</option>
+                <option>🥭 Manguitos</option>
+                <option>🍊 Gajos de naranja</option>
+                <option>🐬 Delfines</option>
+                <option>🐧 Pingüinos</option>
+            </select>
+            <button onclick="addCharola('Charola Deluxe', 'deluxeVariety', 'deluxeGomitas')">Agregar Deluxe</button>
 
+            <!-- MAXI MIX -->
             <h3>Maxi Mix</h3>
-            <p>4 a 6 tipos de gomitas</p>
+            <p>4 a 6 tipos de gomitas.</p>
             <select id="maxiMixVariety">
                 <option value="Naturales">Naturales</option>
                 <option value="Ahogadas">Ahogadas</option>
                 <option value="Empanizadas">Empanizadas</option>
             </select>
-            <button onclick="addToOrder('Maxi Mix', 60, 'maxiMixVariety')">Naturales - $60</button>
-            <button onclick="addToOrder('Maxi Mix', 70, 'maxiMixVariety')">Ahogadas - $70</button>
-            <button onclick="addToOrder('Maxi Mix', 80, 'maxiMixVariety')">Empanizadas - $80</button>
+            <p>Selecciona tus gomitas:</p>
+            <select id="maxiMixGomitas" multiple size="6">
+                <option>❤️ Corazones</option>
+                <option>🔥 Xtreme</option>
+                <option>🍑 Aros de durazno</option>
+                <option>🍏 Aros de manzana</option>
+                <option>🍓 Frutas enchiladas</option>
+                <option>🐛 Orugas y panditas</option>
+                <option>🥭 Manguitos</option>
+                <option>🍊 Gajos de naranja</option>
+                <option>🐬 Delfines</option>
+                <option>🐧 Pingüinos</option>
+            </select>
+            <button onclick="addCharola('Maxi Mix', 'maxiMixVariety', 'maxiMixGomitas')">Agregar Maxi Mix</button>
 
+            <!-- MEGA DELUXE -->
             <h3>Mega Deluxe</h3>
-            <p>10 tipos + 1 Manzana con chamoy o extra</p>
+            <p>10 tipos + 1 Manzana con chamoy o extra.</p>
             <select id="megaDeluxeVariety">
                 <option value="Naturales">Naturales</option>
                 <option value="Ahogadas">Ahogadas</option>
                 <option value="Empanizadas">Empanizadas</option>
             </select>
-            <button onclick="addToOrder('Mega Deluxe', 160, 'megaDeluxeVariety')">Naturales - $160</button>
-            <button onclick="addToOrder('Mega Deluxe', 170, 'megaDeluxeVariety')">Ahogadas - $170</button>
-            <button onclick="addToOrder('Mega Deluxe', 180, 'megaDeluxeVariety')">Empanizadas - $180</button>
+            <p>Selecciona 10 gomitas:</p>
+            <select id="megaDeluxeGomitas" multiple size="6">
+                <option>❤️ Corazones</option>
+                <option>🔥 Xtreme</option>
+                <option>🍑 Aros de durazno</option>
+                <option>🍏 Aros de manzana</option>
+                <option>🍓 Frutas enchiladas</option>
+                <option>🐛 Orugas y panditas</option>
+                <option>🥭 Manguitos</option>
+                <option>🍊 Gajos de naranja</option>
+                <option>🐬 Delfines</option>
+                <option>🐧 Pingüinos</option>
+            </select>
+            <button onclick="addCharola('Mega Deluxe', 'megaDeluxeVariety', 'megaDeluxeGomitas')">Agregar Mega Deluxe</button>
         </div>
     </section>
 
@@ -216,15 +271,107 @@
     </footer>
 
     <script>
+        /* -----------------------
+           Configuración de precios
+        ------------------------ */
+        const priceMap = {
+            'Mini Mix':         { Naturales: 40, Ahogadas: 50, Empanizadas: 60 },
+            'Charola Deluxe':   { Naturales: 90, Ahogadas: 100, Empanizadas: 110 },
+            'Maxi Mix':         { Naturales: 60, Ahogadas: 70, Empanizadas: 80 },
+            'Mega Deluxe':      { Naturales: 160, Ahogadas: 170, Empanizadas: 180 }
+        };
+
+        /* -----------------------
+           Reglas de cantidad
+        ------------------------ */
+        const charolaRules = {
+            'Mini Mix':       { min: 1,  max: 4,  exact: false },
+            'Charola Deluxe': { min: 5,  max: 5,  exact: true,  extra: 'Manzana con chamoy' },
+            'Maxi Mix':       { min: 4,  max: 6,  exact: false },
+            'Mega Deluxe':    { min: 10, max: 10, exact: true,  extra: 'Manzana con chamoy o extra' }
+        };
+
+        /* -----------------------
+           Persistencia
+        ------------------------ */
         let orders = JSON.parse(localStorage.getItem('orders')) || [];
 
-        function addToOrder(name, price, varietyId) {
-            const variety = document.getElementById(varietyId).value;
-            orders.push({ name, price: parseFloat(price) || 0, variety, category: 'charola' });
+        function saveOrders() {
             localStorage.setItem('orders', JSON.stringify(orders));
-            alert(`${name} (${variety}) agregado a pedidos. Total items: ${orders.length}`);
         }
 
+        /* -----------------------
+           Utilidad: lee gomitas seleccionadas
+        ------------------------ */
+        function getSelectedOptions(selectId) {
+            const sel = document.getElementById(selectId);
+            return Array.from(sel.selectedOptions).map(opt => opt.text.trim());
+        }
+
+        /* -----------------------
+           Validación por charola
+        ------------------------ */
+        function validateGomitas(charolaName, gomitas) {
+            const rule = charolaRules[charolaName];
+            if (!rule) return { ok: true };
+
+            if (rule.exact) {
+                if (gomitas.length !== rule.min) {
+                    return { ok: false, msg: `Debes elegir exactamente ${rule.min} tipos de gomitas.` };
+                }
+            } else {
+                if (gomitas.length < rule.min) {
+                    return { ok: false, msg: `Elige al menos ${rule.min} tipos de gomitas.` };
+                }
+                if (gomitas.length > rule.max) {
+                    return { ok: false, msg: `Solo puedes elegir hasta ${rule.max} tipos de gomitas.` };
+                }
+            }
+            return { ok: true };
+        }
+
+        /* -----------------------
+           Agregar al pedido
+        ------------------------ */
+        function addCharola(charolaName, varietySelectId, gomitasSelectId) {
+            const variety = document.getElementById(varietySelectId).value;
+            const gomitas = getSelectedOptions(gomitasSelectId);
+
+            // Validación cantidad
+            const validation = validateGomitas(charolaName, gomitas);
+            if (!validation.ok) {
+                alert(validation.msg);
+                return;
+            }
+
+            // Precio según variedad
+            const price = priceMap[charolaName]?.[variety] ?? 0;
+
+            // Extras automáticos (Deluxe / Mega)
+            const rule = charolaRules[charolaName];
+            let extras = [];
+            if (rule && rule.extra) {
+                extras.push(rule.extra);
+            }
+
+            // Guardar pedido
+            orders.push({
+                name: charolaName,
+                variety,
+                gomitas,
+                extras,
+                price: parseFloat(price) || 0,
+                category: 'charola',
+                timestamp: new Date().toISOString()
+            });
+            saveOrders();
+
+            alert(`${charolaName} (${variety}) agregado con ${gomitas.length} gomitas. Total pedidos: ${orders.length}`);
+        }
+
+        /* -----------------------
+           Menú responsive
+        ------------------------ */
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
         menuToggle.addEventListener('click', () => {
