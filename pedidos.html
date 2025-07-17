@@ -242,18 +242,32 @@
             if (orders.length > 0) {
                 const hasCharola = orders.some(item => item.category === 'charola');
                 const hasGomitas = orders.some(item => item.category === 'gomitas');
+                const hasMiniHotcakes = orders.some(item => item.category === 'mini_hotcakes');
+                const hasFresas = orders.some(item => item.category === 'fresas');
+                const hasExtras = orders.some(item => item.category === 'extras');
                 let displayText = orders.map(item => `${item.name} (${item.variety || ''}) - $${item.price}`).join('<br>');
+                let productDetails = '';
+
                 if (hasGomitas && !hasCharola) {
-                    displayText += '<br>Bolsa de gomitas';
+                    const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+                    productDetails += `Bolsa de gomitas (${gomitasType})`;
                 } else if (hasCharola) {
                     const charola = orders.find(item => item.category === 'charola')?.name || 'No especificado';
-                    const gomitas = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                    displayText += `<br>Tipo de charola: ${charola}`;
-                    if (gomitas !== 'No especificado') {
-                        displayText += `<br>Tipo de gomitas: ${gomitas}`;
-                    }
+                    const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+                    productDetails += `Charola (${charola}, ${gomitasType})`;
                 }
-                orderList.innerHTML = displayText;
+                if (hasMiniHotcakes) {
+                    productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
+                }
+                if (hasFresas) {
+                    productDetails += `${productDetails ? '\n' : ''}Fresas con crema`;
+                }
+                if (hasExtras) {
+                    const extras = orders.filter(item => item.category === 'extras').map(item => item.name).join(', ');
+                    productDetails += `${productDetails ? '\n' : ''}Extras: ${extras}`;
+                }
+                orderList.innerHTML = displayText || 'No has seleccionado productos aún.';
+                if (productDetails) orderList.innerHTML += `<br>${productDetails}`;
             } else {
                 orderList.textContent = 'No has seleccionado productos aún.';
             }
@@ -337,16 +351,27 @@
             const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
             const hasCharola = orders.some(item => item.category === 'charola');
             const hasGomitas = orders.some(item => item.category === 'gomitas');
+            const hasMiniHotcakes = orders.some(item => item.category === 'mini_hotcakes');
+            const hasFresas = orders.some(item => item.category === 'fresas');
+            const hasExtras = orders.some(item => item.category === 'extras');
             let productDetails = '';
             if (hasGomitas && !hasCharola) {
-                productDetails = 'Bolsa de gomitas';
+                const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+                productDetails += `Bolsa de gomitas (${gomitasType})`;
             } else if (hasCharola) {
                 const charola = orders.find(item => item.category === 'charola')?.name || 'No especificado';
-                const gomitas = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                productDetails = `Tipo de charola: ${charola}`;
-                if (gomitas !== 'No especificado') {
-                    productDetails += ` Tipo de gomitas: ${gomitas}`;
-                }
+                const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+                productDetails += `Charola (${charola}, ${gomitasType})`;
+            }
+            if (hasMiniHotcakes) {
+                productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
+            }
+            if (hasFresas) {
+                productDetails += `${productDetails ? '\n' : ''}Fresas con crema`;
+            }
+            if (hasExtras) {
+                const extras = orders.filter(item => item.category === 'extras').map(item => item.name).join(', ');
+                productDetails += `${productDetails ? '\n' : ''}Extras: ${extras}`;
             }
             const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
 
