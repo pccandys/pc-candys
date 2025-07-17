@@ -253,7 +253,6 @@
         let orders = JSON.parse(localStorage.getItem('orders')) || [];
         let map;
 
-        // Mostrar productos seleccionados al cargar la página
         window.onload = function() {
             updateOrderList();
             initMap();
@@ -267,8 +266,10 @@
                     const basePrice = order.name === 'Charola Deluxe' ? 90 : order.name === 'Mini Mix' ? 40 : order.name === 'Maxi Mix' ? 60 : 160;
                     const item = document.createElement('div');
                     item.className = 'order-item';
+                    let gomitasText = Object.keys(order.quantities).length > 0 ? `Gomitas: ${JSON.stringify(order.quantities)}` : 'Sin gomitas seleccionadas';
+                    let appleText = order.hasApple ? ' + Manzana (+$15)' : '';
                     item.innerHTML = `
-                        <p>${order.name} (${order.variety}) - $${order.price} - Gomitas: ${JSON.stringify(order.quantities)}${order.price > basePrice ? ' + Manzana (+$15)' : ''}</p>
+                        <p>${order.name} (${order.variety}) - $${order.price} - ${gomitasText}${appleText}</p>
                         <button onclick="removeOrder(${index})">Eliminar</button>
                     `;
                     orderList.appendChild(item);
@@ -284,7 +285,6 @@
             updateOrderList();
         }
 
-        // Inicializar mapa con Leaflet y OpenStreetMap
         function initMap() {
             map = L.map('map').setView([19.4326, -99.1332], 13); // Ciudad de México como ejemplo
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -309,7 +309,6 @@
             });
         }
 
-        // Obtener ubicación en tiempo real
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -318,7 +317,7 @@
                         var lng = position.coords.longitude;
                         document.getElementById('latitud').value = lat.toFixed(6);
                         document.getElementById('longitud').value = lng.toFixed(6);
-                        if (map) map.remove(); // Eliminar mapa anterior si existe
+                        if (map) map.remove();
                         map = L.map('map').setView([lat, lng], 13);
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             maxZoom: 19,
@@ -360,23 +359,7 @@
             }
 
             const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
-            const hasCharola = orders.some(item => item.category === 'charola');
-            let productDetails = '';
-            if (hasCharola) {
-                const charolaType = orders.find(item => item.category === 'charola')?.name || 'No especificado';
-                const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                productDetails += `Charola (${charolaType}, ${gomitasType})`;
-            }
-            if (orders.some(item => item.category === 'mini_hotcakes')) {
-                productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
-            }
-            if (orders.some(item => item.category === 'fresas')) {
-                productDetails += `${productDetails ? '\n' : ''}Fresas con crema`;
-            }
-            if (orders.some(item => item.category === 'extras')) {
-                const extras = orders.filter(item => item.category === 'extras').map(item => item.name).join(', ');
-                productDetails += `${productDetails ? '\n' : ''}Extras: ${extras}`;
-            }
+            let productDetails = orders.map(order => `${order.name} (${order.variety}) - $${order.price} - Gomitas: ${JSON.stringify(order.quantities)}${order.hasApple ? ' + Manzana (+$15)' : ''}`).join('\n');
             const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
 
             const message = `
@@ -398,14 +381,13 @@ Nos aseguraremos de preparar tu pedido con la mayor dedicación y cuidado, porqu
 Gracias por confiar en P&C Candys, ¡estamos trabajando para endulzar tu día!
             `.trim();
 
-            console.log("Mensaje sin codificar: ", message); // Depuración
+            console.log("Mensaje sin codificar: ", message);
             const encodedMessage = encodeURIComponent(message);
-            console.log("Mensaje codificado: ", encodedMessage); // Depuración
+            console.log("Mensaje codificado: ", encodedMessage);
             const whatsappUrl = `https://wa.me/524481012425?text=${encodedMessage}`;
-            console.log("URL de WhatsApp: ", whatsappUrl); // Depuración
+            console.log("URL de WhatsApp: ", whatsappUrl);
             window.open(whatsappUrl, '_blank');
 
-            // Limpiar después de enviar
             orders = [];
             localStorage.setItem('orders', JSON.stringify(orders));
             updateOrderList();
