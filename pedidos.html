@@ -240,8 +240,8 @@
         function updateOrderList() {
             const orderList = document.getElementById('orderList');
             if (orders.length > 0) {
-                const hasCharola = orders.some(item => item.category === 'charola');
                 const hasGomitas = orders.some(item => item.category === 'gomitas');
+                const hasCharola = orders.some(item => item.category === 'charola');
                 const hasMiniHotcakes = orders.some(item => item.category === 'mini_hotcakes');
                 const hasFresas = orders.some(item => item.category === 'fresas');
                 const hasExtras = orders.some(item => item.category === 'extras');
@@ -252,9 +252,9 @@
                     const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
                     productDetails += `Bolsa de gomitas (${gomitasType})`;
                 } else if (hasCharola) {
-                    const charola = orders.find(item => item.category === 'charola')?.name || 'No especificado';
+                    const charolaType = orders.find(item => item.category === 'charola')?.name || 'No especificado';
                     const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                    productDetails += `Charola (${charola}, ${gomitasType})`;
+                    productDetails += `Charola (${charolaType}, ${gomitasType})`;
                 }
                 if (hasMiniHotcakes) {
                     productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
@@ -349,8 +349,8 @@
             }
 
             const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
-            const hasCharola = orders.some(item => item.category === 'charola');
             const hasGomitas = orders.some(item => item.category === 'gomitas');
+            const hasCharola = orders.some(item => item.category === 'charola');
             const hasMiniHotcakes = orders.some(item => item.category === 'mini_hotcakes');
             const hasFresas = orders.some(item => item.category === 'fresas');
             const hasExtras = orders.some(item => item.category === 'extras');
@@ -359,9 +359,9 @@
                 const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
                 productDetails += `Bolsa de gomitas (${gomitasType})`;
             } else if (hasCharola) {
-                const charola = orders.find(item => item.category === 'charola')?.name || 'No especificado';
+                const charolaType = orders.find(item => item.category === 'charola')?.name || 'No especificado';
                 const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                productDetails += `Charola (${charola}, ${gomitasType})`;
+                productDetails += `Charola (${charolaType}, ${gomitasType})`;
             }
             if (hasMiniHotcakes) {
                 productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
@@ -376,6 +376,8 @@
             const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
 
             const message = `
+Pedido seleccionado – P&C Candys
+
 Gracias por tu pedido con P&C Candys.
 Aquí están los detalles:
 
@@ -383,10 +385,10 @@ Fecha: ${orderDate}
 Entrega: ${address}
 Mapa: ${mapLink}
 Nombre: ${clientName}
+Pedido: ${productDetails || 'No especificado'}
 Teléfono: ${phone}
 Método de pago: ${paymentMethod}
 Total: $${total}
-${productDetails ? productDetails + '\n' : ''}
 
 Nos aseguraremos de preparar tu pedido con la mayor dedicación y cuidado, porque cada detalle importa para nosotros.
 Gracias por confiar en P&C Candys, ¡estamos trabajando para endulzar tu día!
