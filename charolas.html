@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Charolas - P&C Candys</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -73,52 +74,38 @@
             font-size: 5vw;
             margin-bottom: 2vw;
         }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 3vw;
-            max-width: 90vw;
-            margin: 0 auto;
-        }
-        .product-card {
+        .menu-item {
             background-color: white;
+            padding: 3vw;
+            margin: 2vw auto;
+            max-width: 90vw;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .menu-item h3 {
+            font-size: 3vw;
+            color: #1e88e5;
+            margin-bottom: 1vw;
+        }
+        .menu-item select {
+            width: 90%;
+            padding: 1.5vw;
+            margin: 1vw 0;
+            font-size: 2.5vw;
             border: 1px solid #ddd;
             border-radius: 5px;
-            padding: 2vw;
-            text-align: center;
         }
-        .product-card img {
-            width: 100%;
-            height: 15vw;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-        .product-card h3 {
-            margin: 1vw 0;
-            color: #1e88e5;
-            font-size: 3.5vw;
-        }
-        .product-card p {
-            font-size: 2.5vw;
-            color: #757575;
-        }
-        .product-card select {
-            margin: 1vw 0;
-            padding: 1vw;
-            font-size: 2.5vw;
-            width: 80%;
-        }
-        .product-card button {
-            background-color: #4CAF50;
+        .menu-item button {
+            background-color: #4CAF40;
             color: white;
             border: none;
-            padding: 1.5vw 3vw;
+            padding: 2vw 4vw;
             border-radius: 5px;
             font-size: 2.5vw;
             cursor: pointer;
-            margin: 1vw 0;
         }
-        .product-card button:hover {
+        .menu-item button:hover {
             background-color: #45a049;
         }
         footer {
@@ -139,22 +126,14 @@
             .menu-toggle { display: block; }
             .nav-menu { display: none; }
             .nav-menu li { margin: 2vw 0; }
-            .product-grid {
-                grid-template-columns: 1fr;
-                max-height: calc(15vw * 3 + 3vw * 2);
-                overflow-y: auto;
-            }
-            .product-card img { height: 20vw; }
         }
         @media (min-width: 768px) {
             .logo { font-size: 24px; }
             .page-space { font-size: 16px; }
             .menu-section h1 { font-size: 32px; }
-            .product-card img { height: 120px; }
-            .product-card h3 { font-size: 18px; }
-            .product-card p { font-size: 14px; }
-            .product-card select { font-size: 14px; padding: 5px; }
-            .product-card button { font-size: 14px; padding: 8px 16px; }
+            .menu-item h3 { font-size: 18px; }
+            .menu-item select { font-size: 14px; padding: 8px; }
+            .menu-item button { font-size: 14px; padding: 10px 20px; }
             .nav-menu a { font-size: 16px; }
             .social-icons a { font-size: 24px; }
         }
@@ -177,73 +156,62 @@
     </header>
 
     <section class="menu-section">
-        <h1>Charolas</h1>
-        <div class="product-grid">
-            <div class="product-card">
-                <img src="charola1.jpg" alt="Charola 1">
-                <h3>[Nombre Pendiente 1]</h3>
-                <p>Descripción pendiente - $[Precio Pendiente]</p>
-                <select id="variety1">
-                    <option value="natural">Natural</option>
-                    <option value="ahogada">Ahogada</option>
-                    <option value="empanizada">Empanizada</option>
-                </select>
-                <button onclick="addToOrder('[Nombre Pendiente 1]', '[Precio Pendiente]', 'variety1')">Agregar a Pedidos</button>
-            </div>
-            <div class="product-card">
-                <img src="charola2.jpg" alt="Charola 2">
-                <h3>[Nombre Pendiente 2]</h3>
-                <p>Descripción pendiente - $[Precio Pendiente]</p>
-                <select id="variety2">
-                    <option value="natural">Natural</option>
-                    <option value="ahogada">Ahogada</option>
-                    <option value="empanizada">Empanizada</option>
-                </select>
-                <button onclick="addToOrder('[Nombre Pendiente 2]', '[Precio Pendiente]', 'variety2')">Agregar a Pedidos</button>
-            </div>
-            <div class="product-card">
-                <img src="charola3.jpg" alt="Charola 3">
-                <h3>[Nombre Pendiente 3]</h3>
-                <p>Descripción pendiente - $[Precio Pendiente]</p>
-                <select id="variety3">
-                    <option value="natural">Natural</option>
-                    <option value="ahogada">Ahogada</option>
-                    <option value="empanizada">Empanizada</option>
-                </select>
-                <button onclick="addToOrder('[Nombre Pendiente 3]', '[Precio Pendiente]', 'variety3')">Agregar a Pedidos</button>
-            </div>
-            <div class="product-card">
-                <img src="charola4.jpg" alt="Charola 4">
-                <h3>[Nombre Pendiente 4]</h3>
-                <p>Descripción pendiente - $[Precio Pendiente]</p>
-                <select id="variety4">
-                    <option value="natural">Natural</option>
-                    <option value="ahogada">Ahogada</option>
-                    <option value="empanizada">Empanizada</option>
-                </select>
-                <button onclick="addToOrder('[Nombre Pendiente 4]', '[Precio Pendiente]', 'variety4')">Agregar a Pedidos</button>
-            </div>
-            <div class="product-card">
-                <img src="charola5.jpg" alt="Charola 5">
-                <h3>[Nombre Pendiente 5]</h3>
-                <p>Descripción pendiente - $[Precio Pendiente]</p>
-                <select id="variety5">
-                    <option value="natural">Natural</option>
-                    <option value="ahogada">Ahogada</option>
-                    <option value="empanizada">Empanizada</option>
-                </select>
-                <button onclick="addToOrder('[Nombre Pendiente 5]', '[Precio Pendiente]', 'variety5')">Agregar a Pedidos</button>
-            </div>
+        <h1>🍭 MENÚ 2: CHAROLAS</h1>
+        <div class="menu-item">
+            <h3>✨ Naturales | Ahogadas | Empanizadas</h3>
+            <h3>Mini Mix</h3>
+            <p>1 a 4 tipos de gomitas</p>
+            <select id="miniMixVariety">
+                <option value="Naturales">Naturales</option>
+                <option value="Ahogadas">Ahogadas</option>
+                <option value="Empanizadas">Empanizadas</option>
+            </select>
+            <button onclick="addToOrder('Mini Mix', 40, 'miniMixVariety')">Naturales - $40</button>
+            <button onclick="addToOrder('Mini Mix', 50, 'miniMixVariety')">Ahogadas - $50</button>
+            <button onclick="addToOrder('Mini Mix', 60, 'miniMixVariety')">Empanizadas - $60</button>
+
+            <h3>Charola Deluxe</h3>
+            <p>5 tipos + 1 Manzana con chamoy</p>
+            <select id="deluxeVariety">
+                <option value="Naturales">Naturales</option>
+                <option value="Ahogadas">Ahogadas</option>
+                <option value="Empanizadas">Empanizadas</option>
+            </select>
+            <button onclick="addToOrder('Charola Deluxe', 90, 'deluxeVariety')">Naturales - $90</button>
+            <button onclick="addToOrder('Charola Deluxe', 100, 'deluxeVariety')">Ahogadas - $100</button>
+            <button onclick="addToOrder('Charola Deluxe', 110, 'deluxeVariety')">Empanizadas - $110</button>
+
+            <h3>Maxi Mix</h3>
+            <p>4 a 6 tipos de gomitas</p>
+            <select id="maxiMixVariety">
+                <option value="Naturales">Naturales</option>
+                <option value="Ahogadas">Ahogadas</option>
+                <option value="Empanizadas">Empanizadas</option>
+            </select>
+            <button onclick="addToOrder('Maxi Mix', 60, 'maxiMixVariety')">Naturales - $60</button>
+            <button onclick="addToOrder('Maxi Mix', 70, 'maxiMixVariety')">Ahogadas - $70</button>
+            <button onclick="addToOrder('Maxi Mix', 80, 'maxiMixVariety')">Empanizadas - $80</button>
+
+            <h3>Mega Deluxe</h3>
+            <p>10 tipos + 1 Manzana con chamoy o extra</p>
+            <select id="megaDeluxeVariety">
+                <option value="Naturales">Naturales</option>
+                <option value="Ahogadas">Ahogadas</option>
+                <option value="Empanizadas">Empanizadas</option>
+            </select>
+            <button onclick="addToOrder('Mega Deluxe', 160, 'megaDeluxeVariety')">Naturales - $160</button>
+            <button onclick="addToOrder('Mega Deluxe', 170, 'megaDeluxeVariety')">Ahogadas - $170</button>
+            <button onclick="addToOrder('Mega Deluxe', 180, 'megaDeluxeVariety')">Empanizadas - $180</button>
         </div>
     </section>
 
     <footer>
         <h3>Redes Sociales</h3>
         <div class="social-icons">
-            <a href="#">Facebook</a>
-            <a href="#">Instagram</a>
-            <a href="#">WhatsApp</a>
-            <a href="#">TikTok</a>
+            <a href="https://facebook.com/PyCCandys">Facebook</a>
+            <a href="https://instagram.com/PyCCandys">Instagram</a>
+            <a href="https://wa.me/524481012425">WhatsApp</a>
+            <a href="https://tiktok.com/@PyCCandys">TikTok</a>
         </div>
     </footer>
 
@@ -252,7 +220,7 @@
 
         function addToOrder(name, price, varietyId) {
             const variety = document.getElementById(varietyId).value;
-            orders.push({ name, price: parseFloat(price) || 0, variety });
+            orders.push({ name, price: parseFloat(price) || 0, variety, category: 'charola' });
             localStorage.setItem('orders', JSON.stringify(orders));
             alert(`${name} (${variety}) agregado a pedidos. Total items: ${orders.length}`);
         }
