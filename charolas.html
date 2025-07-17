@@ -22,7 +22,6 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #d32f2f;
-            position: relative;
             flex-shrink: 0;
         }
         .logo {
@@ -31,35 +30,19 @@
             color: white;
             margin-left: 10px;
         }
-        .page-space {
-            margin-right: 10px;
-        }
         .menu-toggle {
             font-size: 5vw;
             background: none;
             border: none;
             color: white;
             cursor: pointer;
-            display: none;
             margin-right: 10px;
         }
         .nav-menu {
             list-style: none;
             padding: 0;
             margin: 0;
-            display: flex;
-            align-items: center;
-        }
-        .nav-menu li {
-            margin-left: 2vw;
-        }
-        .nav-menu a {
-            color: white;
-            text-decoration: none;
-            font-size: 4vw;
-        }
-        .nav-menu.active {
-            display: flex;
+            display: none;
             flex-direction: column;
             position: absolute;
             top: 100%;
@@ -67,6 +50,18 @@
             width: 100%;
             background-color: #f44336;
             padding: 10px 0;
+        }
+        .nav-menu.active {
+            display: flex;
+        }
+        .nav-menu li {
+            margin: 2vw 0;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 4vw;
+            padding: 1vw 2vw;
         }
         .menu-section {
             padding: 3vw;
@@ -113,19 +108,14 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 2vw 4vw; /* Tamaño ajustado para móviles */
+            padding: 2vw 4vw;
             border-radius: 5px;
             font-size: 3.5vw;
             cursor: pointer;
             margin: 1vw;
-            display: inline-block;
         }
         .menu-item button:hover {
             background-color: #45a049;
-        }
-        .menu-item button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
         }
         footer {
             background-color: #1976d2;
@@ -140,16 +130,12 @@
             text-decoration: none;
             font-size: 4.5vw;
         }
-        @media (max-width: 767px) {
-            .menu-toggle { display: block; }
-            .nav-menu { display: none; }
-            .nav-menu li { margin: 2vw 0; }
-            .menu-item button { padding: 2vw 4vw; font-size: 3.5vw; }
-            .menu-item select { padding: 2vw; font-size: 3.5vw; }
-        }
         @media (min-width: 768px) {
             .logo { font-size: 24px; }
-            .nav-menu a { font-size: 16px; }
+            .menu-toggle { display: none; }
+            .nav-menu { display: flex; flex-direction: row; position: static; width: auto; }
+            .nav-menu li { margin-left: 2vw; }
+            .nav-menu a { font-size: 16px; padding: 0; }
             .menu-section h1 { font-size: 32px; }
             .menu-section h3 { font-size: 18px; }
             .menu-item h3 { font-size: 18px; }
@@ -162,15 +148,11 @@
 <body>
     <header>
         <div class="logo">🍭 P&C Candys</div>
-        <div class="page-space"></div>
         <button class="menu-toggle">☰</button>
         <ul class="nav-menu">
             <li><a href="index.html">Inicio</a></li>
             <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
             <li><a href="charolas.html">Charolas</a></li>
-            <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
-            <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
-            <li><a href="extras.html">Extras</a></li>
             <li><a href="pedidos.html">Pedidos</a></li>
         </ul>
     </header>
@@ -243,7 +225,7 @@
                 <option value="No">Manzana con chamoy: No</option>
                 <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
             </select>
-            <button onclick="addToOrder('Mini Mix')" id="miniAdd">Agregar a Pedidos</button>
+            <button onclick="addToOrder('Mini Mix')">Agregar a Pedidos</button>
         </div>
 
         <div class="menu-item">
@@ -322,7 +304,7 @@
             <select id="deluxeApple" disabled>
                 <option value="Sí">Manzana con chamoy: Sí (Incluida)</option>
             </select>
-            <button onclick="addToOrder('Charola Deluxe')" id="deluxeAdd">Agregar a Pedidos</button>
+            <button onclick="addToOrder('Charola Deluxe')">Agregar a Pedidos</button>
         </div>
 
         <div class="menu-item">
@@ -415,7 +397,7 @@
                 <option value="No">Manzana con chamoy: No</option>
                 <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
             </select>
-            <button onclick="addToOrder('Maxi Mix')" id="maxiAdd">Agregar a Pedidos</button>
+            <button onclick="addToOrder('Maxi Mix')">Agregar a Pedidos</button>
         </div>
 
         <div class="menu-item">
@@ -560,7 +542,7 @@
                 <option value="Incluida">Manzana con chamoy: Incluida</option>
                 <option value="Extra">Manzana con chamoy: Extra (+$15)</option>
             </select>
-            <button onclick="addToOrder('Mega Deluxe')" id="megaAdd">Agregar a Pedidos</button>
+            <button onclick="addToOrder('Mega Deluxe')">Agregar a Pedidos</button>
         </div>
     </section>
 
@@ -582,66 +564,24 @@
             maxi: new Set(),
             mega: new Set()
         };
-        let varieties = {
-            mini: '',
-            deluxe: '',
-            maxi: '',
-            mega: ''
-        };
-        let appleExtras = {
-            mini: 'No',
-            deluxe: 'Sí', // Incluida por defecto
-            maxi: 'No',
-            mega: 'Incluida'
-        };
+        let varieties = { mini: '', deluxe: '', maxi: '', mega: '' };
+        let appleExtras = { mini: 'No', deluxe: 'Sí', maxi: 'No', mega: 'Incluida' };
 
         function updateSelection(tray, index) {
             const select = document.getElementById(`${tray}Gummies${index}`);
             const limits = { mini: 4, deluxe: 5, maxi: 6, mega: 10 };
-            const limit = limits[tray];
-
             if (select.value && !selectedGummies[tray].has(select.value)) {
                 selectedGummies[tray].add(select.value);
-                if (selectedGummies[tray].size < limit) {
-                    enableNextSelect(tray, index + 1);
+                if (selectedGummies[tray].size < limits[tray]) {
+                    document.getElementById(`${tray}Gummies${index + 1}`).disabled = false;
                 }
                 select.disabled = true;
-                select.value = "";
+                select.value = '';
             }
-
-            if (selectedGummies[tray].size >= limit) {
-                disableRemainingSelects(tray, index);
-            }
-
-            // Deshabilitar opciones repetidas en otros selects
-            ['mini', 'deluxe', 'maxi', 'mega'].forEach(t => {
-                if (t !== tray) {
-                    for (let i = 1; i <= limits[t]; i++) {
-                        const otherSelect = document.getElementById(`${t}Gummies${i}`);
-                        Array.from(otherSelect.options).forEach(option => {
-                            if (selectedGummies[tray].has(option.value) && option.value !== "") {
-                                option.disabled = true;
-                            } else if (!selectedGummies[t].has(option.value) && option.value !== "") {
-                                option.disabled = false;
-                            }
-                        });
-                    }
+            if (selectedGummies[tray].size >= limits[tray]) {
+                for (let i = index + 1; i <= limits[tray]; i++) {
+                    document.getElementById(`${tray}Gummies${i}`).disabled = true;
                 }
-            });
-        }
-
-        function enableNextSelect(tray, index) {
-            const nextSelect = document.getElementById(`${tray}Gummies${index}`);
-            if (nextSelect && selectedGummies[tray].size < limits[tray]) {
-                nextSelect.disabled = false;
-            }
-        }
-
-        function disableRemainingSelects(tray, index) {
-            const limits = { mini: 4, deluxe: 5, maxi: 6, mega: 10 };
-            for (let i = index + 1; i <= limits[tray]; i++) {
-                const select = document.getElementById(`${tray}Gummies${i}`);
-                if (select) select.disabled = true;
             }
         }
 
@@ -652,39 +592,35 @@
 
         function updateAppleExtra(tray) {
             const select = document.getElementById(`${tray}Apple`);
-            if (select) appleExtras[tray] = select.value;
+            appleExtras[tray] = select.value;
         }
 
         function addToOrder(name) {
-            const trayId = name.toLowerCase().replace(/ /g, '').replace(/deluxe/g, 'deluxe');
-            const tray = trayId.replace(/[A-Za-z]*$/, '');
+            const tray = name.toLowerCase().replace(/ /g, '').replace(/deluxe/g, 'deluxe').replace(/[a-z]*$/, '');
             let quantities = Array.from(selectedGummies[tray]);
-            let price = 0;
             let variety = varieties[tray];
+            let price = 0;
             let extraPrice = 0;
 
             if (quantities.length === 0) {
-                alert("Por favor, selecciona al menos un tipo de gomita.");
+                alert('Selecciona al menos una gomita.');
                 return;
             }
             if (!variety) {
-                alert("Por favor, selecciona una variedad (Naturales, Ahogadas o Empanizadas).");
+                alert('Selecciona una variedad.');
                 return;
             }
 
             const priceMap = {
-                'mini': { 'Naturales': 40, 'Ahogadas': 50, 'Empanizadas': 60 },
-                'deluxe': { 'Naturales': 90, 'Ahogadas': 100, 'Empanizadas': 110 },
-                'maxi': { 'Naturales': 60, 'Ahogadas': 70, 'Empanizadas': 80 },
-                'mega': { 'Naturales': 160, 'Ahogadas': 170, 'Empanizadas': 180 }
+                mini: { Naturales: 40, Ahogadas: 50, Empanizadas: 60 },
+                deluxe: { Naturales: 90, Ahogadas: 100, Empanizadas: 110 },
+                maxi: { Naturales: 60, Ahogadas: 70, Empanizadas: 80 },
+                mega: { Naturales: 160, Ahogadas: 170, Empanizadas: 180 }
             };
             price = priceMap[tray][variety];
 
-            if (tray !== 'deluxe' && tray !== 'mega') {
-                if (appleExtras[tray] === 'Sí') extraPrice = 15;
-            } else if (tray === 'mega' && appleExtras[tray] === 'Extra') {
-                extraPrice = 15;
-            }
+            if (tray !== 'deluxe' && tray !== 'mega' && appleExtras[tray] === 'Sí') extraPrice = 15;
+            if (tray === 'mega' && appleExtras[tray] === 'Extra') extraPrice = 15;
 
             const order = {
                 name: name,
@@ -694,20 +630,15 @@
                 quantities: quantities,
                 hasApple: (tray === 'deluxe' || (tray === 'mega' && appleExtras[tray] === 'Incluida') || appleExtras[tray] === 'Sí' || appleExtras[tray] === 'Extra')
             };
-
             orders.push(order);
             localStorage.setItem('orders', JSON.stringify(orders));
-            alert(`${name} (${variety}${order.hasApple ? ' + Manzana' : ''}) con ${quantities.join(', ')} agregado a pedidos. Total items: ${orders.length}`);
-            setTimeout(() => {
-                window.location.href = 'pedidos.html';
-            }, 300);
+            alert(`${name} (${variety}${order.hasApple ? ' + Manzana' : ''}) con ${quantities.join(', ')} agregado. Total: ${orders.length}`);
+            setTimeout(() => window.location.href = 'pedidos.html', 300);
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+        menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
     </script>
 </body>
 </html>
