@@ -101,16 +101,16 @@
             cursor: not-allowed;
         }
         .menu-item .selected-gummies p {
-            font-size: 2vw; /* Tamaño de fuente reducido para gomitas seleccionadas */
+            font-size: 2vw;
             margin: 0.5vw 0;
         }
         .menu-item button {
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 2vw 4vw;
+            padding: 1.5vw 3vw; /* Reducido de 2vw 4vw */
             border-radius: 5px;
-            font-size: 2.5vw;
+            font-size: 2vw; /* Reducido de 2.5vw */
             cursor: pointer;
             margin: 1vw 1vw;
             display: inline-block;
@@ -143,8 +143,8 @@
             .menu-section h1 { font-size: 32px; }
             .menu-item h3 { font-size: 18px; }
             .menu-item select { font-size: 14px; padding: 8px; }
-            .menu-item .selected-gummies p { font-size: 12px; } /* Tamaño ajustado para desktop */
-            .menu-item button { font-size: 14px; padding: 10px 20px; margin: 10px; }
+            .menu-item .selected-gummies p { font-size: 12px; }
+            .menu-item button { font-size: 12px; padding: 6px 12px; margin: 8px; } /* Ajuste para desktop */
             .nav-menu a { font-size: 16px; }
             .social-icons a { font-size: 24px; }
         }
@@ -345,8 +345,9 @@
                     extraPrice = 15;
                 }
             }
-            orders.push({ name, price: parseFloat(price) + extraPrice, variety, category: variety === 'Extra' ? 'extras' : 'charola', quantities });
-            localStorage.setItem('orders', JSON.stringify(orders));
+            const order = { name, price: parseFloat(price) + extraPrice, variety, category: variety === 'Extra' ? 'extras' : 'charola', quantities };
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders)); // Ensure orders are saved
             alert(`${name} (${variety}) ${Object.keys(quantities).length > 0 ? 'con ' + JSON.stringify(quantities) : ''} ${extraPrice > 0 ? '+ Manzana (+$15)' : ''} agregado a pedidos. Total items: ${orders.length}`);
             if (name !== 'Manzana con chamoy') {
                 selectedGummies[trayId.replace(/[A-Za-z]*$/, '')].clear();
