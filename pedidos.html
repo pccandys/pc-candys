@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Pedidos - P&C Candys</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: #f5f5f5;
             color: #333;
         }
@@ -87,8 +86,10 @@
             font-size: 2.5vw;
             margin-bottom: 1vw;
             color: #1e88e5;
+            text-align: left;
         }
-        .order-form input, .order-form select {
+        .order-form input,
+        .order-form select {
             width: 90%;
             padding: 1.5vw;
             margin-bottom: 2vw;
@@ -104,7 +105,7 @@
             border-radius: 5px;
         }
         .order-form button {
-            background-color: #4CAF50;
+            background-color: #4caf50;
             color: white;
             border: none;
             padding: 2vw 4vw;
@@ -118,10 +119,34 @@
         #orderItems {
             margin: 2vw 0;
             text-align: left;
+            max-width: 90vw;
+            margin-left: auto;
+            margin-right: auto;
         }
         #orderItems p {
             font-size: 2.5vw;
             margin: 1vw 0;
+        }
+        #orderItems ul {
+            padding-left: 1.5em;
+        }
+        #orderItems li {
+            margin-bottom: 1vw;
+            font-size: 2.5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #orderItems li button {
+            background: #f44336;
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 2.5em;
+            height: 2.5em;
+            font-size: 2vw;
+            cursor: pointer;
+            line-height: 1;
         }
         #orderSummary {
             margin-top: 3vw;
@@ -149,22 +174,54 @@
             font-size: 4vw;
         }
         @media (max-width: 767px) {
-            .menu-toggle { display: block; }
-            .nav-menu { display: none; }
-            .nav-menu li { margin: 2vw 0; }
-            #map { height: 200px; }
+            .menu-toggle {
+                display: block;
+            }
+            .nav-menu {
+                display: none;
+            }
+            .nav-menu li {
+                margin: 2vw 0;
+            }
+            #map {
+                height: 200px;
+            }
         }
         @media (min-width: 768px) {
-            .logo { font-size: 24px; }
-            .page-space { font-size: 16px; }
-            .order-section h1 { font-size: 32px; }
-            .order-form label { font-size: 16px; }
-            .order-form input, .order-form select { font-size: 14px; padding: 8px; }
-            .order-form button { font-size: 14px; padding: 10px 20px; }
-            #orderItems p, #orderSummary p { font-size: 14px; }
-            #map { height: 400px; }
-            .nav-menu a { font-size: 16px; }
-            .social-icons a { font-size: 24px; }
+            .logo {
+                font-size: 24px;
+            }
+            .page-space {
+                font-size: 16px;
+            }
+            .order-section h1 {
+                font-size: 32px;
+            }
+            .order-form label {
+                font-size: 16px;
+            }
+            .order-form input,
+            .order-form select {
+                font-size: 14px;
+                padding: 8px;
+            }
+            .order-form button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+            #orderItems p,
+            #orderSummary p {
+                font-size: 14px;
+            }
+            #map {
+                height: 400px;
+            }
+            .nav-menu a {
+                font-size: 16px;
+            }
+            .social-icons a {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
@@ -192,18 +249,18 @@
                 <p id="orderList">No has seleccionado productos aún.</p>
             </div>
             <label for="orderDate">Pedido programado para:</label>
-            <input type="date" id="orderDate" required>
+            <input type="date" id="orderDate" required />
             <label for="address">Entrega en:</label>
-            <input type="text" id="address" placeholder="Dirección" required>
+            <input type="text" id="address" placeholder="Dirección" required />
             <label>Selecciona tu ubicación:</label>
-            <button onclick="getLocation()">Usar mi ubicación actual</button>
+            <button type="button" onclick="getLocation()">Usar mi ubicación actual</button>
             <div id="map"></div>
-            <input type="hidden" id="latitud">
-            <input type="hidden" id="longitud">
+            <input type="hidden" id="latitud" />
+            <input type="hidden" id="longitud" />
             <label for="clientName">Nombre:</label>
-            <input type="text" id="clientName" placeholder="Tu nombre" required>
+            <input type="text" id="clientName" placeholder="Tu nombre" required />
             <label for="phone">Número de teléfono:</label>
-            <input type="tel" id="phone" placeholder="Ej. 555-123-4567" required>
+            <input type="tel" id="phone" placeholder="Ej. 555-123-4567" required />
             <label for="paymentMethod">Método de pago:</label>
             <select id="paymentMethod" required>
                 <option value="">Selecciona</option>
@@ -211,7 +268,7 @@
                 <option value="tarjeta">Tarjeta</option>
                 <option value="transferencia">Transferencia</option>
             </select>
-            <button onclick="submitOrder()">Enviar Pedido</button>
+            <button type="button" onclick="submitOrder()">Enviar Pedido</button>
         </div>
         <div id="orderSummary"></div>
     </section>
@@ -219,10 +276,10 @@
     <footer>
         <h3>Redes Sociales</h3>
         <div class="social-icons">
-            <a href="https://facebook.com/PyCCandys">Facebook</a>
-            <a href="https://instagram.com/PyCCandys">Instagram</a>
-            <a href="https://wa.me/524481012425">WhatsApp</a>
-            <a href="https://tiktok.com/@PyCCandys">TikTok</a>
+            <a href="https://facebook.com/PyCCandys" target="_blank">Facebook</a>
+            <a href="https://instagram.com/PyCCandys" target="_blank">Instagram</a>
+            <a href="https://wa.me/524481012425" target="_blank">WhatsApp</a>
+            <a href="https://tiktok.com/@PyCCandys" target="_blank">TikTok</a>
         </div>
     </footer>
 
@@ -230,31 +287,60 @@
     <script>
         let orders = JSON.parse(localStorage.getItem('orders')) || [];
         let map;
+        let marker;
 
-        // Mostrar productos seleccionados al cargar la página
-        window.onload = function() {
+        window.onload = function () {
             updateOrderList();
             initMap();
         };
 
+        // Actualiza la lista visible de productos seleccionados
         function updateOrderList() {
             const orderList = document.getElementById('orderList');
+            const orderItemsDiv = document.getElementById('orderItems');
             if (orders.length > 0) {
+                orderItemsDiv.style.display = 'block';
+                // Construir la lista con botones para eliminar
+                let ul = document.createElement('ul');
+                orders.forEach((item, index) => {
+                    let li = document.createElement('li');
+                    // Texto del producto
+                    let text = `${item.name}`;
+                    if (item.variety) text += ` (${item.variety})`;
+                    if (item.type) text += ` [${item.type}]`;
+                    text += ` - $${item.price}`;
+                    li.textContent = text;
+
+                    // Botón eliminar
+                    let btnDelete = document.createElement('button');
+                    btnDelete.textContent = '×';
+                    btnDelete.title = 'Eliminar producto';
+                    btnDelete.onclick = () => {
+                        removeOrderItem(index);
+                    };
+
+                    li.appendChild(btnDelete);
+                    ul.appendChild(li);
+                });
+
+                // Detalles agrupados (charola + gomitas etc)
                 const hasGomitas = orders.some(item => item.category === 'gomitas');
                 const hasCharola = orders.some(item => item.category === 'charola');
                 const hasMiniHotcakes = orders.some(item => item.category === 'mini_hotcakes');
                 const hasFresas = orders.some(item => item.category === 'fresas');
                 const hasExtras = orders.some(item => item.category === 'extras');
-                let displayText = orders.map(item => `${item.name} (${item.variety || ''}) - $${item.price}`).join('<br>');
+
                 let productDetails = '';
 
-                if (hasGomitas && !hasCharola) {
+                if (hasCharola) {
+                    const charolaItem = orders.find(item => item.category === 'charola');
+                    const charolaType = charolaItem?.type || charolaItem?.variety || 'No especificado';
+                    const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+
+                    productDetails += `Charola (${charolaType}, Gomitas: ${gomitasType})`;
+                } else if (hasGomitas && !hasCharola) {
                     const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
                     productDetails += `Bolsa de gomitas (${gomitasType})`;
-                } else if (hasCharola) {
-                    const charolaType = orders.find(item => item.category === 'charola')?.name || 'No especificado';
-                    const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                    productDetails += `Charola (${charolaType}, ${gomitasType})`;
                 }
                 if (hasMiniHotcakes) {
                     productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
@@ -266,85 +352,123 @@
                     const extras = orders.filter(item => item.category === 'extras').map(item => item.name).join(', ');
                     productDetails += `${productDetails ? '\n' : ''}Extras: ${extras}`;
                 }
-                orderList.innerHTML = displayText || 'No has seleccionado productos aún.';
-                if (productDetails) orderList.innerHTML += `<br>${productDetails}`;
+
+                orderList.innerHTML = ''; // Limpiar texto simple
+                orderList.appendChild(ul);
+
+                // Mostrar detalles agrupados debajo en texto simple
+                let detailsDiv = document.getElementById('detailsGrouped');
+                if (!detailsDiv) {
+                    detailsDiv = document.createElement('p');
+                    detailsDiv.id = 'detailsGrouped';
+                    detailsDiv.style.whiteSpace = 'pre-line'; // Para que respete saltos de línea
+                    orderList.parentNode.appendChild(detailsDiv);
+                }
+                detailsDiv.textContent = productDetails;
             } else {
+                orderItemsDiv.style.display = 'block';
                 orderList.textContent = 'No has seleccionado productos aún.';
+                // Remover detalles agrupados si existen
+                let detailsDiv = document.getElementById('detailsGrouped');
+                if (detailsDiv) detailsDiv.remove();
             }
         }
 
-        // Inicializar mapa con Leaflet y OpenStreetMap
+        // Eliminar producto seleccionado por índice
+        function removeOrderItem(index) {
+            orders.splice(index, 1);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            updateOrderList();
+        }
+
+        // Inicializar mapa con Leaflet
         function initMap() {
-            map = L.map('map').setView([19.4326, -99.1332], 13); // Ciudad de México como ejemplo
+            const latInput = document.getElementById('latitud');
+            const lngInput = document.getElementById('longitud');
+
+            let lat = 19.4326;
+            let lng = -99.1332;
+
+            if (latInput.value && lngInput.value) {
+                lat = parseFloat(latInput.value);
+                lng = parseFloat(lngInput.value);
+            }
+
+            map = L.map('map').setView([lat, lng], 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
-                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                attribution:
+                    '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             }).addTo(map);
 
-            var marker = L.marker([19.4326, -99.1332], { draggable: true }).addTo(map);
-            var latInput = document.getElementById('latitud');
-            var lngInput = document.getElementById('longitud');
+            marker = L.marker([lat, lng], { draggable: true }).addTo(map);
 
-            marker.on('dragend', function(e) {
-                var latlng = marker.getLatLng();
+            marker.on('dragend', function (e) {
+                const latlng = marker.getLatLng();
                 latInput.value = latlng.lat.toFixed(6);
                 lngInput.value = latlng.lng.toFixed(6);
             });
 
-            map.on('click', function(e) {
+            map.on('click', function (e) {
                 marker.setLatLng(e.latlng);
                 latInput.value = e.latlng.lat.toFixed(6);
                 lngInput.value = e.latlng.lng.toFixed(6);
             });
         }
 
-        // Obtener ubicación en tiempo real
+        // Obtener ubicación actual
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
-                    function(position) {
-                        var lat = position.coords.latitude;
-                        var lng = position.coords.longitude;
+                    function (position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
                         document.getElementById('latitud').value = lat.toFixed(6);
                         document.getElementById('longitud').value = lng.toFixed(6);
-                        if (map) map.remove(); // Eliminar mapa anterior si existe
-                        map = L.map('map').setView([lat, lng], 13);
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                            maxZoom: 19,
-                            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        }).addTo(map);
-                        var marker = L.marker([lat, lng], { draggable: true }).addTo(map);
-                        marker.on('dragend', function(e) {
-                            var latlng = marker.getLatLng();
-                            document.getElementById('latitud').value = latlng.lat.toFixed(6);
-                            document.getElementById('longitud').value = lng.toFixed(6);
-                        });
-                        map.on('click', function(e) {
-                            marker.setLatLng(e.latlng);
-                            document.getElementById('latitud').value = e.latlng.lat.toFixed(6);
-                            document.getElementById('longitud').value = e.latlng.lng.toFixed(6);
-                        });
+
+                        if (map) {
+                            map.setView([lat, lng], 13);
+                            marker.setLatLng([lat, lng]);
+                        }
                     },
-                    function(error) {
-                        alert("No se pudo obtener tu ubicación. Por favor, selecciona manualmente en el mapa. Error: " + error.message);
+                    function (error) {
+                        alert(
+                            'No se pudo obtener tu ubicación. Por favor, selecciona manualmente en el mapa. Error: ' +
+                                error.message
+                        );
                     }
                 );
             } else {
-                alert("Geolocalización no soportada por este navegador. Selecciona manualmente en el mapa.");
+                alert('Geolocalización no soportada por este navegador. Selecciona manualmente en el mapa.');
             }
         }
 
+        // Enviar pedido por WhatsApp
         function submitOrder() {
-            const orderDate = document.getElementById('orderDate').value || 'No especificado';
-            const address = document.getElementById('address').value || 'No especificado';
-            const latitude = document.getElementById('latitud').value || 'No disponible';
-            const longitude = document.getElementById('longitud').value || 'No disponible';
-            const clientName = document.getElementById('clientName').value || 'No especificado';
-            const phone = document.getElementById('phone').value || 'No especificado';
-            const paymentMethod = document.getElementById('paymentMethod').value || 'No especificado';
+            const orderDate = document.getElementById('orderDate').value;
+            const address = document.getElementById('address').value.trim();
+            const latitude = document.getElementById('latitud').value;
+            const longitude = document.getElementById('longitud').value;
+            const clientName = document.getElementById('clientName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const paymentMethod = document.getElementById('paymentMethod').value;
 
-            if (!orderDate || !address || !latitude || !longitude || !clientName || !phone || !paymentMethod) {
-                alert("Por favor, completa todos los campos obligatorios o selecciona una ubicación.");
+            // Validaciones básicas
+            if (
+                !orderDate ||
+                !address ||
+                !latitude ||
+                !longitude ||
+                !clientName ||
+                !phone ||
+                !paymentMethod
+            ) {
+                alert('Por favor, completa todos los campos obligatorios y selecciona una ubicación.');
+                return;
+            }
+
+            if (orders.length === 0) {
+                alert('No has seleccionado productos para tu pedido.');
                 return;
             }
 
@@ -355,13 +479,16 @@
             const hasFresas = orders.some(item => item.category === 'fresas');
             const hasExtras = orders.some(item => item.category === 'extras');
             let productDetails = '';
-            if (hasGomitas && !hasCharola) {
+
+            if (hasCharola) {
+                const charolaItem = orders.find(item => item.category === 'charola');
+                const charolaType = charolaItem?.type || charolaItem?.variety || 'No especificado';
+                const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+
+                productDetails += `Charola (${charolaType}, Gomitas: ${gomitasType})`;
+            } else if (hasGomitas && !hasCharola) {
                 const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
                 productDetails += `Bolsa de gomitas (${gomitasType})`;
-            } else if (hasCharola) {
-                const charolaType = orders.find(item => item.category === 'charola')?.name || 'No especificado';
-                const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                productDetails += `Charola (${charolaType}, ${gomitasType})`;
             }
             if (hasMiniHotcakes) {
                 productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
@@ -373,46 +500,45 @@
                 const extras = orders.filter(item => item.category === 'extras').map(item => item.name).join(', ');
                 productDetails += `${productDetails ? '\n' : ''}Extras: ${extras}`;
             }
-            const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
 
-            const message = `
-Pedido seleccionado – P&C Candys
+            // Mensaje WhatsApp
+            const message = `Hola, me gustaría hacer un pedido:%0A` +
+                `*Fecha de entrega:* ${orderDate}%0A` +
+                `*Dirección:* ${address}%0A` +
+                `*Ubicación:* https://www.google.com/maps?q=${latitude},${longitude}%0A` +
+                `*Nombre:* ${clientName}%0A` +
+                `*Teléfono:* ${phone}%0A` +
+                `*Método de pago:* ${paymentMethod}%0A` +
+                `*Productos seleccionados:*%0A${productDetails.replace(/\n/g, '%0A')}%0A` +
+                `*Total:* $${total}`;
 
-Gracias por tu pedido con P&C Candys.
-Aquí están los detalles:
+            // Número WhatsApp (el tuyo)
+            const whatsappNumber = "524481012425";
+            const url = `https://wa.me/${whatsappNumber}?text=${message}`;
 
-Fecha: ${orderDate}
-Entrega: ${address}
-Mapa: ${mapLink}
-Nombre: ${clientName}
-Pedido: ${productDetails || 'No especificado'}
-Teléfono: ${phone}
-Método de pago: ${paymentMethod}
-Total: $${total}
+            // Mostrar resumen
+            const orderSummary = document.getElementById('orderSummary');
+            orderSummary.style.display = 'block';
+            orderSummary.innerHTML =
+                `<p><strong>Resumen de tu pedido:</strong></p>` +
+                `<p>Fecha de entrega: ${orderDate}</p>` +
+                `<p>Dirección: ${address}</p>` +
+                `<p>Nombre: ${clientName}</p>` +
+                `<p>Teléfono: ${phone}</p>` +
+                `<p>Método de pago: ${paymentMethod}</p>` +
+                `<p>Productos seleccionados:<br>${productDetails.replace(/\n/g, '<br>')}</p>` +
+                `<p><strong>Total: $${total}</strong></p>` +
+                `<p><a href="${url}" target="_blank" style="color: #4caf50;">Enviar pedido por WhatsApp</a></p>`;
 
-Nos aseguraremos de preparar tu pedido con la mayor dedicación y cuidado, porque cada detalle importa para nosotros.
-Gracias por confiar en P&C Candys, ¡estamos trabajando para endulzar tu día!
-            `.trim();
-
-            console.log("Mensaje sin codificar: ", message); // Depuración
-            const encodedMessage = encodeURIComponent(message);
-            console.log("Mensaje codificado: ", encodedMessage); // Depuración
-            const whatsappUrl = `https://wa.me/524481012425?text=${encodedMessage}`;
-            console.log("URL de WhatsApp: ", whatsappUrl); // Depuración
-            window.open(whatsappUrl, '_blank');
-
-            // Limpiar después de enviar
-            orders = [];
-            localStorage.setItem('orders', JSON.stringify(orders));
-            document.getElementById('orderItems').style.display = 'none';
-            document.getElementById('orderSummary').style.display = 'none';
-            document.querySelector('.order-form').reset();
+            // Aquí puedes limpiar pedidos guardados o no, según prefieras
+            // localStorage.removeItem('orders');
+            // orders = [];
+            // updateOrderList();
         }
 
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
+        // Toggle menú para móvil
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.nav-menu').classList.toggle('active');
         });
     </script>
 </body>
