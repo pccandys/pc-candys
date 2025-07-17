@@ -333,28 +333,14 @@
             const shippingCost = 50; // Ajusta según tu lógica
             let shippingMessage = shippingCost > 0 ? `\n📦 Costo de envío: $${shippingCost} (te notificaremos)` : '';
 
-            const message = `
-🍭 P&C Candys te consiente 🍭  
-📅 Pedido programado para: ${orderDate}  
-📍 Entrega en: ${address}  
-🗺️ Mapa: ${mapLink}  
-💰 Total: $${total}  
-👤 Nombre: ${clientName}  
-📞 Número de teléfono: ${phone}  
-💳 Método de pago: ${paymentMethod}  
-🛍️ Tipo de charola: ${charola}  
-✨ Tipo de gomitas: ${gomitas}  
-📦 ¡Gracias por tu pedido!  
-Ubicación en tiempo real del cliente para que nosotros lleguemos al lugar exacto: Lat ${latitude}, Long ${longitude}${shippingMessage}
-Redes sociales:  
-- Facebook: https://facebook.com/PyCCandys  
-- Instagram: https://instagram.com/PyCCandys  
-- WhatsApp: https://wa.me/524481012425  
-- TikTok: https://tiktok.com/@PyCCandys
-            `;
+            // Construir mensaje en una sola línea para evitar problemas con saltos
+            let message = `🍭 P&C Candys te consiente 🍭 📅 Pedido programado para: ${orderDate} 📍 Entrega en: ${address} 🗺️ Mapa: ${mapLink} 💰 Total: $${total} 👤 Nombre: ${clientName} 📞 Número de teléfono: ${phone} 💳 Método de pago: ${paymentMethod} 🛍️ Tipo de charola: ${charola} ✨ Tipo de gomitas: ${gomitas} 📦 ¡Gracias por tu pedido! Ubicación en tiempo real del cliente para que nosotros lleguemos al lugar exacto: Lat ${latitude}, Long ${longitude}${shippingMessage} Redes sociales: - Facebook: https://facebook.com/PyCCandys - Instagram: https://instagram.com/PyCCandys - WhatsApp: https://wa.me/524481012425 - TikTok: https://tiktok.com/@PyCCandys`;
 
+            console.log("Mensaje sin codificar: ", message); // Depuración
             const encodedMessage = encodeURIComponent(message);
+            console.log("Mensaje codificado: ", encodedMessage); // Depuración
             const whatsappUrl = `https://wa.me/524481012425?text=${encodedMessage}`;
+            console.log("URL de WhatsApp: ", whatsappUrl); // Depuración
             window.open(whatsappUrl, '_blank');
 
             // Limpiar después de enviar
@@ -363,7 +349,6 @@ Redes sociales:
             document.getElementById('orderItems').style.display = 'none';
             document.getElementById('orderSummary').style.display = 'none';
             document.querySelector('.order-form').reset();
-            console.log("Mensaje enviado: " + message); // Para depuración
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
