@@ -28,9 +28,6 @@
             color: white;
             margin-left: 10px;
         }
-        .page-space {
-            margin-right: 10px;
-        }
         .menu-toggle {
             font-size: 4vw;
             background: none;
@@ -159,28 +156,12 @@
             line-height: 1;
             margin-left: 1em;
         }
-        #orderSummary {
-            margin-top: 3vw;
-            background-color: #f9f9f9;
-            padding: 2vw;
-            border-radius: 5px;
-            display: none;
-            max-width: 90vw;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: left;
-        }
-        #orderSummary p {
-            font-size: 2.5vw;
-            margin: 1vw 0;
-        }
         footer {
             background-color: #1976d2;
             color: white;
             padding: 3vw;
             text-align: center;
             margin-top: 5vw;
-            margin-bottom: 0;
         }
         .social-icons a {
             color: white;
@@ -188,69 +169,11 @@
             text-decoration: none;
             font-size: 4vw;
         }
-        @media (max-width: 767px) {
-            .menu-toggle {
-                display: block;
-                position: relative;
-                z-index: 1002;
-            }
-            .nav-menu {
-                display: none;
-                position: relative;
-                z-index: 1001;
-            }
-            .nav-menu li {
-                margin: 2vw 0;
-            }
-            #map {
-                height: 200px;
-            }
-        }
-        @media (min-width: 768px) {
-            .logo {
-                font-size: 24px;
-            }
-            .page-space {
-                font-size: 16px;
-            }
-            .order-section h1 {
-                font-size: 32px;
-            }
-            .order-form label {
-                font-size: 16px;
-            }
-            .order-form input,
-            .order-form select {
-                font-size: 14px;
-                padding: 8px;
-            }
-            .order-form button {
-                font-size: 14px;
-                padding: 10px 20px;
-            }
-            #orderItems h3 {
-                font-size: 18px;
-            }
-            #orderItems p,
-            #orderSummary p {
-                font-size: 14px;
-            }
-            #map {
-                height: 400px;
-            }
-            .nav-menu a {
-                font-size: 16px;
-            }
-            .social-icons a {
-                font-size: 24px;
-            }
-        }
     </style>
 </head>
 <body>
 <header>
     <div class="logo">P&C Candys</div>
-    <div class="page-space"></div>
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
     <ul class="nav-menu">
         <li><a href="index.html">Inicio</a></li>
@@ -292,24 +215,22 @@
         </select>
         <button type="button" onclick="submitOrder()">Enviar Pedido</button>
     </div>
-    <div id="orderSummary"></div>
 </section>
 
 <footer>
     <h3>Redes Sociales</h3>
     <div class="social-icons">
-        <a href="https://facebook.com/PyCCandys" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://instagram.com/PyCCandys" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://wa.me/524481012425" target="_blank" rel="noopener">WhatsApp</a>
-        <a href="https://tiktok.com/@PyCCandys" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://facebook.com/PyCCandys" target="_blank">Facebook</a>
+        <a href="https://instagram.com/PyCCandys" target="_blank">Instagram</a>
+        <a href="https://wa.me/524481012425" target="_blank">WhatsApp</a>
+        <a href="https://tiktok.com/@PyCCandys" target="_blank">TikTok</a>
     </div>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 let orders = JSON.parse(localStorage.getItem('orders')) || [];
-let map;
-let marker;
+let map, marker;
 
 window.onload = function () {
     updateOrderList();
@@ -318,9 +239,7 @@ window.onload = function () {
 
 function updateOrderList() {
     const orderList = document.getElementById('orderList');
-    const orderItemsDiv = document.getElementById('orderItems');
     if (orders.length > 0) {
-        orderItemsDiv.style.display = 'block';
         let ul = document.createElement('ul');
         orders.forEach((item, index) => {
             let li = document.createElement('li');
@@ -328,30 +247,15 @@ function updateOrderList() {
             if (item.variety) text += ` (${item.variety})`;
             text += ` - $${item.price}`;
             li.textContent = text;
-            if (item.gomitas && item.gomitas.length > 0) {
-                let ulGomitas = document.createElement('ul');
-                ulGomitas.style.marginLeft = '1.2em';
-                ulGomitas.style.listStyleType = 'circle';
-                item.gomitas.forEach(gomita => {
-                    let liGomita = document.createElement('li');
-                    liGomita.textContent = gomita;
-                    ulGomitas.appendChild(liGomita);
-                });
-                li.appendChild(ulGomitas);
-            }
             let btnDelete = document.createElement('button');
             btnDelete.textContent = '×';
-            btnDelete.title = 'Eliminar producto';
-            btnDelete.onclick = () => {
-                removeOrderItem(index);
-            };
+            btnDelete.onclick = () => removeOrderItem(index);
             li.appendChild(btnDelete);
             ul.appendChild(li);
         });
         orderList.innerHTML = '';
         orderList.appendChild(ul);
     } else {
-        orderItemsDiv.style.display = 'block';
         orderList.textContent = 'No has seleccionado productos aún.';
     }
 }
@@ -365,12 +269,7 @@ function removeOrderItem(index) {
 function initMap() {
     const latInput = document.getElementById('latitud');
     const lngInput = document.getElementById('longitud');
-    let lat = 20.5021080;
-    let lng = -100.1445436;
-    if (latInput.value && lngInput.value) {
-        lat = parseFloat(latInput.value);
-        lng = parseFloat(lngInput.value);
-    }
+    let lat = 20.5021080, lng = -100.1445436;
     map = L.map('map').setView([lat, lng], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -391,23 +290,15 @@ function initMap() {
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-                document.getElementById('latitud').value = lat.toFixed(6);
-                document.getElementById('longitud').value = lng.toFixed(6);
-                if (map) {
-                    map.setView([lat, lng], 13);
-                    marker.setLatLng([lat, lng]);
-                }
-            },
-            function (error) {
-                alert('No se pudo obtener tu ubicación. Selecciona manualmente en el mapa. Error: ' + error.message);
-            }
-        );
+        navigator.geolocation.getCurrentPosition(function (position) {
+            const lat = position.coords.latitude, lng = position.coords.longitude;
+            document.getElementById('latitud').value = lat.toFixed(6);
+            document.getElementById('longitud').value = lng.toFixed(6);
+            map.setView([lat, lng], 13);
+            marker.setLatLng([lat, lng]);
+        });
     } else {
-        alert('Geolocalización no soportada por este navegador. Selecciona manualmente en el mapa.');
+        alert('Geolocalización no soportada por este navegador.');
     }
 }
 
@@ -419,47 +310,32 @@ function submitOrder() {
     const clientName = document.getElementById('clientName').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const paymentMethod = document.getElementById('paymentMethod').value;
+
     if (!orderDate || !address || !latitude || !longitude || !clientName || !phone || !paymentMethod) {
-        alert('Por favor, completa todos los campos obligatorios y selecciona una ubicación.');
+        alert('Por favor, completa todos los campos y selecciona ubicación.');
         return;
     }
     if (orders.length === 0) {
         alert('No has seleccionado productos para tu pedido.');
         return;
     }
+
     const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
     let productDetails = '';
     orders.forEach(item => {
-        let line = `${item.name} (${item.variety || 'No especificado'}) - $${item.price}`;
-        if (item.gomitas && item.gomitas.length > 0) {
-            line += `\n  Gomitas: ${item.gomitas.join(', ')}`;
-        }
-        productDetails += line + '\n';
+        productDetails += `${item.name} (${item.variety || 'No especificado'}) - $${item.price}\n`;
     });
-    const message = `Hola, me gustaría hacer un pedido:\n\n` +
-        `Fecha de entrega: ${orderDate}\n` +
-        `Dirección: ${address}\n` +
-        `Ubicación: https://www.google.com/maps?q=${latitude},${longitude}\n\n` +
-        `Nombre: ${clientName}\n` +
-        `Teléfono: ${phone}\n` +
-        `Método de pago: ${paymentMethod}\n\n` +
-        `Productos seleccionados:\n${productDetails.trim()}\n` +
-        `Total: $${total}\n\n` +
-        `Gracias por tu pedido, lo prepararemos con amor.`;
-    const whatsappNumber = "524481012425";
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    const orderSummary = document.getElementById('orderSummary');
-    orderSummary.style.display = 'block';
-    orderSummary.innerHTML =
-        `<p><strong>Resumen de tu pedido:</strong></p>` +
-        `<p>Fecha de entrega: ${orderDate}</p>` +
-        `<p>Dirección: ${address}</p>` +
-        `<p>Nombre: ${clientName}</p>` +
-        `<p>Teléfono: ${phone}</p>` +
-        `<p>Método de pago: ${paymentMethod}</p>` +
-        `<p>Productos seleccionados:<br>${productDetails.trim().replace(/\n/g, '<br>')}</p>` +
-        `<p><strong>Total: $${total}</strong></p>` +
-        `<p><a href="${url}" target="_blank" style="color: #4caf50;">Enviar pedido por WhatsApp</a></p>`;
+
+    const confirmMsg = `¿Tu pedido está correcto?\n\n📅 Fecha: ${orderDate}\n📍 Dirección: ${address}\n👤 ${clientName}\n☎ ${phone}\n💳 Pago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}\n\n¿Deseas enviarlo?`;
+
+    if (confirm(confirmMsg)) {
+        const message = `Hola, me gustaría hacer un pedido:\n\nFecha: ${orderDate}\nDirección: ${address}\nUbicación: https://www.google.com/maps?q=${latitude},${longitude}\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
+        const whatsappNumber = "524481012425";
+        const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    } else {
+        alert("Puedes modificar tu pedido antes de enviarlo.");
+    }
 }
 
 document.querySelector('.menu-toggle').addEventListener('click', () => {
