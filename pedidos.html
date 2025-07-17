@@ -191,20 +191,20 @@
                 <h3>Productos Seleccionados:</h3>
                 <p id="orderList">No has seleccionado productos aún.</p>
             </div>
-            <label for="orderDate">📅 Pedido programado para:</label>
+            <label for="orderDate">Pedido programado para:</label>
             <input type="date" id="orderDate" required>
-            <label for="address">📍 Entrega en:</label>
+            <label for="address">Entrega en:</label>
             <input type="text" id="address" placeholder="Dirección" required>
-            <label>🗺️ Selecciona tu ubicación:</label>
+            <label>Selecciona tu ubicación:</label>
             <button onclick="getLocation()">Usar mi ubicación actual</button>
             <div id="map"></div>
             <input type="hidden" id="latitud">
             <input type="hidden" id="longitud">
-            <label for="clientName">👤 Nombre:</label>
+            <label for="clientName">Nombre:</label>
             <input type="text" id="clientName" placeholder="Tu nombre" required>
-            <label for="phone">📞 Número de teléfono:</label>
+            <label for="phone">Número de teléfono:</label>
             <input type="tel" id="phone" placeholder="Ej. 555-123-4567" required>
-            <label for="paymentMethod">💳 Método de pago:</label>
+            <label for="paymentMethod">Método de pago:</label>
             <select id="paymentMethod" required>
                 <option value="">Selecciona</option>
                 <option value="efectivo">Efectivo</option>
@@ -240,10 +240,20 @@
         function updateOrderList() {
             const orderList = document.getElementById('orderList');
             if (orders.length > 0) {
-                const charola = orders.find(item => item.category === 'charola')?.name || 'No especificado';
-                const gomitas = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                orderList.innerHTML = orders.map(item => `${item.name} (${item.variety || ''}) - $${item.price}`).join('<br>') +
-                    `<br>✨ Tipo de charola: ${charola}<br>✨ Tipo de gomitas: ${gomitas}`;
+                const hasCharola = orders.some(item => item.category === 'charola');
+                const hasGomitas = orders.some(item => item.category === 'gomitas');
+                let displayText = orders.map(item => `${item.name} (${item.variety || ''}) - $${item.price}`).join('<br>');
+                if (hasGomitas && !hasCharola) {
+                    displayText += '<br>Bolsa de gomitas';
+                } else if (hasCharola) {
+                    const charola = orders.find(item => item.category === 'charola')?.name || 'No especificado';
+                    const gomitas = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+                    displayText += `<br>Tipo de charola: ${charola}`;
+                    if (gomitas !== 'No especificado') {
+                        displayText += `<br>Tipo de gomitas: ${gomitas}`;
+                    }
+                }
+                orderList.innerHTML = displayText;
             } else {
                 orderList.textContent = 'No has seleccionado productos aún.';
             }
@@ -325,16 +335,33 @@
             }
 
             const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
-            const charola = orders.find(item => item.category === 'charola')?.name || 'No especificado';
-            const gomitas = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-            const mapLink = `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=13/${latitude}/${longitude}`;
+            const hasCharola = orders.some(item => item.category === 'charola');
+            const hasGomitas = orders.some(item => item.category === 'gomitas');
+            let productDetails = '';
+            if (hasGomitas && !hasCharola) {
+                productDetails = 'Bolsa de gomitas';
+            } else if (hasCharola) {
+                const charola = orders.find(item => item.category === 'charola')?.name || 'No especificado';
+                const gomitas = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+                productDetails = `Tipo de charola: ${charola}`;
+                if (gomitas !== 'No especificado') {
+                    productDetails += ` Tipo de gomitas: ${gomitas}`;
+                }
+            }
+            const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
 
-            // Costo de envío (ejemplo: $50)
-            const shippingCost = 50; // Ajusta según tu lógica
-            let shippingMessage = shippingCost > 0 ? `\n📦 Costo de envío: $${shippingCost} (te notificaremos)` : '';
-
-            // Construir mensaje en una sola línea para evitar problemas con saltos
-            let message = `🍭 P&C Candys te consiente 🍭 📅 Pedido programado para: ${orderDate} 📍 Entrega en: ${address} 🗺️ Mapa: ${mapLink} 💰 Total: $${total} 👤 Nombre: ${clientName} 📞 Número de teléfono: ${phone} 💳 Método de pago: ${paymentMethod} 🛍️ Tipo de charola: ${charola} ✨ Tipo de gomitas: ${gomitas} 📦 ¡Gracias por tu pedido! Ubicación en tiempo real del cliente para que nosotros lleguemos al lugar exacto: Lat ${latitude}, Long ${longitude}${shippingMessage} Redes sociales: - Facebook: https://facebook.com/PyCCandys - Instagram: https://instagram.com/PyCCandys - WhatsApp: https://wa.me/524481012425 - TikTok: https://tiktok.com/@PyCCandys`;
+            const message = `
+Pedido programado para: ${orderDate}
+Entrega en: ${address}
+Mapa: ${mapLink}
+Total: $${total}
+Nombre: ${clientName}
+Número de teléfono: ${phone}
+Método de pago: ${paymentMethod}
+${productDetails}
+Gracias por tu pedido
+Ubicación en tiempo real del cliente para que nosotros lleguemos al lugar exacto: Lat ${latitude}, Long ${longitude}
+            `.trim();
 
             console.log("Mensaje sin codificar: ", message); // Depuración
             const encodedMessage = encodeURIComponent(message);
