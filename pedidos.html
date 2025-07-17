@@ -123,6 +123,11 @@
             margin-left: auto;
             margin-right: auto;
         }
+        #orderItems h3 {
+            font-size: 3vw;
+            margin-bottom: 1vw;
+            color: #1976d2;
+        }
         #orderItems p {
             font-size: 2.5vw;
             margin: 1vw 0;
@@ -136,6 +141,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            list-style: disc inside;
         }
         #orderItems li button {
             background: #f44336;
@@ -147,6 +153,7 @@
             font-size: 2vw;
             cursor: pointer;
             line-height: 1;
+            margin-left: 1em;
         }
         #orderSummary {
             margin-top: 3vw;
@@ -154,6 +161,10 @@
             padding: 2vw;
             border-radius: 5px;
             display: none;
+            max-width: 90vw;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
         }
         #orderSummary p {
             font-size: 2.5vw;
@@ -208,6 +219,9 @@
             .order-form button {
                 font-size: 14px;
                 padding: 10px 20px;
+            }
+            #orderItems h3 {
+                font-size: 18px;
             }
             #orderItems p,
             #orderSummary p {
@@ -300,16 +314,31 @@
             const orderItemsDiv = document.getElementById('orderItems');
             if (orders.length > 0) {
                 orderItemsDiv.style.display = 'block';
+
                 // Construir la lista con botones para eliminar
                 let ul = document.createElement('ul');
                 orders.forEach((item, index) => {
                     let li = document.createElement('li');
-                    // Texto del producto
+
+                    // Texto básico del producto
                     let text = `${item.name}`;
                     if (item.variety) text += ` (${item.variety})`;
-                    if (item.type) text += ` [${item.type}]`;
                     text += ` - $${item.price}`;
+
                     li.textContent = text;
+
+                    // Si el pedido tiene gomitas seleccionadas, agregamos listado debajo
+                    if (item.gomitas && item.gomitas.length > 0) {
+                        let ulGomitas = document.createElement('ul');
+                        ulGomitas.style.marginLeft = '1.2em';
+                        ulGomitas.style.listStyleType = 'circle';
+                        item.gomitas.forEach(gomita => {
+                            let liGomita = document.createElement('li');
+                            liGomita.textContent = gomita;
+                            ulGomitas.appendChild(liGomita);
+                        });
+                        li.appendChild(ulGomitas);
+                    }
 
                     // Botón eliminar
                     let btnDelete = document.createElement('button');
@@ -323,54 +352,11 @@
                     ul.appendChild(li);
                 });
 
-                // Detalles agrupados (charola + gomitas etc)
-                const hasGomitas = orders.some(item => item.category === 'gomitas');
-                const hasCharola = orders.some(item => item.category === 'charola');
-                const hasMiniHotcakes = orders.some(item => item.category === 'mini_hotcakes');
-                const hasFresas = orders.some(item => item.category === 'fresas');
-                const hasExtras = orders.some(item => item.category === 'extras');
-
-                let productDetails = '';
-
-                if (hasCharola) {
-                    const charolaItem = orders.find(item => item.category === 'charola');
-                    const charolaType = charolaItem?.type || charolaItem?.variety || 'No especificado';
-                    const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-
-                    productDetails += `Charola (${charolaType}, Gomitas: ${gomitasType})`;
-                } else if (hasGomitas && !hasCharola) {
-                    const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                    productDetails += `Bolsa de gomitas (${gomitasType})`;
-                }
-                if (hasMiniHotcakes) {
-                    productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
-                }
-                if (hasFresas) {
-                    productDetails += `${productDetails ? '\n' : ''}Fresas con crema`;
-                }
-                if (hasExtras) {
-                    const extras = orders.filter(item => item.category === 'extras').map(item => item.name).join(', ');
-                    productDetails += `${productDetails ? '\n' : ''}Extras: ${extras}`;
-                }
-
                 orderList.innerHTML = ''; // Limpiar texto simple
                 orderList.appendChild(ul);
-
-                // Mostrar detalles agrupados debajo en texto simple
-                let detailsDiv = document.getElementById('detailsGrouped');
-                if (!detailsDiv) {
-                    detailsDiv = document.createElement('p');
-                    detailsDiv.id = 'detailsGrouped';
-                    detailsDiv.style.whiteSpace = 'pre-line'; // Para que respete saltos de línea
-                    orderList.parentNode.appendChild(detailsDiv);
-                }
-                detailsDiv.textContent = productDetails;
             } else {
                 orderItemsDiv.style.display = 'block';
                 orderList.textContent = 'No has seleccionado productos aún.';
-                // Remover detalles agrupados si existen
-                let detailsDiv = document.getElementById('detailsGrouped');
-                if (detailsDiv) detailsDiv.remove();
             }
         }
 
@@ -473,33 +459,16 @@
             }
 
             const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
-            const hasGomitas = orders.some(item => item.category === 'gomitas');
-            const hasCharola = orders.some(item => item.category === 'charola');
-            const hasMiniHotcakes = orders.some(item => item.category === 'mini_hotcakes');
-            const hasFresas = orders.some(item => item.category === 'fresas');
-            const hasExtras = orders.some(item => item.category === 'extras');
+
+            // Construir detalles productos con gomitas incluidos
             let productDetails = '';
-
-            if (hasCharola) {
-                const charolaItem = orders.find(item => item.category === 'charola');
-                const charolaType = charolaItem?.type || charolaItem?.variety || 'No especificado';
-                const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-
-                productDetails += `Charola (${charolaType}, Gomitas: ${gomitasType})`;
-            } else if (hasGomitas && !hasCharola) {
-                const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
-                productDetails += `Bolsa de gomitas (${gomitasType})`;
-            }
-            if (hasMiniHotcakes) {
-                productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
-            }
-            if (hasFresas) {
-                productDetails += `${productDetails ? '\n' : ''}Fresas con crema`;
-            }
-            if (hasExtras) {
-                const extras = orders.filter(item => item.category === 'extras').map(item => item.name).join(', ');
-                productDetails += `${productDetails ? '\n' : ''}Extras: ${extras}`;
-            }
+            orders.forEach(item => {
+                let line = `${item.name} (${item.variety || 'No especificado'}) - $${item.price}`;
+                if (item.gomitas && item.gomitas.length > 0) {
+                    line += `\n  Gomitas: ${item.gomitas.join(', ')}`;
+                }
+                productDetails += line + '\n';
+            });
 
             // Mensaje WhatsApp
             const message = `Hola, me gustaría hacer un pedido:%0A` +
@@ -509,7 +478,7 @@
                 `*Nombre:* ${clientName}%0A` +
                 `*Teléfono:* ${phone}%0A` +
                 `*Método de pago:* ${paymentMethod}%0A` +
-                `*Productos seleccionados:*%0A${productDetails.replace(/\n/g, '%0A')}%0A` +
+                `*Productos seleccionados:*%0A${productDetails.trim().replace(/\n/g, '%0A')}%0A` +
                 `*Total:* $${total}`;
 
             // Número WhatsApp (el tuyo)
@@ -526,14 +495,9 @@
                 `<p>Nombre: ${clientName}</p>` +
                 `<p>Teléfono: ${phone}</p>` +
                 `<p>Método de pago: ${paymentMethod}</p>` +
-                `<p>Productos seleccionados:<br>${productDetails.replace(/\n/g, '<br>')}</p>` +
+                `<p>Productos seleccionados:<br>${productDetails.trim().replace(/\n/g, '<br>')}</p>` +
                 `<p><strong>Total: $${total}</strong></p>` +
                 `<p><a href="${url}" target="_blank" style="color: #4caf50;">Enviar pedido por WhatsApp</a></p>`;
-
-            // Aquí puedes limpiar pedidos guardados o no, según prefieras
-            // localStorage.removeItem('orders');
-            // orders = [];
-            // updateOrderList();
         }
 
         // Toggle menú para móvil
