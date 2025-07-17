@@ -219,16 +219,17 @@
     <footer>
         <h3>Redes Sociales</h3>
         <div class="social-icons">
-            <a href="#">Facebook</a>
-            <a href="#">Instagram</a>
-            <a href="#">WhatsApp</a>
-            <a href="#">TikTok</a>
+            <a href="https://facebook.com/PyCCandys">Facebook</a>
+            <a href="https://instagram.com/PyCCandys">Instagram</a>
+            <a href="https://wa.me/524481012425">WhatsApp</a>
+            <a href="https://tiktok.com/@PyCCandys">TikTok</a>
         </div>
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         let orders = JSON.parse(localStorage.getItem('orders')) || [];
+        let map;
 
         // Mostrar productos seleccionados al cargar la página
         window.onload = function() {
@@ -239,7 +240,10 @@
         function updateOrderList() {
             const orderList = document.getElementById('orderList');
             if (orders.length > 0) {
-                orderList.innerHTML = orders.map(item => `${item.name} (${item.variety || ''}) - $${item.price}`).join('<br>');
+                const charola = orders.find(item => item.category === 'charola')?.name || 'No especificado';
+                const gomitas = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+                orderList.innerHTML = orders.map(item => `${item.name} (${item.variety || ''}) - $${item.price}`).join('<br>') +
+                    `<br>✨ Tipo de charola: ${charola}<br>✨ Tipo de gomitas: ${gomitas}`;
             } else {
                 orderList.textContent = 'No has seleccionado productos aún.';
             }
@@ -247,7 +251,7 @@
 
         // Inicializar mapa con Leaflet y OpenStreetMap
         function initMap() {
-            var map = L.map('map').setView([19.4326, -99.1332], 13); // Ciudad de México como ejemplo
+            map = L.map('map').setView([19.4326, -99.1332], 13); // Ciudad de México como ejemplo
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -281,7 +285,8 @@
                         var lng = position.coords.longitude;
                         document.getElementById('latitud').value = lat.toFixed(6);
                         document.getElementById('longitud').value = lng.toFixed(6);
-                        var map = L.map('map').setView([lat, lng], 13);
+                        if (map) map.remove(); // Eliminar mapa anterior si existe
+                        map = L.map('map').setView([lat, lng], 13);
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             maxZoom: 19,
                             attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -299,7 +304,7 @@
                         });
                     },
                     function(error) {
-                        alert("No se pudo obtener tu ubicación. Por favor, selecciona manualmente en el mapa.");
+                        alert("No se pudo obtener tu ubicación. Por favor, selecciona manualmente en el mapa. Error: " + error.message);
                     }
                 );
             } else {
@@ -323,10 +328,11 @@
 
             const total = orders.reduce((sum, item) => sum + item.price, 0).toFixed(2);
             const mapLink = `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=13/${latitude}/${longitude}`;
-            const orderDetails = orders.map(item => `${item.name} (${item.variety || ''}) - $${item.price}`).join('\n');
+            const charola = orders.find(item => item.category === 'charola')?.name || 'No especificado';
+            const gomitas = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
 
-            // Verificar si hay costo de envío (ejemplo: $50 si la distancia es mayor a 5 km)
-            const shippingCost = 50; // Esto puede ajustarse según tu lógica (e.g., distancia real)
+            // Costo de envío (ejemplo: $50 si está fuera de un rango)
+            const shippingCost = 50; // Ajusta según tu lógica
             let shippingMessage = shippingCost > 0 ? `\n📦 Costo de envío: $${shippingCost} (te notificaremos)` : '';
 
             const message = `
@@ -338,10 +344,15 @@
 👤 Nombre: ${clientName}  
 📞 Número de teléfono: ${phone}  
 💳 Método de pago: ${paymentMethod}  
-🛍️ Productos:  
-${orderDetails}${shippingMessage}  
+🛍️ Tipo de charola: ${charola}  
+✨ Tipo de gomitas: ${gomitas}  
 📦 ¡Gracias por tu pedido!  
-Ubicación: Lat ${latitude}, Long ${longitude}
+Ubicación en tiempo real del cliente para que nosotros lleguemos al lugar exacto: Lat ${latitude}, Long ${longitude}${shippingMessage}
+Redes sociales:  
+- Facebook: https://facebook.com/PyCCandys  
+- Instagram: https://instagram.com/PyCCandys  
+- WhatsApp: https://wa.me/524481012425  
+- TikTok: https://tiktok.com/@PyCCandys
             `.replace(/ /g, '%20').replace(/\n/g, '%0A');
 
             const whatsappUrl = `https://wa.me/524481012425?text=${message}`;
