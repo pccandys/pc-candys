@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Charolas - P&C Candys</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -190,9 +189,9 @@
                 <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
             </select>
             <div id="miniAppleInfo"></div>
-            <button onclick="addToOrder('Mini Mix', 40, 'Naturales')" id="miniNaturales">Naturales - $40</button>
-            <button onclick="addToOrder('Mini Mix', 50, 'Ahogadas')" id="miniAhogadas">Ahogadas - $50</button>
-            <button onclick="addToOrder('Mini Mix', 60, 'Empanizadas')" id="miniEmpanizadas">Empanizadas - $60</button>
+            <button onclick="addToOrder('Mini Mix', 40, 'Naturales')">Naturales - $40</button>
+            <button onclick="addToOrder('Mini Mix', 50, 'Ahogadas')">Ahogadas - $50</button>
+            <button onclick="addToOrder('Mini Mix', 60, 'Empanizadas')">Empanizadas - $60</button>
 
             <h3>Charola Deluxe</h3>
             <p>5 tipos + 1 Manzana con chamoy (incluida)</p>
@@ -210,9 +209,9 @@
                 <option value="Pingüinos">🐧 Pingüinos</option>
             </select>
             <div id="deluxeSelected" class="selected-gummies"></div>
-            <button onclick="addToOrder('Charola Deluxe', 90, 'Naturales')" id="deluxeNaturales">Naturales - $90</button>
-            <button onclick="addToOrder('Charola Deluxe', 100, 'Ahogadas')" id="deluxeAhogadas">Ahogadas - $100</button>
-            <button onclick="addToOrder('Charola Deluxe', 110, 'Empanizadas')" id="deluxeEmpanizadas">Empanizadas - $110</button>
+            <button onclick="addToOrder('Charola Deluxe', 90, 'Naturales')">Naturales - $90</button>
+            <button onclick="addToOrder('Charola Deluxe', 100, 'Ahogadas')">Ahogadas - $100</button>
+            <button onclick="addToOrder('Charola Deluxe', 110, 'Empanizadas')">Empanizadas - $110</button>
 
             <h3>Maxi Mix</h3>
             <p>Máximo 6 tipos de gomitas</p>
@@ -235,9 +234,9 @@
                 <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
             </select>
             <div id="maxiAppleInfo"></div>
-            <button onclick="addToOrder('Maxi Mix', 60, 'Naturales')" id="maxiNaturales">Naturales - $60</button>
-            <button onclick="addToOrder('Maxi Mix', 70, 'Ahogadas')" id="maxiAhogadas">Ahogadas - $70</button>
-            <button onclick="addToOrder('Maxi Mix', 80, 'Empanizadas')" id="maxiEmpanizadas">Empanizadas - $80</button>
+            <button onclick="addToOrder('Maxi Mix', 60, 'Naturales')">Naturales - $60</button>
+            <button onclick="addToOrder('Maxi Mix', 70, 'Ahogadas')">Ahogadas - $70</button>
+            <button onclick="addToOrder('Maxi Mix', 80, 'Empanizadas')">Empanizadas - $80</button>
 
             <h3>Mega Deluxe</h3>
             <p>Máximo 10 tipos de gomitas</p>
@@ -260,9 +259,9 @@
                 <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
             </select>
             <div id="megaAppleInfo"></div>
-            <button onclick="addToOrder('Mega Deluxe', 160, 'Naturales')" id="megaNaturales">Naturales - $160</button>
-            <button onclick="addToOrder('Mega Deluxe', 170, 'Ahogadas')" id="megaAhogadas">Ahogadas - $170</button>
-            <button onclick="addToOrder('Mega Deluxe', 180, 'Empanizadas')" id="megaEmpanizadas">Empanizadas - $180</button>
+            <button onclick="addToOrder('Mega Deluxe', 160, 'Naturales')">Naturales - $160</button>
+            <button onclick="addToOrder('Mega Deluxe', 170, 'Ahogadas')">Ahogadas - $170</button>
+            <button onclick="addToOrder('Mega Deluxe', 180, 'Empanizadas')">Empanizadas - $180</button>
         </div>
     </section>
 
@@ -286,6 +285,7 @@
         };
         let appleExtras = {
             mini: 'No',
+            deluxe: 'No', // Añadido para Charola Deluxe
             maxi: 'No',
             mega: 'No'
         };
@@ -332,25 +332,43 @@
             const trayId = name.toLowerCase().replace(/ /g, '').replace(/deluxe/g, 'deluxe');
             let quantities = {};
             let extraPrice = 0;
+
+            // Obtener las gomitas seleccionadas según la charola
+            const trayKey = trayId.replace(/[A-Za-z]*$/, ''); // Extrae 'mini', 'deluxe', 'maxi', 'mega'
             if (name !== 'Manzana con chamoy') {
-                selectedGummies[trayId.replace(/[A-Za-z]*$/, '')].forEach(gummy => {
+                selectedGummies[trayKey].forEach(gummy => {
                     quantities[gummy] = 1;
                 });
                 if (Object.keys(quantities).length === 0) {
                     alert("Por favor, selecciona al menos un tipo de gomita.");
                     return;
                 }
-                if (trayId.replace(/[A-Za-z]*$/, '') !== 'deluxe' && appleExtras[trayId.replace(/[A-Za-z]*$/, '')] === 'Sí') {
+                // Añadir extra de manzana solo si no es Charola Deluxe (que ya incluye manzana)
+                if (trayKey !== 'deluxe' && appleExtras[trayKey] === 'Sí') {
                     extraPrice = 15;
                 }
+            } else if (name === 'Charola Deluxe') {
+                // Para Charola Deluxe, la manzana está incluida, no se suma extra
+                if (!document.getElementById('deluxeApple')) {
+                    appleExtras['deluxe'] = 'Sí'; // Forzar manzana incluida
+                }
             }
-            const order = { name, price: parseFloat(price) + extraPrice, variety, category: 'charola', quantities };
+
+            const order = {
+                name: name,
+                price: parseFloat(price) + extraPrice,
+                variety: variety,
+                category: 'charola',
+                quantities: quantities,
+                hasApple: (trayKey !== 'deluxe' && appleExtras[trayKey] === 'Sí') || (trayKey === 'deluxe' && appleExtras['deluxe'] === 'Sí')
+            };
+
             orders.push(order);
-            localStorage.setItem('orders', JSON.stringify(orders)); // Save immediately
+            localStorage.setItem('orders', JSON.stringify(orders)); // Guardar inmediatamente
             console.log("Pedido guardado en localStorage:", order); // Depuración
             setTimeout(() => {
-                window.location.href = 'pedidos.html'; // Redirect after saving
-            }, 100); // Pequeño retraso para asegurar que se guarde
+                window.location.href = 'pedidos.html'; // Redirigir después de guardar
+            }, 200); // Aumenté el retraso a 200ms para mayor seguridad
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
