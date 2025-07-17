@@ -96,6 +96,10 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .menu-item select:disabled {
+            background-color: #f0f0f0;
+            cursor: not-allowed;
+        }
         .menu-item button {
             background-color: #4CAF50;
             color: white;
@@ -109,10 +113,6 @@
         }
         .menu-item button:hover {
             background-color: #45a049;
-        }
-        .menu-item button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
         }
         footer {
             background-color: #1976d2;
@@ -180,6 +180,11 @@
                 <option value="Pingüinos">🐧 Pingüinos</option>
             </select>
             <div id="miniSelected"></div>
+            <select id="miniApple" onchange="updateAppleExtra('mini')">
+                <option value="No">Manzana con chamoy: No</option>
+                <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
+            </select>
+            <div id="miniAppleInfo"></div>
             <button onclick="addToOrder('Mini Mix', 40, 'Naturales')" id="miniNaturales">Naturales - $40</button>
             <button onclick="addToOrder('Mini Mix', 50, 'Ahogadas')" id="miniAhogadas">Ahogadas - $50</button>
             <button onclick="addToOrder('Mini Mix', 60, 'Empanizadas')" id="miniEmpanizadas">Empanizadas - $60</button>
@@ -220,6 +225,11 @@
                 <option value="Pingüinos">🐧 Pingüinos</option>
             </select>
             <div id="maxiSelected"></div>
+            <select id="maxiApple" onchange="updateAppleExtra('maxi')">
+                <option value="No">Manzana con chamoy: No</option>
+                <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
+            </select>
+            <div id="maxiAppleInfo"></div>
             <button onclick="addToOrder('Maxi Mix', 60, 'Naturales')" id="maxiNaturales">Naturales - $60</button>
             <button onclick="addToOrder('Maxi Mix', 70, 'Ahogadas')" id="maxiAhogadas">Ahogadas - $70</button>
             <button onclick="addToOrder('Maxi Mix', 80, 'Empanizadas')" id="maxiEmpanizadas">Empanizadas - $80</button>
@@ -240,17 +250,14 @@
                 <option value="Pingüinos">🐧 Pingüinos</option>
             </select>
             <div id="megaSelected"></div>
+            <select id="megaApple" onchange="updateAppleExtra('mega')">
+                <option value="No">Manzana con chamoy: No</option>
+                <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
+            </select>
+            <div id="megaAppleInfo"></div>
             <button onclick="addToOrder('Mega Deluxe', 160, 'Naturales')" id="megaNaturales">Naturales - $160</button>
             <button onclick="addToOrder('Mega Deluxe', 170, 'Ahogadas')" id="megaAhogadas">Ahogadas - $170</button>
             <button onclick="addToOrder('Mega Deluxe', 180, 'Empanizadas')" id="megaEmpanizadas">Empanizadas - $180</button>
-
-            <h3>Extras</h3>
-            <p>Manzana con chamoy (opcional, +$15)</p>
-            <select id="appleExtra" onchange="updateAppleExtra()">
-                <option value="No">No</option>
-                <option value="Sí">Sí (+$15)</option>
-            </select>
-            <div id="appleExtraInfo"></div>
         </div>
     </section>
 
@@ -272,7 +279,11 @@
             maxi: new Set(),
             mega: new Set()
         };
-        let appleExtra = 'No';
+        let appleExtras = {
+            mini: 'No',
+            maxi: 'No',
+            mega: 'No'
+        };
 
         function updateSelection(tray) {
             const select = document.getElementById(`${tray}Gummies`);
@@ -286,9 +297,9 @@
                 select.value = "";
             }
 
-            document.getElementById(`${tray}Naturales`).disabled = selectedGummies[tray].size >= limit;
-            document.getElementById(`${tray}Ahogadas`).disabled = selectedGummies[tray].size >= limit;
-            document.getElementById(`${tray}Empanizadas`).disabled = selectedGummies[tray].size >= limit;
+            if (selectedGummies[tray].size >= limit) {
+                select.disabled = true;
+            }
 
             // Update select options to disable already selected items
             Array.from(select.options).forEach(option => {
@@ -300,23 +311,23 @@
             selectedGummies[tray].delete(gummy);
             document.getElementById(`${tray}Selected`).innerHTML = Array.from(selectedGummies[tray])
                 .map(g => `<p>${g} <button onclick="removeGummy('${tray}', '${g}')">Eliminar</button></p>`).join('');
+            document.getElementById(`${tray}Gummies`).disabled = false;
             document.getElementById(`${tray}Gummies`).value = "";
             Array.from(document.getElementById(`${tray}Gummies`).options).forEach(option => {
                 option.disabled = selectedGummies[tray].has(option.value) && option.value !== "";
             });
-            document.getElementById(`${tray}Naturales`).disabled = selectedGummies[tray].size >= limits[tray];
-            document.getElementById(`${tray}Ahogadas`).disabled = selectedGummies[tray].size >= limits[tray];
-            document.getElementById(`${tray}Empanizadas`).disabled = selectedGummies[tray].size >= limits[tray];
         }
 
-        function updateAppleExtra() {
-            appleExtra = document.getElementById('appleExtra').value;
-            document.getElementById('appleExtraInfo').innerHTML = appleExtra === 'Sí' ? '<p>Manzana con chamoy añadida (+$15)</p>' : '';
+        function updateAppleExtra(tray) {
+            const select = document.getElementById(`${tray}Apple`);
+            appleExtras[tray] = select.value;
+            document.getElementById(`${tray}AppleInfo`).innerHTML = appleExtras[tray] === 'Sí' ? '<p>Manzana con chamoy añadida (+$15)</p>' : '';
         }
 
         function addToOrder(name, price, variety) {
             const trayId = name.toLowerCase().replace(/ /g, '').replace(/deluxe/g, 'deluxe');
             let quantities = {};
+            let extraPrice = 0;
             if (name !== 'Manzana con chamoy') {
                 selectedGummies[trayId.replace(/[A-Za-z]*$/, '')].forEach(gummy => {
                     quantities[gummy] = 1; // Assuming 1 unit per selected type
@@ -325,25 +336,24 @@
                     alert("Por favor, selecciona al menos un tipo de gomita.");
                     return;
                 }
+                if (trayId.replace(/[A-Za-z]*$/, '') !== 'deluxe' && appleExtras[trayId.replace(/[A-Za-z]*$/, '')] === 'Sí') {
+                    extraPrice = 15;
+                }
             }
-            let totalPrice = parseFloat(price) || 0;
-            if (appleExtra === 'Sí' && name !== 'Charola Deluxe') totalPrice += 15;
-            orders.push({ name, price: totalPrice, variety, category: variety === 'Extra' ? 'extras' : 'charola', quantities });
+            orders.push({ name, price: parseFloat(price) + extraPrice, variety, category: variety === 'Extra' ? 'extras' : 'charola', quantities });
             localStorage.setItem('orders', JSON.stringify(orders));
-            alert(`${name} (${variety}) ${Object.keys(quantities).length > 0 ? 'con ' + JSON.stringify(quantities) : ''} ${appleExtra === 'Sí' ? '+ Manzana (+$15)' : ''} agregado a pedidos. Total items: ${orders.length}`);
+            alert(`${name} (${variety}) ${Object.keys(quantities).length > 0 ? 'con ' + JSON.stringify(quantities) : ''} ${extraPrice > 0 ? '+ Manzana (+$15)' : ''} agregado a pedidos. Total items: ${orders.length}`);
             if (name !== 'Manzana con chamoy') {
                 selectedGummies[trayId.replace(/[A-Za-z]*$/, '')].clear();
                 document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Selected`).innerHTML = '';
+                document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Gummies`).disabled = false;
                 document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Gummies`).value = "";
                 Array.from(document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Gummies`).options).forEach(option => {
                     option.disabled = false;
                 });
-                document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Naturales`).disabled = false;
-                document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Ahogadas`).disabled = false;
-                document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Empanizadas`).disabled = false;
+                document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}Apple`).value = 'No';
+                document.getElementById(`${trayId.replace(/[A-Za-z]*$/, '')}AppleInfo`).innerHTML = '';
             }
-            if (appleExtra === 'Sí') document.getElementById('appleExtra').value = 'No';
-            updateAppleExtra();
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
