@@ -261,14 +261,12 @@
             var latInput = document.getElementById('latitud');
             var lngInput = document.getElementById('longitud');
 
-            // Actualizar coordenadas al mover el marcador
             marker.on('dragend', function(e) {
                 var latlng = marker.getLatLng();
                 latInput.value = latlng.lat.toFixed(6);
                 lngInput.value = latlng.lng.toFixed(6);
             });
 
-            // Actualizar coordenadas al hacer clic en el mapa
             map.on('click', function(e) {
                 marker.setLatLng(e.latlng);
                 latInput.value = e.latlng.lat.toFixed(6);
@@ -313,25 +311,25 @@
         }
 
         function submitOrder() {
-            const orderDate = document.getElementById('orderDate').value;
-            const address = document.getElementById('address').value;
-            const latitude = document.getElementById('latitud').value;
-            const longitude = document.getElementById('longitud').value;
-            const clientName = document.getElementById('clientName').value;
-            const phone = document.getElementById('phone').value;
-            const paymentMethod = document.getElementById('paymentMethod').value;
+            const orderDate = document.getElementById('orderDate').value || 'No especificado';
+            const address = document.getElementById('address').value || 'No especificado';
+            const latitude = document.getElementById('latitud').value || 'No disponible';
+            const longitude = document.getElementById('longitud').value || 'No disponible';
+            const clientName = document.getElementById('clientName').value || 'No especificado';
+            const phone = document.getElementById('phone').value || 'No especificado';
+            const paymentMethod = document.getElementById('paymentMethod').value || 'No especificado';
 
             if (!orderDate || !address || !latitude || !longitude || !clientName || !phone || !paymentMethod) {
                 alert("Por favor, completa todos los campos obligatorios o selecciona una ubicación.");
                 return;
             }
 
-            const total = orders.reduce((sum, item) => sum + item.price, 0).toFixed(2);
-            const mapLink = `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=13/${latitude}/${longitude}`;
+            const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
             const charola = orders.find(item => item.category === 'charola')?.name || 'No especificado';
             const gomitas = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+            const mapLink = `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=13/${latitude}/${longitude}`;
 
-            // Costo de envío (ejemplo: $50 si está fuera de un rango)
+            // Costo de envío (ejemplo: $50)
             const shippingCost = 50; // Ajusta según tu lógica
             let shippingMessage = shippingCost > 0 ? `\n📦 Costo de envío: $${shippingCost} (te notificaremos)` : '';
 
@@ -353,9 +351,10 @@ Redes sociales:
 - Instagram: https://instagram.com/PyCCandys  
 - WhatsApp: https://wa.me/524481012425  
 - TikTok: https://tiktok.com/@PyCCandys
-            `.replace(/ /g, '%20').replace(/\n/g, '%0A');
+            `;
 
-            const whatsappUrl = `https://wa.me/524481012425?text=${message}`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/524481012425?text=${encodedMessage}`;
             window.open(whatsappUrl, '_blank');
 
             // Limpiar después de enviar
@@ -364,6 +363,7 @@ Redes sociales:
             document.getElementById('orderItems').style.display = 'none';
             document.getElementById('orderSummary').style.display = 'none';
             document.querySelector('.order-form').reset();
+            console.log("Mensaje enviado: " + message); // Para depuración
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
