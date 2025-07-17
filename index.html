@@ -14,12 +14,69 @@
         }
         header {
             background-color: #f44336;
-            padding: 15px;
-            text-align: center;
-            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #d32f2f;
+        }
+        .logo {
             font-size: 24px;
             font-weight: bold;
+            color: white;
         }
+        nav {
+            display: flex;
+            align-items: center;
+        }
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-menu li {
+            margin-left: 15px;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .nav-menu a:hover {
+            text-decoration: underline;
+        }
+        /* Botón menú responsive */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                background-color: #f44336;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                width: 100%;
+                text-align: center;
+            }
+            .nav-menu li {
+                margin: 10px 0;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+        /* Sección bienvenida */
         .welcome-section {
             text-align: center;
             padding: 30px 20px;
@@ -84,7 +141,7 @@
             padding: 10px;
             cursor: pointer;
         }
-        /* Sección categorías */
+        /* Categorías disponibles */
         .categories-section {
             padding: 30px 20px;
             background: #fff3e0;
@@ -142,21 +199,30 @@
             text-decoration: none;
             font-size: 18px;
         }
-        @media (max-width: 768px) {
-            .welcome-section h1 { font-size: 28px; }
-            .about-section h2 { font-size: 24px; }
-        }
     </style>
 </head>
 <body>
-    <header>🍭 Bienvenidos a P&C Candys</header>
+    <header>
+        <div class="logo">🍭 P&C Candys</div>
+        <button class="menu-toggle">☰</button>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
+                <li><a href="charolas.html">Charolas</a></li>
+                <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
+                <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
+                <li><a href="extras.html">Extras</a></li>
+                <li><a href="pedidos.html">Pedidos</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <section class="welcome-section">
         <h1>¡Dulzura y creatividad en cada bocado!</h1>
         <p>Tu tienda favorita de gomitas enchiladas, postres y mucho más. ❤</p>
     </section>
 
-    <!-- Quiénes somos -->
     <section class="about-section">
         <h2>¿Quiénes somos?</h2>
         <p>
@@ -167,7 +233,6 @@
         </p>
     </section>
 
-    <!-- Carrusel reducido -->
     <div class="carousel">
         <div class="carousel-images">
             <img src="imagen1.jpg" alt="Producto 1">
@@ -180,7 +245,6 @@
         </div>
     </div>
 
-    <!-- Categorías disponibles -->
     <section class="categories-section">
         <h2>¡Ya disponibles!</h2>
         <div class="categories-grid">
@@ -190,7 +254,6 @@
         </div>
     </section>
 
-    <!-- Próximamente -->
     <section class="coming-soon">
         <h2>¡Próximamente más delicias! 🎉</h2>
         <div class="categories-grid">
@@ -211,6 +274,7 @@
     </footer>
 
     <script>
+        // Carrusel
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-images img');
         const totalSlides = slides.length;
@@ -221,10 +285,16 @@
             document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
         }
 
-        // Cambio automático cada 4 segundos
         setInterval(() => {
             moveSlide(1);
         }, 4000);
+
+        // Menú responsive
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
     </script>
 </body>
 </html>
