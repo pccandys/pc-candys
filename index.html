@@ -22,7 +22,7 @@
         }
         .welcome-section {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             background-color: #ffebee;
         }
         .welcome-section h1 {
@@ -34,11 +34,27 @@
             font-size: 18px;
             color: #555;
         }
+        /* Sección ¿Quiénes somos? */
+        .about-section {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .about-section h2 {
+            font-size: 28px;
+            color: #e53935;
+        }
+        .about-section p {
+            max-width: 700px;
+            margin: 10px auto;
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
         /* Carrusel */
         .carousel {
             position: relative;
-            width: 90%;
-            max-width: 900px;
+            width: 80%;
+            max-width: 600px;
             margin: 20px auto;
             overflow: hidden;
             border-radius: 12px;
@@ -67,22 +83,6 @@
             font-size: 24px;
             padding: 10px;
             cursor: pointer;
-        }
-        /* Sección ¿Quiénes somos? */
-        .about-section {
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .about-section h2 {
-            font-size: 28px;
-            color: #e53935;
-        }
-        .about-section p {
-            max-width: 700px;
-            margin: 10px auto;
-            font-size: 18px;
-            color: #555;
-            line-height: 1.6;
         }
         /* Sección categorías */
         .categories-section {
@@ -126,6 +126,10 @@
             font-size: 26px;
             color: #d81b60;
         }
+        .coming-soon .categories-grid .category-card {
+            background: #fff;
+            color: #d81b60;
+        }
         footer {
             background-color: #1976d2;
             color: white;
@@ -152,7 +156,18 @@
         <p>Tu tienda favorita de gomitas enchiladas, postres y mucho más. ❤</p>
     </section>
 
-    <!-- Carrusel -->
+    <!-- Quiénes somos -->
+    <section class="about-section">
+        <h2>¿Quiénes somos?</h2>
+        <p>
+            <strong>P&C Candys</strong> es un emprendimiento hecho con amor por Paulo y Carol, donde combinamos sabor, creatividad y pasión.
+            Empezamos con nuestras deliciosas gomitas enchiladas y vamos creciendo para ofrecerte productos únicos y variados, siempre con ese toque casero y especial.
+            <br><br>
+            Nos mueve la idea de crear algo diferente, divertido y lleno de cariño. ¡Esto apenas comienza y tú eres parte de esta historia! 💕
+        </p>
+    </section>
+
+    <!-- Carrusel reducido -->
     <div class="carousel">
         <div class="carousel-images">
             <img src="imagen1.jpg" alt="Producto 1">
@@ -165,33 +180,24 @@
         </div>
     </div>
 
-    <!-- Quiénes somos -->
-    <section class="about-section">
-        <h2>¿Quiénes somos?</h2>
-        <p>
-            <strong>P&C Candys</strong> es un emprendimiento hecho con amor por Paulo y Carol, donde combinamos sabor, creatividad y pasión.
-            Empezamos con nuestras deliciosas gomitas enchiladas y vamos creciendo para ofrecerte productos únicos y variados, siempre con ese toque casero y especial.
-            <br><br>
-            Nos mueve la idea de crear algo diferente, divertido y lleno de cariño. ¡Esto apenas comienza y tú eres parte de esta historia! 💕
-        </p>
-    </section>
-
-    <!-- Categorías -->
+    <!-- Categorías disponibles -->
     <section class="categories-section">
         <h2>¡Ya disponibles!</h2>
         <div class="categories-grid">
             <div class="category-card"><a href="bolsa_de_gomitas.html">Bolsas de Gomitas</a></div>
             <div class="category-card"><a href="charolas.html">Charolas</a></div>
-            <div class="category-card"><a href="mini_hot_cakes.html">Mini Hot Cakes</a></div>
-            <div class="category-card"><a href="fresas_con_crema.html">Fresas con Crema</a></div>
-            <div class="category-card">¡Y mucho más próximamente!</div>
+            <div class="category-card"><a href="extras.html">Extras</a></div>
         </div>
     </section>
 
     <!-- Próximamente -->
     <section class="coming-soon">
-        <h2>¡Próximamente más sorpresas para ti! 🎉</h2>
-        <p>Estamos trabajando en nuevos productos y servicios para endulzar tus días.</p>
+        <h2>¡Próximamente más delicias! 🎉</h2>
+        <div class="categories-grid">
+            <div class="category-card">Mini Hot Cakes</div>
+            <div class="category-card">Fresas con Crema</div>
+            <div class="category-card">¡Y otros más!</div>
+        </div>
     </section>
 
     <footer>
