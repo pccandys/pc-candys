@@ -92,13 +92,14 @@
             color: #1e88e5;
             margin-bottom: 1vw;
         }
+        /* BOTONES (tamaño reducido) */
         .menu-item button {
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 2vw 4vw; /* Tamaño ajustado para móviles */
+            padding: 1.5vw 3vw; /* antes: 2vw 4vw */
             border-radius: 5px;
-            font-size: 3.5vw;
+            font-size: 3vw; /* antes: 3.5vw */
             cursor: pointer;
             margin: 1vw;
             display: inline-block;
@@ -123,14 +124,16 @@
             .menu-toggle { display: block; }
             .nav-menu { display: none; }
             .nav-menu li { margin: 2vw 0; }
-            .menu-item button { padding: 2vw 4vw; font-size: 3.5vw; }
+            /* Reafirmamos tamaño reducido para móviles */
+            .menu-item button { padding: 1.5vw 3vw; font-size: 3vw; }
         }
         @media (min-width: 768px) {
             .logo { font-size: 24px; }
             .nav-menu a { font-size: 16px; }
             .menu-section h1 { font-size: 32px; }
             .menu-item h3 { font-size: 18px; }
-            .menu-item button { padding: 8px 16px; font-size: 14px; }
+            /* Más chico en escritorio que antes */
+            .menu-item button { padding: 6px 12px; font-size: 13px; }
             .social-icons a { font-size: 24px; }
         }
     </style>
@@ -236,10 +239,8 @@
             };
             orders.push(order);
             localStorage.setItem('orders', JSON.stringify(orders));
-            alert(`${name} (${variety}, ${quantity ? quantity + ' pzas' : ''}) agregado a pedidos. Total items: ${orders.length}`);
-            setTimeout(() => {
-                window.location.href = 'pedidos.html';
-            }, 300);
+            alert(`${name} (${variety}${quantity ? ', ' + quantity + ' pzas' : ''}) agregado. Total artículos: ${orders.length}`);
+            /* Se quitó la redirección automática a pedidos.html */
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
