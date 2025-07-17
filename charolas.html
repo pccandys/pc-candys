@@ -11,6 +11,9 @@
             padding: 0;
             background-color: #f5f5f5;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         header {
             background-color: #f44336;
@@ -20,9 +23,10 @@
             align-items: center;
             border-bottom: 2px solid #d32f2f;
             position: relative;
+            flex-shrink: 0;
         }
         .logo {
-            font-size: 4vw;
+            font-size: 5vw;
             font-weight: bold;
             color: white;
             margin-left: 10px;
@@ -31,7 +35,7 @@
             margin-right: 10px;
         }
         .menu-toggle {
-            font-size: 4vw;
+            font-size: 5vw;
             background: none;
             border: none;
             color: white;
@@ -52,7 +56,7 @@
         .nav-menu a {
             color: white;
             text-decoration: none;
-            font-size: 3vw;
+            font-size: 4vw;
         }
         .nav-menu.active {
             display: flex;
@@ -65,13 +69,19 @@
             padding: 10px 0;
         }
         .menu-section {
-            padding: 5vw;
+            padding: 3vw;
             text-align: center;
+            flex-grow: 1;
         }
         .menu-section h1 {
             color: #1e88e5;
-            font-size: 5vw;
+            font-size: 6vw;
             margin-bottom: 2vw;
+        }
+        .menu-section h3 {
+            font-size: 4vw;
+            color: #1e88e5;
+            margin: 1vw 0;
         }
         .menu-item {
             background-color: white;
@@ -83,15 +93,15 @@
             text-align: left;
         }
         .menu-item h3 {
-            font-size: 3vw;
+            font-size: 4vw;
             color: #1e88e5;
             margin-bottom: 1vw;
         }
         .menu-item select {
             width: 90%;
-            padding: 1.5vw;
+            padding: 2vw;
             margin: 1vw 0;
-            font-size: 2.5vw;
+            font-size: 3.5vw;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -103,11 +113,11 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 2vw 4vw;
+            padding: 2vw 4vw; /* Tamaño ajustado para móviles */
             border-radius: 5px;
-            font-size: 2.5vw;
+            font-size: 3.5vw;
             cursor: pointer;
-            margin: 1vw 1vw;
+            margin: 1vw;
             display: inline-block;
         }
         .menu-item button:hover {
@@ -122,28 +132,29 @@
             color: white;
             padding: 3vw;
             text-align: center;
-            margin-top: 5vw;
-            margin-bottom: 0;
+            flex-shrink: 0;
         }
         .social-icons a {
             color: white;
             margin: 0 2vw;
             text-decoration: none;
-            font-size: 4vw;
+            font-size: 4.5vw;
         }
         @media (max-width: 767px) {
             .menu-toggle { display: block; }
             .nav-menu { display: none; }
             .nav-menu li { margin: 2vw 0; }
+            .menu-item button { padding: 2vw 4vw; font-size: 3.5vw; }
+            .menu-item select { padding: 2vw; font-size: 3.5vw; }
         }
         @media (min-width: 768px) {
             .logo { font-size: 24px; }
-            .page-space { font-size: 16px; }
-            .menu-section h1 { font-size: 32px; }
-            .menu-item h3 { font-size: 18px; }
-            .menu-item select { font-size: 14px; padding: 8px; }
-            .menu-item button { font-size: 14px; padding: 10px 20px; margin: 10px; }
             .nav-menu a { font-size: 16px; }
+            .menu-section h1 { font-size: 32px; }
+            .menu-section h3 { font-size: 18px; }
+            .menu-item h3 { font-size: 18px; }
+            .menu-item select { padding: 8px; font-size: 14px; }
+            .menu-item button { padding: 8px 16px; font-size: 14px; }
             .social-icons a { font-size: 24px; }
         }
     </style>
@@ -168,415 +179,387 @@
         <h1>🍭 MENÚ 2: CHAROLAS</h1>
         <h3>✨ Naturales | Ahogadas | Empanizadas</h3>
 
-        <!-- Mini Mix -->
         <div class="menu-item">
             <h3>Mini Mix (1 a 4 tipos de gomitas)</h3>
-            <div>
-                <select id="miniGummies1" onchange="updateSelection('mini', 1)">
-                    <option value="">Selecciona Gomita 1</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="miniGummies2" onchange="updateSelection('mini', 2)" disabled>
-                    <option value="">Selecciona Gomita 2</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="miniGummies3" onchange="updateSelection('mini', 3)" disabled>
-                    <option value="">Selecciona Gomita 3</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="miniGummies4" onchange="updateSelection('mini', 4)" disabled>
-                    <option value="">Selecciona Gomita 4</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-            </div>
-            <div>
-                <select id="miniVariety" onchange="updateVariety('mini')">
-                    <option value="">Selecciona Variedad</option>
-                    <option value="Naturales">Naturales - $40</option>
-                    <option value="Ahogadas">Ahogadas - $50</option>
-                    <option value="Empanizadas">Empanizadas - $60</option>
-                </select>
-            </div>
-            <div>
-                <select id="miniApple" onchange="updateAppleExtra('mini')">
-                    <option value="No">Manzana con chamoy: No</option>
-                    <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
-                </select>
-            </div>
+            <select id="miniGummies1" onchange="updateSelection('mini', 1)">
+                <option value="">Selecciona Gomita 1</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="miniGummies2" onchange="updateSelection('mini', 2)" disabled>
+                <option value="">Selecciona Gomita 2</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="miniGummies3" onchange="updateSelection('mini', 3)" disabled>
+                <option value="">Selecciona Gomita 3</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="miniGummies4" onchange="updateSelection('mini', 4)" disabled>
+                <option value="">Selecciona Gomita 4</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="miniVariety" onchange="updateVariety('mini')">
+                <option value="">Selecciona Variedad</option>
+                <option value="Naturales">Naturales - $40</option>
+                <option value="Ahogadas">Ahogadas - $50</option>
+                <option value="Empanizadas">Empanizadas - $60</option>
+            </select>
+            <select id="miniApple" onchange="updateAppleExtra('mini')">
+                <option value="No">Manzana con chamoy: No</option>
+                <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
+            </select>
             <button onclick="addToOrder('Mini Mix')" id="miniAdd">Agregar a Pedidos</button>
         </div>
 
-        <!-- Charola Deluxe -->
         <div class="menu-item">
             <h3>Charola Deluxe (5 tipos + 1 Manzana con chamoy)</h3>
-            <div>
-                <select id="deluxeGummies1" onchange="updateSelection('deluxe', 1)">
-                    <option value="">Selecciona Gomita 1</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="deluxeGummies2" onchange="updateSelection('deluxe', 2)" disabled>
-                    <option value="">Selecciona Gomita 2</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="deluxeGummies3" onchange="updateSelection('deluxe', 3)" disabled>
-                    <option value="">Selecciona Gomita 3</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="deluxeGummies4" onchange="updateSelection('deluxe', 4)" disabled>
-                    <option value="">Selecciona Gomita 4</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="deluxeGummies5" onchange="updateSelection('deluxe', 5)" disabled>
-                    <option value="">Selecciona Gomita 5</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-            </div>
-            <div>
-                <select id="deluxeVariety" onchange="updateVariety('deluxe')">
-                    <option value="">Selecciona Variedad</option>
-                    <option value="Naturales">Naturales - $90</option>
-                    <option value="Ahogadas">Ahogadas - $100</option>
-                    <option value="Empanizadas">Empanizadas - $110</option>
-                </select>
-            </div>
-            <div>
-                <select id="deluxeApple" disabled>
-                    <option value="Sí">Manzana con chamoy: Sí (Incluida)</option>
-                </select>
-            </div>
+            <select id="deluxeGummies1" onchange="updateSelection('deluxe', 1)">
+                <option value="">Selecciona Gomita 1</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="deluxeGummies2" onchange="updateSelection('deluxe', 2)" disabled>
+                <option value="">Selecciona Gomita 2</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="deluxeGummies3" onchange="updateSelection('deluxe', 3)" disabled>
+                <option value="">Selecciona Gomita 3</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="deluxeGummies4" onchange="updateSelection('deluxe', 4)" disabled>
+                <option value="">Selecciona Gomita 4</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="deluxeGummies5" onchange="updateSelection('deluxe', 5)" disabled>
+                <option value="">Selecciona Gomita 5</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="deluxeVariety" onchange="updateVariety('deluxe')">
+                <option value="">Selecciona Variedad</option>
+                <option value="Naturales">Naturales - $90</option>
+                <option value="Ahogadas">Ahogadas - $100</option>
+                <option value="Empanizadas">Empanizadas - $110</option>
+            </select>
+            <select id="deluxeApple" disabled>
+                <option value="Sí">Manzana con chamoy: Sí (Incluida)</option>
+            </select>
             <button onclick="addToOrder('Charola Deluxe')" id="deluxeAdd">Agregar a Pedidos</button>
         </div>
 
-        <!-- Maxi Mix -->
         <div class="menu-item">
             <h3>Maxi Mix (4 a 6 tipos de gomitas)</h3>
-            <div>
-                <select id="maxiGummies1" onchange="updateSelection('maxi', 1)">
-                    <option value="">Selecciona Gomita 1</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="maxiGummies2" onchange="updateSelection('maxi', 2)" disabled>
-                    <option value="">Selecciona Gomita 2</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="maxiGummies3" onchange="updateSelection('maxi', 3)" disabled>
-                    <option value="">Selecciona Gomita 3</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="maxiGummies4" onchange="updateSelection('maxi', 4)" disabled>
-                    <option value="">Selecciona Gomita 4</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="maxiGummies5" onchange="updateSelection('maxi', 5)" disabled>
-                    <option value="">Selecciona Gomita 5</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="maxiGummies6" onchange="updateSelection('maxi', 6)" disabled>
-                    <option value="">Selecciona Gomita 6</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-            </div>
-            <div>
-                <select id="maxiVariety" onchange="updateVariety('maxi')">
-                    <option value="">Selecciona Variedad</option>
-                    <option value="Naturales">Naturales - $60</option>
-                    <option value="Ahogadas">Ahogadas - $70</option>
-                    <option value="Empanizadas">Empanizadas - $80</option>
-                </select>
-            </div>
-            <div>
-                <select id="maxiApple" onchange="updateAppleExtra('maxi')">
-                    <option value="No">Manzana con chamoy: No</option>
-                    <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
-                </select>
-            </div>
+            <select id="maxiGummies1" onchange="updateSelection('maxi', 1)">
+                <option value="">Selecciona Gomita 1</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="maxiGummies2" onchange="updateSelection('maxi', 2)" disabled>
+                <option value="">Selecciona Gomita 2</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="maxiGummies3" onchange="updateSelection('maxi', 3)" disabled>
+                <option value="">Selecciona Gomita 3</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="maxiGummies4" onchange="updateSelection('maxi', 4)" disabled>
+                <option value="">Selecciona Gomita 4</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="maxiGummies5" onchange="updateSelection('maxi', 5)" disabled>
+                <option value="">Selecciona Gomita 5</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="maxiGummies6" onchange="updateSelection('maxi', 6)" disabled>
+                <option value="">Selecciona Gomita 6</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="maxiVariety" onchange="updateVariety('maxi')">
+                <option value="">Selecciona Variedad</option>
+                <option value="Naturales">Naturales - $60</option>
+                <option value="Ahogadas">Ahogadas - $70</option>
+                <option value="Empanizadas">Empanizadas - $80</option>
+            </select>
+            <select id="maxiApple" onchange="updateAppleExtra('maxi')">
+                <option value="No">Manzana con chamoy: No</option>
+                <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
+            </select>
             <button onclick="addToOrder('Maxi Mix')" id="maxiAdd">Agregar a Pedidos</button>
         </div>
 
-        <!-- Mega Deluxe -->
         <div class="menu-item">
             <h3>Mega Deluxe (10 tipos + 1 Manzana con chamoy o extra)</h3>
-            <div>
-                <select id="megaGummies1" onchange="updateSelection('mega', 1)">
-                    <option value="">Selecciona Gomita 1</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="megaGummies2" onchange="updateSelection('mega', 2)" disabled>
-                    <option value="">Selecciona Gomita 2</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="megaGummies3" onchange="updateSelection('mega', 3)" disabled>
-                    <option value="">Selecciona Gomita 3</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="megaGummies4" onchange="updateSelection('mega', 4)" disabled>
-                    <option value="">Selecciona Gomita 4</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="megaGummies5" onchange="updateSelection('mega', 5)" disabled>
-                    <option value="">Selecciona Gomita 5</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="megaGummies6" onchange="updateSelection('mega', 6)" disabled>
-                    <option value="">Selecciona Gomita 6</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="megaGummies7" onchange="updateSelection('mega', 7)" disabled>
-                    <option value="">Selecciona Gomita 7</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="megaGummies8" onchange="updateSelection('mega', 8)" disabled>
-                    <option value="">Selecciona Gomita 8</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="megaGummies9" onchange="updateSelection('mega', 9)" disabled>
-                    <option value="">Selecciona Gomita 9</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-                <select id="megaGummies10" onchange="updateSelection('mega', 10)" disabled>
-                    <option value="">Selecciona Gomita 10</option>
-                    <option value="Corazones">❤️ Corazones</option>
-                    <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                    <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                    <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                    <option value="Manguitos">🥭 Manguitos</option>
-                    <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                    <option value="Delfines">🐬 Delfines</option>
-                    <option value="Pingüinos">🐧 Pingüinos</option>
-                </select>
-            </div>
-            <div>
-                <select id="megaVariety" onchange="updateVariety('mega')">
-                    <option value="">Selecciona Variedad</option>
-                    <option value="Naturales">Naturales - $160</option>
-                    <option value="Ahogadas">Ahogadas - $170</option>
-                    <option value="Empanizadas">Empanizadas - $180</option>
-                </select>
-            </div>
-            <div>
-                <select id="megaApple" onchange="updateAppleExtra('mega')">
-                    <option value="Incluida">Manzana con chamoy: Incluida</option>
-                    <option value="Extra">Manzana con chamoy: Extra (+$15)</option>
-                </select>
-            </div>
+            <select id="megaGummies1" onchange="updateSelection('mega', 1)">
+                <option value="">Selecciona Gomita 1</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="megaGummies2" onchange="updateSelection('mega', 2)" disabled>
+                <option value="">Selecciona Gomita 2</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="megaGummies3" onchange="updateSelection('mega', 3)" disabled>
+                <option value="">Selecciona Gomita 3</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="megaGummies4" onchange="updateSelection('mega', 4)" disabled>
+                <option value="">Selecciona Gomita 4</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="megaGummies5" onchange="updateSelection('mega', 5)" disabled>
+                <option value="">Selecciona Gomita 5</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="megaGummies6" onchange="updateSelection('mega', 6)" disabled>
+                <option value="">Selecciona Gomita 6</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="megaGummies7" onchange="updateSelection('mega', 7)" disabled>
+                <option value="">Selecciona Gomita 7</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="megaGummies8" onchange="updateSelection('mega', 8)" disabled>
+                <option value="">Selecciona Gomita 8</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="megaGummies9" onchange="updateSelection('mega', 9)" disabled>
+                <option value="">Selecciona Gomita 9</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="megaGummies10" onchange="updateSelection('mega', 10)" disabled>
+                <option value="">Selecciona Gomita 10</option>
+                <option value="Corazones">❤️ Corazones</option>
+                <option value="Xtreme">🔥 Xtreme</option>
+                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
+                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
+                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
+                <option value="Manguitos">🥭 Manguitos</option>
+                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
+                <option value="Delfines">🐬 Delfines</option>
+                <option value="Pingüinos">🐧 Pingüinos</option>
+            </select>
+            <select id="megaVariety" onchange="updateVariety('mega')">
+                <option value="">Selecciona Variedad</option>
+                <option value="Naturales">Naturales - $160</option>
+                <option value="Ahogadas">Ahogadas - $170</option>
+                <option value="Empanizadas">Empanizadas - $180</option>
+            </select>
+            <select id="megaApple" onchange="updateAppleExtra('mega')">
+                <option value="Incluida">Manzana con chamoy: Incluida</option>
+                <option value="Extra">Manzana con chamoy: Extra (+$15)</option>
+            </select>
             <button onclick="addToOrder('Mega Deluxe')" id="megaAdd">Agregar a Pedidos</button>
         </div>
     </section>
@@ -664,7 +647,7 @@
 
         function updateVariety(tray) {
             const select = document.getElementById(`${tray}Variety`);
-            varieties[tray] = select.value.split(' - ')[0]; // Extrae solo el nombre de la variedad
+            varieties[tray] = select.value.split(' - ')[0];
         }
 
         function updateAppleExtra(tray) {
@@ -689,7 +672,6 @@
                 return;
             }
 
-            // Determinar precio base según variedad
             const priceMap = {
                 'mini': { 'Naturales': 40, 'Ahogadas': 50, 'Empanizadas': 60 },
                 'deluxe': { 'Naturales': 90, 'Ahogadas': 100, 'Empanizadas': 110 },
@@ -698,7 +680,6 @@
             };
             price = priceMap[tray][variety];
 
-            // Ajustar precio si incluye manzana extra (excepto Charola Deluxe y Mega Deluxe por defecto)
             if (tray !== 'deluxe' && tray !== 'mega') {
                 if (appleExtras[tray] === 'Sí') extraPrice = 15;
             } else if (tray === 'mega' && appleExtras[tray] === 'Extra') {
