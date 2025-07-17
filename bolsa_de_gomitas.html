@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bolsa de Gomitas - P&C Candys</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,6 +11,9 @@
             padding: 0;
             background-color: #f5f5f5;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         header {
             background-color: #f44336;
@@ -21,9 +23,10 @@
             align-items: center;
             border-bottom: 2px solid #d32f2f;
             position: relative;
+            flex-shrink: 0;
         }
         .logo {
-            font-size: 4vw;
+            font-size: 5vw;
             font-weight: bold;
             color: white;
             margin-left: 10px;
@@ -32,7 +35,7 @@
             margin-right: 10px;
         }
         .menu-toggle {
-            font-size: 4vw;
+            font-size: 5vw;
             background: none;
             border: none;
             color: white;
@@ -53,7 +56,7 @@
         .nav-menu a {
             color: white;
             text-decoration: none;
-            font-size: 3vw;
+            font-size: 4vw;
         }
         .nav-menu.active {
             display: flex;
@@ -66,12 +69,13 @@
             padding: 10px 0;
         }
         .menu-section {
-            padding: 5vw;
+            padding: 3vw;
             text-align: center;
+            flex-grow: 1;
         }
         .menu-section h1 {
             color: #1e88e5;
-            font-size: 5vw;
+            font-size: 6vw;
             margin-bottom: 2vw;
         }
         .menu-item {
@@ -84,7 +88,7 @@
             text-align: left;
         }
         .menu-item h3 {
-            font-size: 3vw;
+            font-size: 4vw;
             color: #1e88e5;
             margin-bottom: 1vw;
         }
@@ -92,11 +96,11 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 2vw 4vw;
+            padding: 2vw 4vw; /* Tamaño ajustado para móviles */
             border-radius: 5px;
-            font-size: 2.5vw;
+            font-size: 3.5vw;
             cursor: pointer;
-            margin: 1vw 1vw;
+            margin: 1vw;
             display: inline-block;
         }
         .menu-item button:hover {
@@ -107,27 +111,26 @@
             color: white;
             padding: 3vw;
             text-align: center;
-            margin-top: 5vw;
-            margin-bottom: 0;
+            flex-shrink: 0;
         }
         .social-icons a {
             color: white;
             margin: 0 2vw;
             text-decoration: none;
-            font-size: 4vw;
+            font-size: 4.5vw;
         }
         @media (max-width: 767px) {
             .menu-toggle { display: block; }
             .nav-menu { display: none; }
             .nav-menu li { margin: 2vw 0; }
+            .menu-item button { padding: 2vw 4vw; font-size: 3.5vw; }
         }
         @media (min-width: 768px) {
             .logo { font-size: 24px; }
-            .page-space { font-size: 16px; }
+            .nav-menu a { font-size: 16px; }
             .menu-section h1 { font-size: 32px; }
             .menu-item h3 { font-size: 18px; }
-            .menu-item button { font-size: 14px; padding: 10px 20px; margin: 10px; }
-            .nav-menu a { font-size: 16px; }
+            .menu-item button { padding: 8px 16px; font-size: 14px; }
             .social-icons a { font-size: 24px; }
         }
     </style>
@@ -223,9 +226,20 @@
         let orders = JSON.parse(localStorage.getItem('orders')) || [];
 
         function addToOrder(name, price, variety, quantity) {
-            orders.push({ name, price: parseFloat(price) || 0, variety, category: 'gomitas', quantity });
+            const order = {
+                name: name,
+                price: parseFloat(price) || 0,
+                variety: variety,
+                category: 'gomitas',
+                quantities: quantity ? [quantity] : [],
+                hasApple: false
+            };
+            orders.push(order);
             localStorage.setItem('orders', JSON.stringify(orders));
             alert(`${name} (${variety}, ${quantity ? quantity + ' pzas' : ''}) agregado a pedidos. Total items: ${orders.length}`);
+            setTimeout(() => {
+                window.location.href = 'pedidos.html';
+            }, 300);
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
