@@ -12,9 +12,6 @@
             padding: 0;
             background-color: #f5f5f5;
             color: #333;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
         header {
             background-color: #f44336;
@@ -23,27 +20,43 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #d32f2f;
-            flex-shrink: 0;
+            position: relative;
         }
         .logo {
-            font-size: 5vw;
+            font-size: 4vw;
             font-weight: bold;
             color: white;
             margin-left: 10px;
         }
+        .page-space {
+            margin-right: 10px;
+        }
         .menu-toggle {
-            font-size: 5vw;
+            font-size: 4vw;
             background: none;
             border: none;
             color: white;
             cursor: pointer;
+            display: none;
             margin-right: 10px;
         }
         .nav-menu {
             list-style: none;
             padding: 0;
             margin: 0;
-            display: none;
+            display: flex;
+            align-items: center;
+        }
+        .nav-menu li {
+            margin-left: 2vw;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 3vw;
+        }
+        .nav-menu.active {
+            display: flex;
             flex-direction: column;
             position: absolute;
             top: 100%;
@@ -52,26 +65,13 @@
             background-color: #f44336;
             padding: 10px 0;
         }
-        .nav-menu.active {
-            display: flex;
-        }
-        .nav-menu li {
-            margin: 2vw 0;
-        }
-        .nav-menu a {
-            color: white;
-            text-decoration: none;
-            font-size: 4vw;
-            padding: 1vw 2vw;
-        }
         .order-section {
-            padding: 3vw;
+            padding: 5vw;
             text-align: center;
-            flex-grow: 1;
         }
         .order-section h1 {
             color: #1e88e5;
-            font-size: 6vw;
+            font-size: 5vw;
             margin-bottom: 2vw;
         }
         .order-form {
@@ -84,21 +84,21 @@
         }
         .order-form label {
             display: block;
-            font-size: 4vw;
+            font-size: 2.5vw;
             margin-bottom: 1vw;
             color: #1e88e5;
         }
         .order-form input, .order-form select {
             width: 90%;
-            padding: 2vw;
+            padding: 1.5vw;
             margin-bottom: 2vw;
-            font-size: 3.5vw;
+            font-size: 2.5vw;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
         #map {
             width: 90%;
-            height: 200px;
+            height: 400px;
             margin: 2vw auto;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -109,9 +109,8 @@
             border: none;
             padding: 2vw 4vw;
             border-radius: 5px;
-            font-size: 3.5vw;
+            font-size: 2.5vw;
             cursor: pointer;
-            margin: 1vw;
         }
         .order-form button:hover {
             background-color: #45a049;
@@ -120,37 +119,19 @@
             margin: 2vw 0;
             text-align: left;
         }
-        #orderItems .order-item {
-            background-color: #f9f9f9;
-            padding: 2vw;
+        #orderItems p {
+            font-size: 2.5vw;
             margin: 1vw 0;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #orderItems .order-item p {
-            font-size: 3.5vw;
-            margin: 0;
-        }
-        #orderItems .order-item button {
-            background-color: #f44336;
-            padding: 1.5vw 3vw;
-            font-size: 3vw;
-            margin-left: 1vw;
-        }
-        #orderItems .order-item button:hover {
-            background-color: #d32f2f;
         }
         #orderSummary {
-            margin-top: 2vw;
+            margin-top: 3vw;
             background-color: #f9f9f9;
             padding: 2vw;
             border-radius: 5px;
             display: none;
         }
         #orderSummary p {
-            font-size: 3.5vw;
+            font-size: 2.5vw;
             margin: 1vw 0;
         }
         footer {
@@ -158,28 +139,31 @@
             color: white;
             padding: 3vw;
             text-align: center;
-            flex-shrink: 0;
+            margin-top: 5vw;
+            margin-bottom: 0;
         }
         .social-icons a {
             color: white;
             margin: 0 2vw;
             text-decoration: none;
-            font-size: 4.5vw;
+            font-size: 4vw;
+        }
+        @media (max-width: 767px) {
+            .menu-toggle { display: block; }
+            .nav-menu { display: none; }
+            .nav-menu li { margin: 2vw 0; }
+            #map { height: 200px; }
         }
         @media (min-width: 768px) {
             .logo { font-size: 24px; }
-            .menu-toggle { display: none; }
-            .nav-menu { display: flex; flex-direction: row; position: static; width: auto; }
-            .nav-menu li { margin-left: 2vw; }
-            .nav-menu a { font-size: 16px; padding: 0; }
+            .page-space { font-size: 16px; }
             .order-section h1 { font-size: 32px; }
             .order-form label { font-size: 16px; }
-            .order-form input, .order-form select { padding: 8px; font-size: 14px; }
-            .order-form button { padding: 8px 16px; font-size: 14px; }
-            #orderItems .order-item p { font-size: 14px; }
-            #orderItems .order-item button { padding: 6px 12px; font-size: 12px; }
-            #orderSummary p { font-size: 14px; }
+            .order-form input, .order-form select { font-size: 14px; padding: 8px; }
+            .order-form button { font-size: 14px; padding: 10px 20px; }
+            #orderItems p, #orderSummary p { font-size: 14px; }
             #map { height: 400px; }
+            .nav-menu a { font-size: 16px; }
             .social-icons a { font-size: 24px; }
         }
     </style>
@@ -187,11 +171,15 @@
 <body>
     <header>
         <div class="logo">🍭 P&C Candys</div>
+        <div class="page-space"></div>
         <button class="menu-toggle">☰</button>
         <ul class="nav-menu">
             <li><a href="index.html">Inicio</a></li>
             <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
             <li><a href="charolas.html">Charolas</a></li>
+            <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
+            <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
+            <li><a href="extras.html">Extras</a></li>
             <li><a href="pedidos.html">Pedidos</a></li>
         </ul>
     </header>
@@ -201,7 +189,7 @@
         <div class="order-form">
             <div id="orderItems">
                 <h3>Productos Seleccionados:</h3>
-                <div id="orderList"></div>
+                <p id="orderList">No has seleccionado productos aún.</p>
             </div>
             <label for="orderDate">Pedido programado para:</label>
             <input type="date" id="orderDate" required>
@@ -243,6 +231,7 @@
         let orders = JSON.parse(localStorage.getItem('orders')) || [];
         let map;
 
+        // Mostrar productos seleccionados al cargar la página
         window.onload = function() {
             updateOrderList();
             initMap();
@@ -250,44 +239,58 @@
 
         function updateOrderList() {
             const orderList = document.getElementById('orderList');
-            orderList.innerHTML = '';
             if (orders.length > 0) {
-                orders.forEach((order, index) => {
-                    const item = document.createElement('div');
-                    item.className = 'order-item';
-                    let gomitasText = order.quantities.length > 0 ? `Gomitas: ${order.quantities.join(', ')}` : '';
-                    let appleText = order.hasApple ? ' + Manzana' : '';
-                    item.innerHTML = `
-                        <p>${order.name} (${order.variety}${appleText}) - $${order.price} ${gomitasText}</p>
-                        <button onclick="removeOrder(${index})">Eliminar</button>
-                    `;
-                    orderList.appendChild(item);
-                });
+                const hasGomitas = orders.some(item => item.category === 'gomitas');
+                const hasCharola = orders.some(item => item.category === 'charola');
+                const hasMiniHotcakes = orders.some(item => item.category === 'mini_hotcakes');
+                const hasFresas = orders.some(item => item.category === 'fresas');
+                const hasExtras = orders.some(item => item.category === 'extras');
+                let displayText = orders.map(item => `${item.name} (${item.variety || ''}) - $${item.price}`).join('<br>');
+                let productDetails = '';
+
+                if (hasGomitas && !hasCharola) {
+                    const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+                    productDetails += `Bolsa de gomitas (${gomitasType})`;
+                } else if (hasCharola) {
+                    const charolaType = orders.find(item => item.category === 'charola')?.name || 'No especificado';
+                    const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+                    productDetails += `Charola (${charolaType}, ${gomitasType})`;
+                }
+                if (hasMiniHotcakes) {
+                    productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
+                }
+                if (hasFresas) {
+                    productDetails += `${productDetails ? '\n' : ''}Fresas con crema`;
+                }
+                if (hasExtras) {
+                    const extras = orders.filter(item => item.category === 'extras').map(item => item.name).join(', ');
+                    productDetails += `${productDetails ? '\n' : ''}Extras: ${extras}`;
+                }
+                orderList.innerHTML = displayText || 'No has seleccionado productos aún.';
+                if (productDetails) orderList.innerHTML += `<br>${productDetails}`;
             } else {
-                orderList.innerHTML = '<p>No has seleccionado productos aún.</p>';
+                orderList.textContent = 'No has seleccionado productos aún.';
             }
         }
 
-        function removeOrder(index) {
-            orders.splice(index, 1);
-            localStorage.setItem('orders', JSON.stringify(orders));
-            updateOrderList();
-        }
-
+        // Inicializar mapa con Leaflet y OpenStreetMap
         function initMap() {
-            map = L.map('map').setView([20.5888, -100.3899], 13);
+            map = L.map('map').setView([19.4326, -99.1332], 13); // Ciudad de México como ejemplo
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
-                attribution: '© OpenStreetMap'
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
-            let marker = L.marker([20.5888, -100.3899], { draggable: true }).addTo(map);
-            let latInput = document.getElementById('latitud');
-            let lngInput = document.getElementById('longitud');
+
+            var marker = L.marker([19.4326, -99.1332], { draggable: true }).addTo(map);
+            var latInput = document.getElementById('latitud');
+            var lngInput = document.getElementById('longitud');
+
             marker.on('dragend', function(e) {
-                let latlng = marker.getLatLng();
+                var latlng = marker.getLatLng();
                 latInput.value = latlng.lat.toFixed(6);
                 lngInput.value = latlng.lng.toFixed(6);
             });
+
             map.on('click', function(e) {
                 marker.setLatLng(e.latlng);
                 latInput.value = e.latlng.lat.toFixed(6);
@@ -295,75 +298,122 @@
             });
         }
 
+        // Obtener ubicación en tiempo real
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     function(position) {
-                        let lat = position.coords.latitude;
-                        let lng = position.coords.longitude;
+                        var lat = position.coords.latitude;
+                        var lng = position.coords.longitude;
                         document.getElementById('latitud').value = lat.toFixed(6);
                         document.getElementById('longitud').value = lng.toFixed(6);
-                        if (map) map.remove();
+                        if (map) map.remove(); // Eliminar mapa anterior si existe
                         map = L.map('map').setView([lat, lng], 13);
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             maxZoom: 19,
-                            attribution: '© OpenStreetMap'
+                            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         }).addTo(map);
-                        let marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+                        var marker = L.marker([lat, lng], { draggable: true }).addTo(map);
                         marker.on('dragend', function(e) {
-                            let latlng = marker.getLatLng();
+                            var latlng = marker.getLatLng();
                             document.getElementById('latitud').value = latlng.lat.toFixed(6);
-                            document.getElementById('longitud').value = latlng.lng.toFixed(6);
+                            document.getElementById('longitud').value = lng.toFixed(6);
+                        });
+                        map.on('click', function(e) {
+                            marker.setLatLng(e.latlng);
+                            document.getElementById('latitud').value = e.latlng.lat.toFixed(6);
+                            document.getElementById('longitud').value = e.latlng.lng.toFixed(6);
                         });
                     },
-                    function() {
-                        alert('No se pudo obtener tu ubicación.');
+                    function(error) {
+                        alert("No se pudo obtener tu ubicación. Por favor, selecciona manualmente en el mapa. Error: " + error.message);
                     }
                 );
             } else {
-                alert('Geolocalización no soportada por este navegador.');
+                alert("Geolocalización no soportada por este navegador. Selecciona manualmente en el mapa.");
             }
         }
 
         function submitOrder() {
-            const orderDate = document.getElementById('orderDate').value;
-            const address = document.getElementById('address').value;
-            const latitud = document.getElementById('latitud').value;
-            const longitud = document.getElementById('longitud').value;
-            const clientName = document.getElementById('clientName').value;
-            const phone = document.getElementById('phone').value;
-            const paymentMethod = document.getElementById('paymentMethod').value;
+            const orderDate = document.getElementById('orderDate').value || 'No especificado';
+            const address = document.getElementById('address').value || 'No especificado';
+            const latitude = document.getElementById('latitud').value || 'No disponible';
+            const longitude = document.getElementById('longitud').value || 'No disponible';
+            const clientName = document.getElementById('clientName').value || 'No especificado';
+            const phone = document.getElementById('phone').value || 'No especificado';
+            const paymentMethod = document.getElementById('paymentMethod').value || 'No especificado';
 
-            if (!orderDate || !address || !latitud || !longitud || !clientName || !phone || !paymentMethod || orders.length === 0) {
-                alert('Por favor, completa todos los campos y selecciona al menos un producto.');
+            if (!orderDate || !address || !latitude || !longitude || !clientName || !phone || !paymentMethod) {
+                alert("Por favor, completa todos los campos obligatorios o selecciona una ubicación.");
                 return;
             }
 
-            let orderDetails = `📦 *Nuevo Pedido de ${clientName}* 📦\n\n`;
-            orderDetails += `📅 Fecha: ${orderDate}\n`;
-            orderDetails += `📍 Dirección: ${address} (Lat: ${latitud}, Lon: ${longitud})\n`;
-            orderDetails += `📞 Teléfono: ${phone}\n`;
-            orderDetails += `💳 Pago: ${paymentMethod}\n\n`;
-            orderDetails += `🍬 *Detalles del Pedido:*\n`;
-            orders.forEach(order => {
-                let gomitasText = order.quantities.length > 0 ? `Gomitas: ${order.quantities.join(', ')}` : '';
-                let appleText = order.hasApple ? ' + Manzana' : '';
-                orderDetails += `- ${order.name} (${order.variety}${appleText}) - $${order.price} ${gomitasText}\n`;
-            });
-            orderDetails += `\n*Total de items: ${orders.length}*`;
+            const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
+            const hasGomitas = orders.some(item => item.category === 'gomitas');
+            const hasCharola = orders.some(item => item.category === 'charola');
+            const hasMiniHotcakes = orders.some(item => item.category === 'mini_hotcakes');
+            const hasFresas = orders.some(item => item.category === 'fresas');
+            const hasExtras = orders.some(item => item.category === 'extras');
+            let productDetails = '';
+            if (hasGomitas && !hasCharola) {
+                const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+                productDetails += `Bolsa de gomitas (${gomitasType})`;
+            } else if (hasCharola) {
+                const charolaType = orders.find(item => item.category === 'charola')?.name || 'No especificado';
+                const gomitasType = orders.find(item => item.category === 'gomitas')?.variety || 'No especificado';
+                productDetails += `Charola (${charolaType}, ${gomitasType})`;
+            }
+            if (hasMiniHotcakes) {
+                productDetails += `${productDetails ? '\n' : ''}Mini Hotcakes`;
+            }
+            if (hasFresas) {
+                productDetails += `${productDetails ? '\n' : ''}Fresas con crema`;
+            }
+            if (hasExtras) {
+                const extras = orders.filter(item => item.category === 'extras').map(item => item.name).join(', ');
+                productDetails += `${productDetails ? '\n' : ''}Extras: ${extras}`;
+            }
+            const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
 
-            const whatsappUrl = `https://wa.me/524481012425?text=${encodeURIComponent(orderDetails)}`;
+            const message = `
+Pedido seleccionado – P&C Candys
+
+Gracias por tu pedido con P&C Candys.
+Aquí están los detalles:
+
+Fecha: ${orderDate}
+Entrega: ${address}
+Mapa: ${mapLink}
+Nombre: ${clientName}
+Pedido: ${productDetails || 'No especificado'}
+Teléfono: ${phone}
+Método de pago: ${paymentMethod}
+Total: $${total}
+
+Nos aseguraremos de preparar tu pedido con la mayor dedicación y cuidado, porque cada detalle importa para nosotros.
+Gracias por confiar en P&C Candys, ¡estamos trabajando para endulzar tu día!
+            `.trim();
+
+            console.log("Mensaje sin codificar: ", message); // Depuración
+            const encodedMessage = encodeURIComponent(message);
+            console.log("Mensaje codificado: ", encodedMessage); // Depuración
+            const whatsappUrl = `https://wa.me/524481012425?text=${encodedMessage}`;
+            console.log("URL de WhatsApp: ", whatsappUrl); // Depuración
             window.open(whatsappUrl, '_blank');
 
-            const summary = document.getElementById('orderSummary');
-            summary.innerHTML = `<p>Pedido enviado a WhatsApp. ¡Gracias por tu compra!</p>`;
-            summary.style.display = 'block';
-            localStorage.removeItem('orders'); // Limpia los pedidos después de enviar
+            // Limpiar después de enviar
+            orders = [];
+            localStorage.setItem('orders', JSON.stringify(orders));
+            document.getElementById('orderItems').style.display = 'none';
+            document.getElementById('orderSummary').style.display = 'none';
+            document.querySelector('.order-form').reset();
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
-        menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
     </script>
 </body>
 </html>
