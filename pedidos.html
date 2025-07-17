@@ -323,7 +323,7 @@
             }
 
             const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
-            let productDetails = orders.map(order => `${order.name} (${order.variety}) - $${order.price} - Gomitas: ${order.quantities.join(', ')}${order.hasApple ? ' + Manzana (+$15)' : ''}`).join('\n');
+            let productDetails = orders.map(order => `${order.name} - Gomitas: ${order.quantities.join(', ')} - ${order.variety}${order.hasApple ? ' + Manzana (+$15)' : ''} - $${order.price}`).join('\n');
             const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
 
             const message = `
