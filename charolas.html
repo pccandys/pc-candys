@@ -19,25 +19,12 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #d32f2f;
-            position: relative;
         }
         .logo {
-            font-size: 4vw;
+            font-size: 24px;
             font-weight: bold;
             color: white;
             margin-left: 10px;
-        }
-        .page-space {
-            margin-right: 10px;
-        }
-        .menu-toggle {
-            font-size: 4vw;
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            display: none;
-            margin-right: 10px;
         }
         .nav-menu {
             list-style: none;
@@ -47,51 +34,41 @@
             align-items: center;
         }
         .nav-menu li {
-            margin-left: 2vw;
+            margin-left: 20px;
         }
         .nav-menu a {
             color: white;
             text-decoration: none;
-            font-size: 3vw;
-        }
-        .nav-menu.active {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background-color: #f44336;
-            padding: 10px 0;
+            font-size: 16px;
         }
         .menu-section {
-            padding: 5vw;
+            padding: 20px;
             text-align: center;
         }
         .menu-section h1 {
             color: #1e88e5;
-            font-size: 5vw;
-            margin-bottom: 2vw;
+            font-size: 32px;
+            margin-bottom: 20px;
         }
         .menu-item {
             background-color: white;
-            padding: 3vw;
-            margin: 2vw auto;
-            max-width: 90vw;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
             border-radius: 5px;
             border: 1px solid #ddd;
             text-align: left;
         }
         .menu-item h3 {
-            font-size: 3vw;
+            font-size: 18px;
             color: #1e88e5;
-            margin-bottom: 1vw;
+            margin-bottom: 10px;
         }
         .menu-item select {
             width: 90%;
-            padding: 1.5vw;
-            margin: 1vw 0;
-            font-size: 2.5vw;
+            padding: 8px;
+            margin: 10px 0;
+            font-size: 14px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -100,19 +77,18 @@
             cursor: not-allowed;
         }
         .menu-item .selected-gummies p {
-            font-size: 2vw;
-            margin: 0.5vw 0;
+            font-size: 12px;
+            margin: 5px 0;
         }
         .menu-item button {
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 1.5vw 3vw;
+            padding: 10px 20px;
             border-radius: 5px;
-            font-size: 2vw;
+            font-size: 14px;
             cursor: pointer;
-            margin: 1vw 1vw;
-            display: inline-block;
+            margin: 8px;
         }
         .menu-item button:hover {
             background-color: #45a049;
@@ -120,40 +96,31 @@
         footer {
             background-color: #1976d2;
             color: white;
-            padding: 3vw;
+            padding: 20px;
             text-align: center;
-            margin-top: 5vw;
-            margin-bottom: 0;
+            margin-top: 50px;
         }
         .social-icons a {
             color: white;
-            margin: 0 2vw;
+            margin: 0 20px;
             text-decoration: none;
-            font-size: 4vw;
+            font-size: 24px;
         }
         @media (max-width: 767px) {
-            .menu-toggle { display: block; }
+            .logo { font-size: 4vw; }
             .nav-menu { display: none; }
-            .nav-menu li { margin: 2vw 0; }
-        }
-        @media (min-width: 768px) {
-            .logo { font-size: 24px; }
-            .page-space { font-size: 16px; }
-            .menu-section h1 { font-size: 32px; }
-            .menu-item h3 { font-size: 18px; }
-            .menu-item select { font-size: 14px; padding: 8px; }
-            .menu-item .selected-gummies p { font-size: 12px; }
-            .menu-item button { font-size: 12px; padding: 6px 12px; margin: 8px; }
-            .nav-menu a { font-size: 16px; }
-            .social-icons a { font-size: 24px; }
+            .menu-section h1 { font-size: 5vw; }
+            .menu-item h3 { font-size: 3vw; }
+            .menu-item select { font-size: 2.5vw; padding: 1.5vw; }
+            .menu-item .selected-gummies p { font-size: 2vw; }
+            .menu-item button { font-size: 2vw; padding: 1.5vw 3vw; margin: 1vw; }
+            .social-icons a { font-size: 4vw; }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">🍭 P&C Candys</div>
-        <div class="page-space"></div>
-        <button class="menu-toggle">☰</button>
         <ul class="nav-menu">
             <li><a href="index.html">Inicio</a></li>
             <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
@@ -188,7 +155,6 @@
                 <option value="No">Manzana con chamoy: No</option>
                 <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
             </select>
-            <div id="miniAppleInfo"></div>
             <button onclick="addToOrder('Mini Mix', 40, 'Naturales')">Naturales - $40</button>
             <button onclick="addToOrder('Mini Mix', 50, 'Ahogadas')">Ahogadas - $50</button>
             <button onclick="addToOrder('Mini Mix', 60, 'Empanizadas')">Empanizadas - $60</button>
@@ -233,7 +199,6 @@
                 <option value="No">Manzana con chamoy: No</option>
                 <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
             </select>
-            <div id="maxiAppleInfo"></div>
             <button onclick="addToOrder('Maxi Mix', 60, 'Naturales')">Naturales - $60</button>
             <button onclick="addToOrder('Maxi Mix', 70, 'Ahogadas')">Ahogadas - $70</button>
             <button onclick="addToOrder('Maxi Mix', 80, 'Empanizadas')">Empanizadas - $80</button>
@@ -258,7 +223,6 @@
                 <option value="No">Manzana con chamoy: No</option>
                 <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
             </select>
-            <div id="megaAppleInfo"></div>
             <button onclick="addToOrder('Mega Deluxe', 160, 'Naturales')">Naturales - $160</button>
             <button onclick="addToOrder('Mega Deluxe', 170, 'Ahogadas')">Ahogadas - $170</button>
             <button onclick="addToOrder('Mega Deluxe', 180, 'Empanizadas')">Empanizadas - $180</button>
@@ -277,18 +241,8 @@
 
     <script>
         let orders = JSON.parse(localStorage.getItem('orders')) || [];
-        let selectedGummies = {
-            mini: new Set(),
-            deluxe: new Set(),
-            maxi: new Set(),
-            mega: new Set()
-        };
-        let appleExtras = {
-            mini: 'No',
-            deluxe: 'No', // Añadido para Charola Deluxe
-            maxi: 'No',
-            mega: 'No'
-        };
+        let selectedGummies = { mini: [], deluxe: [], maxi: [], mega: [] };
+        let appleExtras = { mini: 'No', deluxe: 'Sí', maxi: 'No', mega: 'No' }; // Charola Deluxe incluye manzana por defecto
 
         function updateSelection(tray) {
             const select = document.getElementById(`${tray}Gummies`);
@@ -296,86 +250,70 @@
             const limits = { mini: 4, deluxe: 5, maxi: 6, mega: 10 };
             const limit = limits[tray];
 
-            if (select.value && !selectedGummies[tray].has(select.value)) {
-                selectedGummies[tray].add(select.value);
-                selectedDiv.innerHTML += `<p>${select.value} <button onclick="removeGummy('${tray}', '${select.value}')">Eliminar</button></p>`;
-                select.value = "";
-            }
-
-            if (selectedGummies[tray].size >= limit) {
-                select.disabled = true;
+            if (select.value && !selectedGummies[tray].includes(select.value)) {
+                if (selectedGummies[tray].length < limit) {
+                    selectedGummies[tray].push(select.value);
+                    selectedDiv.innerHTML += `<p>${select.value} <button onclick="removeGummy('${tray}', '${select.value}')">Eliminar</button></p>`;
+                    select.value = "";
+                }
+                if (selectedGummies[tray].length >= limit) {
+                    select.disabled = true;
+                }
             }
 
             Array.from(select.options).forEach(option => {
-                option.disabled = selectedGummies[tray].has(option.value) && option.value !== "";
+                option.disabled = selectedGummies[tray].includes(option.value) && option.value !== "";
             });
         }
 
         function removeGummy(tray, gummy) {
-            selectedGummies[tray].delete(gummy);
-            document.getElementById(`${tray}Selected`).innerHTML = Array.from(selectedGummies[tray])
+            selectedGummies[tray] = selectedGummies[tray].filter(g => g !== gummy);
+            document.getElementById(`${tray}Selected`).innerHTML = selectedGummies[tray]
                 .map(g => `<p>${g} <button onclick="removeGummy('${tray}', '${g}')">Eliminar</button></p>`).join('');
             document.getElementById(`${tray}Gummies`).disabled = false;
             document.getElementById(`${tray}Gummies`).value = "";
             Array.from(document.getElementById(`${tray}Gummies`).options).forEach(option => {
-                option.disabled = selectedGummies[tray].has(option.value) && option.value !== "";
+                option.disabled = selectedGummies[tray].includes(option.value) && option.value !== "";
             });
         }
 
         function updateAppleExtra(tray) {
             const select = document.getElementById(`${tray}Apple`);
-            appleExtras[tray] = select.value;
+            if (select) appleExtras[tray] = select.value;
             document.getElementById(`${tray}AppleInfo`).innerHTML = appleExtras[tray] === 'Sí' ? '<p>Manzana con chamoy añadida (+$15)</p>' : '';
         }
 
-        function addToOrder(name, price, variety) {
-            const trayId = name.toLowerCase().replace(/ /g, '').replace(/deluxe/g, 'deluxe');
-            let quantities = {};
-            let extraPrice = 0;
+        function addToOrder(name, basePrice, variety) {
+            const tray = name.toLowerCase().replace(/ /g, '').replace(/deluxe/g, 'deluxe');
+            let price = parseFloat(basePrice);
+            let quantities = selectedGummies[tray.replace(/[A-Za-z]*$/, '')]; // Usa el array de gomitas
 
-            // Obtener las gomitas seleccionadas según la charola
-            const trayKey = trayId.replace(/[A-Za-z]*$/, ''); // Extrae 'mini', 'deluxe', 'maxi', 'mega'
-            if (name !== 'Manzana con chamoy') {
-                selectedGummies[trayKey].forEach(gummy => {
-                    quantities[gummy] = 1;
-                });
-                if (Object.keys(quantities).length === 0) {
-                    alert("Por favor, selecciona al menos un tipo de gomita.");
-                    return;
-                }
-                // Añadir extra de manzana solo si no es Charola Deluxe (que ya incluye manzana)
-                if (trayKey !== 'deluxe' && appleExtras[trayKey] === 'Sí') {
-                    extraPrice = 15;
-                }
-            } else if (name === 'Charola Deluxe') {
-                // Para Charola Deluxe, la manzana está incluida, no se suma extra
-                if (!document.getElementById('deluxeApple')) {
-                    appleExtras['deluxe'] = 'Sí'; // Forzar manzana incluida
-                }
+            if (quantities.length === 0) {
+                alert("Por favor, selecciona al menos un tipo de gomita.");
+                return;
+            }
+
+            // Ajustar precio si incluye manzana (excepto Charola Deluxe que ya la incluye)
+            if (tray.replace(/[A-Za-z]*$/, '') !== 'deluxe' && appleExtras[tray.replace(/[A-Za-z]*$/, '')] === 'Sí') {
+                price += 15;
             }
 
             const order = {
                 name: name,
-                price: parseFloat(price) + extraPrice,
+                price: price,
                 variety: variety,
                 category: 'charola',
                 quantities: quantities,
-                hasApple: (trayKey !== 'deluxe' && appleExtras[trayKey] === 'Sí') || (trayKey === 'deluxe' && appleExtras['deluxe'] === 'Sí')
+                hasApple: (tray.replace(/[A-Za-z]*$/, '') !== 'deluxe' && appleExtras[tray.replace(/[A-Za-z]*$/, '')] === 'Sí') || (tray.replace(/[A-Za-z]*$/, '') === 'deluxe')
             };
 
             orders.push(order);
-            localStorage.setItem('orders', JSON.stringify(orders)); // Guardar inmediatamente
-            console.log("Pedido guardado en localStorage:", order); // Depuración
+            localStorage.setItem('orders', JSON.stringify(orders));
+            console.log("Pedido guardado:", order);
             setTimeout(() => {
-                window.location.href = 'pedidos.html'; // Redirigir después de guardar
-            }, 200); // Aumenté el retraso a 200ms para mayor seguridad
+                window.location.href = 'pedidos.html';
+            }, 300);
         }
-
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
     </script>
 </body>
 </html>
