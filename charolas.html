@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Charolas - P&C Candys</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -100,10 +99,6 @@
             background-color: #f0f0f0;
             cursor: not-allowed;
         }
-        .menu-item .selected-gummies p {
-            font-size: 2vw;
-            margin: 0.5vw 0;
-        }
         .menu-item button {
             background-color: #4CAF50;
             color: white;
@@ -147,7 +142,6 @@
             .menu-section h1 { font-size: 32px; }
             .menu-item h3 { font-size: 18px; }
             .menu-item select { font-size: 14px; padding: 8px; }
-            .menu-item .selected-gummies p { font-size: 12px; }
             .menu-item button { font-size: 14px; padding: 10px 20px; margin: 10px; }
             .nav-menu a { font-size: 16px; }
             .social-icons a { font-size: 24px; }
@@ -182,6 +176,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -194,6 +189,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -206,6 +202,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -217,7 +214,8 @@
                     <option value="">Selecciona Gomita 4</option>
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
-                    <option value="Aros de Duraznoྱ
+                    <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -226,9 +224,21 @@
                     <option value="Pingüinos">🐧 Pingüinos</option>
                 </select>
             </div>
-            <button onclick="addToOrder('Mini Mix', 40, 'Naturales')" id="miniNaturales">Naturales - $40</button>
-            <button onclick="addToOrder('Mini Mix', 50, 'Ahogadas')" id="miniAhogadas">Ahogadas - $50</button>
-            <button onclick="addToOrder('Mini Mix', 60, 'Empanizadas')" id="miniEmpanizadas">Empanizadas - $60</button>
+            <div>
+                <select id="miniVariety" onchange="updateVariety('mini')">
+                    <option value="">Selecciona Variedad</option>
+                    <option value="Naturales">Naturales - $40</option>
+                    <option value="Ahogadas">Ahogadas - $50</option>
+                    <option value="Empanizadas">Empanizadas - $60</option>
+                </select>
+            </div>
+            <div>
+                <select id="miniApple" onchange="updateAppleExtra('mini')">
+                    <option value="No">Manzana con chamoy: No</option>
+                    <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
+                </select>
+            </div>
+            <button onclick="addToOrder('Mini Mix')" id="miniAdd">Agregar a Pedidos</button>
         </div>
 
         <!-- Charola Deluxe -->
@@ -240,6 +250,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -252,6 +263,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -264,6 +276,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -276,6 +289,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -288,6 +302,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -297,13 +312,19 @@
                 </select>
             </div>
             <div>
+                <select id="deluxeVariety" onchange="updateVariety('deluxe')">
+                    <option value="">Selecciona Variedad</option>
+                    <option value="Naturales">Naturales - $90</option>
+                    <option value="Ahogadas">Ahogadas - $100</option>
+                    <option value="Empanizadas">Empanizadas - $110</option>
+                </select>
+            </div>
+            <div>
                 <select id="deluxeApple" disabled>
                     <option value="Sí">Manzana con chamoy: Sí (Incluida)</option>
                 </select>
             </div>
-            <button onclick="addToOrder('Charola Deluxe', 90, 'Naturales')" id="deluxeNaturales">Naturales - $90</button>
-            <button onclick="addToOrder('Charola Deluxe', 100, 'Ahogadas')" id="deluxeAhogadas">Ahogadas - $100</button>
-            <button onclick="addToOrder('Charola Deluxe', 110, 'Empanizadas')" id="deluxeEmpanizadas">Empanizadas - $110</button>
+            <button onclick="addToOrder('Charola Deluxe')" id="deluxeAdd">Agregar a Pedidos</button>
         </div>
 
         <!-- Maxi Mix -->
@@ -315,6 +336,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -327,6 +349,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -339,6 +362,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -351,6 +375,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -363,6 +388,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -375,6 +401,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -383,9 +410,21 @@
                     <option value="Pingüinos">🐧 Pingüinos</option>
                 </select>
             </div>
-            <button onclick="addToOrder('Maxi Mix', 60, 'Naturales')" id="maxiNaturales">Naturales - $60</button>
-            <button onclick="addToOrder('Maxi Mix', 70, 'Ahogadas')" id="maxiAhogadas">Ahogadas - $70</button>
-            <button onclick="addToOrder('Maxi Mix', 80, 'Empanizadas')" id="maxiEmpanizadas">Empanizadas - $80</button>
+            <div>
+                <select id="maxiVariety" onchange="updateVariety('maxi')">
+                    <option value="">Selecciona Variedad</option>
+                    <option value="Naturales">Naturales - $60</option>
+                    <option value="Ahogadas">Ahogadas - $70</option>
+                    <option value="Empanizadas">Empanizadas - $80</option>
+                </select>
+            </div>
+            <div>
+                <select id="maxiApple" onchange="updateAppleExtra('maxi')">
+                    <option value="No">Manzana con chamoy: No</option>
+                    <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
+                </select>
+            </div>
+            <button onclick="addToOrder('Maxi Mix')" id="maxiAdd">Agregar a Pedidos</button>
         </div>
 
         <!-- Mega Deluxe -->
@@ -397,6 +436,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -409,6 +449,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -421,6 +462,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -433,6 +475,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -445,6 +488,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -457,6 +501,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -469,6 +514,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -481,6 +527,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -493,6 +540,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -505,6 +553,7 @@
                     <option value="Corazones">❤️ Corazones</option>
                     <option value="Xtreme">🔥 Xtreme</option>
                     <option value="Aros de Durazno">🍑 Aros de Durazno</option>
+                    <option value="Aros de Manzana">🍏 Aros de Manzana</option>
                     <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
                     <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
                     <option value="Manguitos">🥭 Manguitos</option>
@@ -513,9 +562,21 @@
                     <option value="Pingüinos">🐧 Pingüinos</option>
                 </select>
             </div>
-            <button onclick="addToOrder('Mega Deluxe', 160, 'Naturales')" id="megaNaturales">Naturales - $160</button>
-            <button onclick="addToOrder('Mega Deluxe', 170, 'Ahogadas')" id="megaAhogadas">Ahogadas - $170</button>
-            <button onclick="addToOrder('Mega Deluxe', 180, 'Empanizadas')" id="megaEmpanizadas">Empanizadas - $180</button>
+            <div>
+                <select id="megaVariety" onchange="updateVariety('mega')">
+                    <option value="">Selecciona Variedad</option>
+                    <option value="Naturales">Naturales - $160</option>
+                    <option value="Ahogadas">Ahogadas - $170</option>
+                    <option value="Empanizadas">Empanizadas - $180</option>
+                </select>
+            </div>
+            <div>
+                <select id="megaApple" onchange="updateAppleExtra('mega')">
+                    <option value="No">Manzana con chamoy: No</option>
+                    <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
+                </select>
+            </div>
+            <button onclick="addToOrder('Mega Deluxe')" id="megaAdd">Agregar a Pedidos</button>
         </div>
     </section>
 
@@ -537,10 +598,22 @@
             maxi: new Set(),
             mega: new Set()
         };
-        const limits = { mini: 4, deluxe: 5, maxi: 6, mega: 10 };
+        let varieties = {
+            mini: '',
+            deluxe: '',
+            maxi: '',
+            mega: ''
+        };
+        let appleExtras = {
+            mini: 'No',
+            deluxe: 'Sí', // Incluida por defecto
+            maxi: 'No',
+            mega: 'No'
+        };
 
         function updateSelection(tray, index) {
             const select = document.getElementById(`${tray}Gummies${index}`);
+            const limits = { mini: 4, deluxe: 5, maxi: 6, mega: 10 };
             const limit = limits[tray];
 
             if (select.value && !selectedGummies[tray].has(select.value)) {
@@ -581,29 +654,61 @@
         }
 
         function disableRemainingSelects(tray, index) {
+            const limits = { mini: 4, deluxe: 5, maxi: 6, mega: 10 };
             for (let i = index + 1; i <= limits[tray]; i++) {
                 const select = document.getElementById(`${tray}Gummies${i}`);
                 if (select) select.disabled = true;
             }
         }
 
-        function addToOrder(name, price, variety) {
+        function updateVariety(tray) {
+            const select = document.getElementById(`${tray}Variety`);
+            varieties[tray] = select.value;
+        }
+
+        function updateAppleExtra(tray) {
+            const select = document.getElementById(`${tray}Apple`);
+            if (select) appleExtras[tray] = select.value;
+        }
+
+        function addToOrder(name) {
             const trayId = name.toLowerCase().replace(/ /g, '').replace(/deluxe/g, 'deluxe');
-            const trayType = trayId.replace(/[A-Za-z]*$/, '');
-            let quantities = Array.from(selectedGummies[trayType]);
+            const tray = trayId.replace(/[A-Za-z]*$/, '');
+            let quantities = Array.from(selectedGummies[tray]);
+            let price = 0;
+            let variety = varieties[tray];
+            let extraPrice = 0;
 
             if (quantities.length === 0) {
                 alert("Por favor, selecciona al menos un tipo de gomita.");
                 return;
             }
+            if (!variety) {
+                alert("Por favor, selecciona una variedad (Naturales, Ahogadas o Empanizadas).");
+                return;
+            }
+
+            // Determinar precio base según variedad
+            const priceMap = {
+                'mini': { 'Naturales': 40, 'Ahogadas': 50, 'Empanizadas': 60 },
+                'deluxe': { 'Naturales': 90, 'Ahogadas': 100, 'Empanizadas': 110 },
+                'maxi': { 'Naturales': 60, 'Ahogadas': 70, 'Empanizadas': 80 },
+                'mega': { 'Naturales': 160, 'Ahogadas': 170, 'Empanizadas': 180 }
+            };
+            price = priceMap[tray][variety];
+
+            // Ajustar precio si incluye manzana extra (excepto Charola Deluxe)
+            if (tray !== 'deluxe' && appleExtras[tray] === 'Sí') {
+                extraPrice = 15;
+            }
 
             const order = {
                 name: name,
-                price: parseFloat(price),
+                price: price + extraPrice,
                 variety: variety,
                 category: 'charola',
                 quantities: quantities,
-                hasApple: trayType === 'deluxe'
+                hasApple: (tray !== 'deluxe' && appleExtras[tray] === 'Sí') || (tray === 'deluxe')
             };
 
             orders.push(order);
