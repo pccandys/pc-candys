@@ -20,12 +20,25 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #d32f2f;
+            position: relative;
         }
         .logo {
-            font-size: 24px;
+            font-size: 4vw;
             font-weight: bold;
             color: white;
             margin-left: 10px;
+        }
+        .page-space {
+            margin-right: 10px;
+        }
+        .menu-toggle {
+            font-size: 4vw;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: none;
+            margin-right: 10px;
         }
         .nav-menu {
             list-style: none;
@@ -35,12 +48,22 @@
             align-items: center;
         }
         .nav-menu li {
-            margin-left: 20px;
+            margin-left: 2vw;
         }
         .nav-menu a {
             color: white;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 3vw;
+        }
+        .nav-menu.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #f44336;
+            padding: 10px 0;
         }
         .order-section {
             padding: 20px;
@@ -48,7 +71,7 @@
         }
         .order-section h1 {
             color: #1e88e5;
-            font-size: 32px;
+            font-size: 5vw;
             margin-bottom: 20px;
         }
         .order-form {
@@ -61,21 +84,21 @@
         }
         .order-form label {
             display: block;
-            font-size: 16px;
+            font-size: 2.5vw;
             margin-bottom: 10px;
             color: #1e88e5;
         }
         .order-form input, .order-form select {
             width: 90%;
-            padding: 8px;
+            padding: 1.5vw;
             margin-bottom: 15px;
-            font-size: 14px;
+            font-size: 2.5vw;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
         #map {
             width: 90%;
-            height: 400px;
+            height: 200px;
             margin: 15px auto;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -84,9 +107,9 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 1.5vw 3vw;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 2.5vw;
             cursor: pointer;
         }
         .order-form button:hover {
@@ -106,13 +129,13 @@
             align-items: center;
         }
         #orderItems .order-item p {
-            font-size: 14px;
+            font-size: 2vw;
             margin: 0;
         }
         #orderItems .order-item button {
             background-color: #f44336;
-            padding: 6px 12px;
-            font-size: 12px;
+            padding: 1vw 2vw;
+            font-size: 1.5vw;
             margin-left: 10px;
         }
         #orderItems .order-item button:hover {
@@ -126,7 +149,7 @@
             display: none;
         }
         #orderSummary p {
-            font-size: 14px;
+            font-size: 2.5vw;
             margin: 10px 0;
         }
         footer {
@@ -140,11 +163,13 @@
             color: white;
             margin: 0 20px;
             text-decoration: none;
-            font-size: 24px;
+            font-size: 4vw;
         }
         @media (max-width: 767px) {
-            .logo { font-size: 4vw; }
+            .menu-toggle { display: block; }
             .nav-menu { display: none; }
+            .nav-menu li { margin: 2vw 0; }
+            .logo { font-size: 4vw; }
             .order-section h1 { font-size: 5vw; }
             .order-form label { font-size: 2.5vw; }
             .order-form input, .order-form select { font-size: 2.5vw; padding: 1.5vw; }
@@ -155,11 +180,28 @@
             #map { height: 200px; }
             .social-icons a { font-size: 4vw; }
         }
+        @media (min-width: 768px) {
+            .logo { font-size: 24px; }
+            .nav-menu { display: flex; }
+            .nav-menu li { margin-left: 20px; }
+            .nav-menu a { font-size: 16px; }
+            .order-section h1 { font-size: 32px; }
+            .order-form label { font-size: 16px; }
+            .order-form input, .order-form select { font-size: 14px; padding: 8px; }
+            .order-form button { font-size: 14px; padding: 10px 20px; }
+            #orderItems .order-item p { font-size: 14px; }
+            #orderItems .order-item button { font-size: 12px; padding: 6px 12px; }
+            #orderSummary p { font-size: 14px; }
+            #map { height: 400px; }
+            .social-icons a { font-size: 24px; }
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">🍭 P&C Candys</div>
+        <div class="page-space"></div>
+        <button class="menu-toggle">☰</button>
         <ul class="nav-menu">
             <li><a href="index.html">Inicio</a></li>
             <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
