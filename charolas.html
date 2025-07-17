@@ -100,6 +100,10 @@
             background-color: #f0f0f0;
             cursor: not-allowed;
         }
+        .menu-item .selected-gummies p {
+            font-size: 2vw; /* Tamaño de fuente reducido para gomitas seleccionadas */
+            margin: 0.5vw 0;
+        }
         .menu-item button {
             background-color: #4CAF50;
             color: white;
@@ -139,6 +143,7 @@
             .menu-section h1 { font-size: 32px; }
             .menu-item h3 { font-size: 18px; }
             .menu-item select { font-size: 14px; padding: 8px; }
+            .menu-item .selected-gummies p { font-size: 12px; } /* Tamaño ajustado para desktop */
             .menu-item button { font-size: 14px; padding: 10px 20px; margin: 10px; }
             .nav-menu a { font-size: 16px; }
             .social-icons a { font-size: 24px; }
@@ -179,7 +184,7 @@
                 <option value="Delfines">🐬 Delfines</option>
                 <option value="Pingüinos">🐧 Pingüinos</option>
             </select>
-            <div id="miniSelected"></div>
+            <div id="miniSelected" class="selected-gummies"></div>
             <select id="miniApple" onchange="updateAppleExtra('mini')">
                 <option value="No">Manzana con chamoy: No</option>
                 <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
@@ -204,7 +209,7 @@
                 <option value="Delfines">🐬 Delfines</option>
                 <option value="Pingüinos">🐧 Pingüinos</option>
             </select>
-            <div id="deluxeSelected"></div>
+            <div id="deluxeSelected" class="selected-gummies"></div>
             <button onclick="addToOrder('Charola Deluxe', 90, 'Naturales')" id="deluxeNaturales">Naturales - $90</button>
             <button onclick="addToOrder('Charola Deluxe', 100, 'Ahogadas')" id="deluxeAhogadas">Ahogadas - $100</button>
             <button onclick="addToOrder('Charola Deluxe', 110, 'Empanizadas')" id="deluxeEmpanizadas">Empanizadas - $110</button>
@@ -224,7 +229,7 @@
                 <option value="Delfines">🐬 Delfines</option>
                 <option value="Pingüinos">🐧 Pingüinos</option>
             </select>
-            <div id="maxiSelected"></div>
+            <div id="maxiSelected" class="selected-gummies"></div>
             <select id="maxiApple" onchange="updateAppleExtra('maxi')">
                 <option value="No">Manzana con chamoy: No</option>
                 <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
@@ -249,7 +254,7 @@
                 <option value="Delfines">🐬 Delfines</option>
                 <option value="Pingüinos">🐧 Pingüinos</option>
             </select>
-            <div id="megaSelected"></div>
+            <div id="megaSelected" class="selected-gummies"></div>
             <select id="megaApple" onchange="updateAppleExtra('mega')">
                 <option value="No">Manzana con chamoy: No</option>
                 <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
