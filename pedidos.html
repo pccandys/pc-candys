@@ -27,7 +27,9 @@
             color: white;
             margin-left: 10px;
         }
-        .page-space { margin-right: 10px; }
+        .page-space {
+            margin-right: 10px;
+        }
         .menu-toggle {
             font-size: 4vw;
             background: none;
@@ -39,11 +41,14 @@
         }
         .nav-menu {
             list-style: none;
-            padding: 0; margin: 0;
+            padding: 0;
+            margin: 0;
             display: flex;
             align-items: center;
         }
-        .nav-menu li { margin-left: 2vw; }
+        .nav-menu li {
+            margin-left: 2vw;
+        }
         .nav-menu a {
             color: white;
             text-decoration: none;
@@ -53,7 +58,8 @@
             display: flex;
             flex-direction: column;
             position: absolute;
-            top: 100%; left: 0;
+            top: 100%;
+            left: 0;
             width: 100%;
             background-color: #f44336;
             padding: 10px 0;
@@ -107,8 +113,9 @@
             font-size: 2.5vw;
             cursor: pointer;
         }
-        .order-form button:hover { background-color: #45a049; }
-
+        .order-form button:hover {
+            background-color: #45a049;
+        }
         #orderItems {
             margin: 2vw 0;
             text-align: left;
@@ -125,16 +132,18 @@
             font-size: 2.5vw;
             margin: 1vw 0;
         }
-        #orderItems ol {
+        #orderItems ul {
             padding-left: 1.5em;
         }
         #orderItems li {
             margin-bottom: 1vw;
             font-size: 2.5vw;
-            list-style: decimal;
-            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: disc inside;
         }
-        #orderItems li .remove-btn {
+        #orderItems li button {
             background: #f44336;
             border: none;
             color: white;
@@ -146,17 +155,6 @@
             line-height: 1;
             margin-left: 1em;
         }
-        #orderItems li ul {
-            margin-top: 0.5em;
-            margin-left: 1.5em;
-            list-style: disc;
-        }
-        #orderItems li ul li {
-            font-size: 2.3vw;
-            list-style: disc;
-            margin-bottom: 0.3em;
-        }
-
         #orderSummary {
             margin-top: 3vw;
             background-color: #f9f9f9;
@@ -172,29 +170,6 @@
             font-size: 2.5vw;
             margin: 1vw 0;
         }
-        #orderSummary ol {
-            margin: 1em 0 0 1.5em;
-            padding-left: 1.2em;
-        }
-        #orderSummary ol > li {
-            margin-bottom: 0.8em;
-            font-size: 2.5vw;
-        }
-        #orderSummary ol > li ul {
-            margin-top: 0.3em;
-            margin-left: 1.2em;
-            list-style: disc;
-        }
-        #orderSummary ol > li ul li {
-            font-size: 2.3vw;
-            margin-bottom: 0.2em;
-        }
-        #orderSummary .note {
-            font-size: 2.3vw;
-            margin-top: 1.5em;
-            color: #555;
-        }
-
         footer {
             background-color: #1976d2;
             color: white;
@@ -209,18 +184,33 @@
             text-decoration: none;
             font-size: 4vw;
         }
-
         @media (max-width: 767px) {
-            .menu-toggle { display: block; }
-            .nav-menu { display: none; }
-            .nav-menu li { margin: 2vw 0; }
-            #map { height: 200px; }
+            .menu-toggle {
+                display: block;
+            }
+            .nav-menu {
+                display: none;
+            }
+            .nav-menu li {
+                margin: 2vw 0;
+            }
+            #map {
+                height: 200px;
+            }
         }
         @media (min-width: 768px) {
-            .logo { font-size: 24px; }
-            .page-space { font-size: 16px; }
-            .order-section h1 { font-size: 32px; }
-            .order-form label { font-size: 16px; }
+            .logo {
+                font-size: 24px;
+            }
+            .page-space {
+                font-size: 16px;
+            }
+            .order-section h1 {
+                font-size: 32px;
+            }
+            .order-form label {
+                font-size: 16px;
+            }
             .order-form input,
             .order-form select {
                 font-size: 14px;
@@ -230,15 +220,22 @@
                 font-size: 14px;
                 padding: 10px 20px;
             }
-            #orderItems h3 { font-size: 18px; }
+            #orderItems h3 {
+                font-size: 18px;
+            }
             #orderItems p,
-            #orderSummary p { font-size: 14px; }
-            #map { height: 400px; }
-            .nav-menu a { font-size: 16px; }
-            .social-icons a { font-size: 24px; }
-            #orderSummary ol > li,
-            #orderSummary ol > li ul li { font-size: 14px; }
-            #orderSummary .note { font-size: 13px; }
+            #orderSummary p {
+                font-size: 14px;
+            }
+            #map {
+                height: 400px;
+            }
+            .nav-menu a {
+                font-size: 16px;
+            }
+            .social-icons a {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
@@ -311,57 +308,43 @@
             initMap();
         };
 
-        /* ------------------------------
-           Actualiza la lista visible de productos seleccionados (top de la página)
-        --------------------------------*/
         function updateOrderList() {
             const orderList = document.getElementById('orderList');
             const orderItemsDiv = document.getElementById('orderItems');
-
-            orderItemsDiv.style.display = 'block';
-
-            if (orders.length === 0) {
+            if (orders.length > 0) {
+                orderItemsDiv.style.display = 'block';
+                let ul = document.createElement('ul');
+                orders.forEach((item, index) => {
+                    let li = document.createElement('li');
+                    let text = `${item.name}`;
+                    if (item.variety) text += ` (${item.variety})`;
+                    text += ` - $${item.price}`;
+                    li.textContent = text;
+                    if (item.gomitas && item.gomitas.length > 0) {
+                        let ulGomitas = document.createElement('ul');
+                        ulGomitas.style.marginLeft = '1.2em';
+                        ulGomitas.style.listStyleType = 'circle';
+                        item.gomitas.forEach(gomita => {
+                            let liGomita = document.createElement('li');
+                            liGomita.textContent = gomita;
+                            ulGomitas.appendChild(liGomita);
+                        });
+                        li.appendChild(ulGomitas);
+                    }
+                    let btnDelete = document.createElement('button');
+                    btnDelete.textContent = '×';
+                    btnDelete.onclick = () => {
+                        removeOrderItem(index);
+                    };
+                    li.appendChild(btnDelete);
+                    ul.appendChild(li);
+                });
+                orderList.innerHTML = '';
+                orderList.appendChild(ul);
+            } else {
+                orderItemsDiv.style.display = 'block';
                 orderList.textContent = 'No has seleccionado productos aún.';
-                return;
             }
-
-            // Lista numerada
-            const ol = document.createElement('ol');
-            orders.forEach((item, index) => {
-                const li = document.createElement('li');
-
-                // Texto básico
-                let text = `${item.name}`;
-                if (item.variety) text += ` (${item.variety})`;
-                text += ` - $${item.price}`;
-                li.appendChild(document.createTextNode(text));
-
-                // Lista de gomitas
-                if (item.gomitas && item.gomitas.length > 0) {
-                    const ulGomitas = document.createElement('ul');
-                    ulGomitas.style.listStyleType = 'disc';
-                    item.gomitas.forEach(g => {
-                        const liG = document.createElement('li');
-                        liG.textContent = g;
-                        ulGomitas.appendChild(liG);
-                    });
-                    li.appendChild(ulGomitas);
-                }
-
-                // Botón eliminar
-                const btnDelete = document.createElement('button');
-                btnDelete.textContent = '×';
-                btnDelete.title = 'Eliminar producto';
-                btnDelete.className = 'remove-btn';
-                btnDelete.onclick = () => removeOrderItem(index);
-                li.appendChild(btnDelete);
-
-                ol.appendChild(li);
-            });
-
-            // Reemplazar contenido
-            orderList.innerHTML = '';
-            orderList.appendChild(ol);
         }
 
         function removeOrderItem(index) {
@@ -370,35 +353,26 @@
             updateOrderList();
         }
 
-        /* ------------------------------
-           Mapa
-        --------------------------------*/
         function initMap() {
             const latInput = document.getElementById('latitud');
             const lngInput = document.getElementById('longitud');
-
-            let lat = 19.4326;    // CDMX default
+            let lat = 19.4326;
             let lng = -99.1332;
-
             if (latInput.value && lngInput.value) {
                 lat = parseFloat(latInput.value);
                 lng = parseFloat(lngInput.value);
             }
-
             map = L.map('map').setView([lat, lng], 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '© OpenStreetMap contributors',
             }).addTo(map);
-
             marker = L.marker([lat, lng], { draggable: true }).addTo(map);
-
-            marker.on('dragend', function () {
+            marker.on('dragend', function (e) {
                 const latlng = marker.getLatLng();
                 latInput.value = latlng.lat.toFixed(6);
                 lngInput.value = latlng.lng.toFixed(6);
             });
-
             map.on('click', function (e) {
                 marker.setLatLng(e.latlng);
                 latInput.value = e.latlng.lat.toFixed(6);
@@ -407,31 +381,27 @@
         }
 
         function getLocation() {
-            if (!navigator.geolocation) {
-                alert('Geolocalización no soportada por este navegador. Selecciona manualmente en el mapa.');
-                return;
-            }
-            navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
-                    document.getElementById('latitud').value = lat.toFixed(6);
-                    document.getElementById('longitud').value = lng.toFixed(6);
-
-                    if (map) {
-                        map.setView([lat, lng], 13);
-                        marker.setLatLng([lat, lng]);
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        document.getElementById('latitud').value = lat.toFixed(6);
+                        document.getElementById('longitud').value = lng.toFixed(6);
+                        if (map) {
+                            map.setView([lat, lng], 13);
+                            marker.setLatLng([lat, lng]);
+                        }
+                    },
+                    function (error) {
+                        alert('No se pudo obtener tu ubicación. Selecciona manualmente en el mapa.');
                     }
-                },
-                function (error) {
-                    alert('No se pudo obtener tu ubicación. Por favor, selecciona manualmente en el mapa. Error: ' + error.message);
-                }
-            );
+                );
+            } else {
+                alert('Geolocalización no soportada por este navegador.');
+            }
         }
 
-        /* ------------------------------
-           Enviar pedido por WhatsApp
-        --------------------------------*/
         function submitOrder() {
             const orderDate = document.getElementById('orderDate').value;
             const address = document.getElementById('address').value.trim();
@@ -441,80 +411,56 @@
             const phone = document.getElementById('phone').value.trim();
             const paymentMethod = document.getElementById('paymentMethod').value;
 
-            // Validaciones básicas
             if (!orderDate || !address || !latitude || !longitude || !clientName || !phone || !paymentMethod) {
-                alert('Por favor, completa todos los campos obligatorios y selecciona una ubicación.');
+                alert('Completa todos los campos y selecciona ubicación.');
                 return;
             }
+
             if (orders.length === 0) {
-                alert('No has seleccionado productos para tu pedido.');
+                alert('No has seleccionado productos.');
                 return;
             }
 
-            const total = orders
-                .reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0)
-                .toFixed(2);
+            const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
 
-            /* ---- Detalles de productos (para WhatsApp texto plano) ---- */
             let productDetails = '';
             orders.forEach((item, index) => {
-                let line = `${index + 1}. ${item.name} (${item.variety || 'No especificado'}) - $${item.price}`;
+                productDetails += `${index + 1}. ${item.name} (${item.variety || 'No especificado'}) - $${item.price}\n`;
                 if (item.gomitas && item.gomitas.length > 0) {
-                    line += `\n   ${item.gomitas.map(g => '• ' + g).join('\n   ')}`;
+                    item.gomitas.forEach(g => {
+                        productDetails += `   • ${g}\n`;
+                    });
                 }
-                productDetails += line + '\n';
             });
 
-            /* ---- Mensaje para WhatsApp ---- */
-            const message =
-                `Nuevo Pedido - P&C Candys%0A%0A` +
-                `Fecha de entrega: ${orderDate}%0A` +
-                `Dirección: ${address}%0A` +
-                `Ubicación: https://www.google.com/maps?q=${latitude},${longitude}%0A` +
-                `Nombre: ${clientName}%0A` +
-                `Teléfono: ${phone}%0A` +
-                `Método de pago: ${paymentMethod}%0A%0A` +
-                `Productos seleccionados:%0A${productDetails.trim().replace(/\n/g, '%0A')}%0A` +
-                `Total: $${total}%0A%0A` +
-                `Nota: El costo de envío se indicará al confirmar el pedido.`;
+            let messageText =
+`Nuevo Pedido - P&C Candys
 
+Fecha de entrega: ${orderDate}
+Dirección: ${address}
+Ubicación: https://www.google.com/maps?q=${latitude},${longitude}
+Nombre: ${clientName}
+Teléfono: ${phone}
+Método de pago: ${paymentMethod}
+
+Productos seleccionados:
+${productDetails}
+Total: $${total}
+
+Nota: El costo de envío se indicará al confirmar el pedido.`;
+
+            const encodedMessage = encodeURIComponent(messageText);
             const whatsappNumber = "524481012425";
-            const url = `https://wa.me/${whatsappNumber}?text=${message}`;
+            const url = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-            /* ---- Resumen en pantalla (HTML con bullets) ---- */
             const orderSummary = document.getElementById('orderSummary');
             orderSummary.style.display = 'block';
-
-            // Construir lista HTML numerada + bullets
-            let listHTML = '<ol>';
-            orders.forEach((item, index) => {
-                listHTML += `<li>${item.name} (${item.variety || 'No especificado'}) - $${item.price}`;
-                if (item.gomitas && item.gomitas.length > 0) {
-                    listHTML += '<ul>';
-                    item.gomitas.forEach(g => {
-                        listHTML += `<li>&bull; ${g}</li>`;
-                    });
-                    listHTML += '</ul>';
-                }
-                listHTML += '</li>';
-            });
-            listHTML += '</ol>';
-
             orderSummary.innerHTML =
                 `<p><strong>Resumen de tu pedido:</strong></p>` +
-                `<p>Fecha de entrega: ${orderDate}</p>` +
-                `<p>Dirección: ${address}</p>` +
-                `<p>Nombre: ${clientName}</p>` +
-                `<p>Teléfono: ${phone}</p>` +
-                `<p>Método de pago: ${paymentMethod}</p>` +
-                `<p>Productos seleccionados:</p>` +
-                listHTML +
-                `<p><strong>Total: $${total}</strong></p>` +
-                `<p class="note">Nota: El costo de envío se confirmará cuando respondamos tu mensaje.</p>` +
-                `<p><a href="${url}" target="_blank" style="color: #4caf50; text-decoration: underline;">Enviar pedido por WhatsApp</a></p>`;
+                `<p>${messageText.replace(/\n/g, '<br>')}</p>` +
+                `<p><a href="${url}" target="_blank" style="color: #4caf50;">Enviar pedido por WhatsApp</a></p>`;
         }
 
-        // Toggle menú para móvil
         document.querySelector('.menu-toggle').addEventListener('click', () => {
             document.querySelector('.nav-menu').classList.toggle('active');
         });
