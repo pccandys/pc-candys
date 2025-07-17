@@ -351,16 +351,20 @@
             const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
 
             const message = `
-Pedido programado para: ${orderDate}
-Entrega en: ${address}
+Gracias por tu pedido con P&C Candys.
+Aquí están los detalles:
+
+Fecha: ${orderDate}
+Entrega: ${address}
 Mapa: ${mapLink}
-Total: $${total}
 Nombre: ${clientName}
-Número de teléfono: ${phone}
+Teléfono: ${phone}
 Método de pago: ${paymentMethod}
-${productDetails}
-Gracias por tu pedido
-Ubicación en tiempo real del cliente para que nosotros lleguemos al lugar exacto: Lat ${latitude}, Long ${longitude}
+Total: $${total}
+${productDetails ? productDetails + '\n' : ''}
+
+Nos aseguraremos de preparar tu pedido con la mayor dedicación y cuidado, porque cada detalle importa para nosotros.
+Gracias por confiar en P&C Candys, ¡estamos trabajando para endulzar tu día!
             `.trim();
 
             console.log("Mensaje sin codificar: ", message); // Depuración
