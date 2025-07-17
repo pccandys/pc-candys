@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Charolas - P&C Candys</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,12 +20,25 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #d32f2f;
+            position: relative;
         }
         .logo {
-            font-size: 24px;
+            font-size: 4vw;
             font-weight: bold;
             color: white;
             margin-left: 10px;
+        }
+        .page-space {
+            margin-right: 10px;
+        }
+        .menu-toggle {
+            font-size: 4vw;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: none;
+            margin-right: 10px;
         }
         .nav-menu {
             list-style: none;
@@ -34,93 +48,117 @@
             align-items: center;
         }
         .nav-menu li {
-            margin-left: 20px;
+            margin-left: 2vw;
         }
         .nav-menu a {
             color: white;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 3vw;
+        }
+        .nav-menu.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #f44336;
+            padding: 10px 0;
         }
         .menu-section {
-            padding: 20px;
+            padding: 5vw;
             text-align: center;
         }
         .menu-section h1 {
             color: #1e88e5;
-            font-size: 32px;
-            margin-bottom: 20px;
+            font-size: 5vw;
+            margin-bottom: 2vw;
         }
         .menu-item {
             background-color: white;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 600px;
+            padding: 3vw;
+            margin: 2vw auto;
+            max-width: 90vw;
             border-radius: 5px;
             border: 1px solid #ddd;
             text-align: left;
         }
         .menu-item h3 {
-            font-size: 18px;
+            font-size: 3vw;
             color: #1e88e5;
-            margin-bottom: 10px;
+            margin-bottom: 1vw;
         }
-        .menu-item select {
-            width: 90%;
-            padding: 8px;
-            margin: 10px 0;
-            font-size: 14px;
+        .menu-item .gummy-select {
+            margin: 1vw 0;
+        }
+        .menu-item .gummy-select label {
+            display: inline-block;
+            margin-right: 2vw;
+            font-size: 2.5vw;
+        }
+        .menu-item .gummy-select input {
+            width: 5vw;
+            padding: 1vw;
+            font-size: 2.5vw;
             border: 1px solid #ddd;
             border-radius: 5px;
-        }
-        .menu-item select:disabled {
-            background-color: #f0f0f0;
-            cursor: not-allowed;
-        }
-        .menu-item .selected-gummies p {
-            font-size: 12px;
-            margin: 5px 0;
+            text-align: center;
         }
         .menu-item button {
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 2vw 4vw;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 2.5vw;
             cursor: pointer;
-            margin: 8px;
+            margin: 1vw 1vw;
+            display: inline-block;
         }
         .menu-item button:hover {
             background-color: #45a049;
         }
+        .menu-item button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
         footer {
             background-color: #1976d2;
             color: white;
-            padding: 20px;
+            padding: 3vw;
             text-align: center;
-            margin-top: 50px;
+            margin-top: 5vw;
+            margin-bottom: 0;
         }
         .social-icons a {
             color: white;
-            margin: 0 20px;
+            margin: 0 2vw;
             text-decoration: none;
-            font-size: 24px;
+            font-size: 4vw;
         }
         @media (max-width: 767px) {
-            .logo { font-size: 4vw; }
+            .menu-toggle { display: block; }
             .nav-menu { display: none; }
-            .menu-section h1 { font-size: 5vw; }
-            .menu-item h3 { font-size: 3vw; }
-            .menu-item select { font-size: 2.5vw; padding: 1.5vw; }
-            .menu-item .selected-gummies p { font-size: 2vw; }
-            .menu-item button { font-size: 2vw; padding: 1.5vw 3vw; margin: 1vw; }
-            .social-icons a { font-size: 4vw; }
+            .nav-menu li { margin: 2vw 0; }
+        }
+        @media (min-width: 768px) {
+            .logo { font-size: 24px; }
+            .page-space { font-size: 16px; }
+            .menu-section h1 { font-size: 32px; }
+            .menu-item h3 { font-size: 18px; }
+            .menu-item .gummy-select label { font-size: 14px; }
+            .menu-item .gummy-select input { font-size: 14px; padding: 5px; width: 40px; }
+            .menu-item button { font-size: 14px; padding: 10px 20px; margin: 10px; }
+            .nav-menu a { font-size: 16px; }
+            .social-icons a { font-size: 24px; }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">🍭 P&C Candys</div>
+        <div class="page-space"></div>
+        <button class="menu-toggle">☰</button>
         <ul class="nav-menu">
             <li><a href="index.html">Inicio</a></li>
             <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
@@ -136,96 +174,80 @@
         <h1>🍭 MENÚ 2: CHAROLAS</h1>
         <div class="menu-item">
             <h3>Mini Mix</h3>
-            <p>Máximo 4 tipos de gomitas</p>
-            <select id="miniGummies" onchange="updateSelection('mini')">
-                <option value="">Selecciona un tipo de gomita</option>
-                <option value="Corazones">❤️ Corazones</option>
-                <option value="Xtreme">🔥 Xtreme</option>
-                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                <option value="Manguitos">🥭 Manguitos</option>
-                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                <option value="Delfines">🐬 Delfines</option>
-                <option value="Pingüinos">🐧 Pingüinos</option>
-            </select>
-            <div id="miniSelected" class="selected-gummies"></div>
-            <select id="miniApple" onchange="updateAppleExtra('mini')">
-                <option value="No">Manzana con chamoy: No</option>
-                <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
-            </select>
-            <button onclick="addToOrder('Mini Mix', 40, 'Naturales')">Naturales - $40</button>
-            <button onclick="addToOrder('Mini Mix', 50, 'Ahogadas')">Ahogadas - $50</button>
-            <button onclick="addToOrder('Mini Mix', 60, 'Empanizadas')">Empanizadas - $60</button>
+            <p>Selecciona la cantidad de cada tipo de gomita</p>
+            <div class="gummy-select">
+                <label>❤️ Corazones:</label><input type="number" id="miniCorazones" min="0" value="0">
+                <label>🔥 Xtreme:</label><input type="number" id="miniXtreme" min="0" value="0">
+                <label>🍑 Aros de Durazno:</label><input type="number" id="miniDurazno" min="0" value="0">
+                <label>🍏 Aros de Manzana:</label><input type="number" id="miniManzana" min="0" value="0">
+                <label>🍓 Frutas Enchiladas:</label><input type="number" id="miniFrutas" min="0" value="0">
+                <label>🐛 Orugas y Panditas:</label><input type="number" id="miniOrugas" min="0" value="0">
+                <label>🥭 Manguitos:</label><input type="number" id="miniManguitos" min="0" value="0">
+                <label>🍊 Gajos de Naranja:</label><input type="number" id="miniNaranja" min="0" value="0">
+                <label>🐬 Delfines:</label><input type="number" id="miniDelfines" min="0" value="0">
+                <label>🐧 Pingüinos:</label><input type="number" id="miniPinguinos" min="0" value="0">
+            </div>
+            <button onclick="addToOrder('Mini Mix', 40, 'Naturales')" id="miniNaturales">Naturales - $40</button>
+            <button onclick="addToOrder('Mini Mix', 50, 'Ahogadas')" id="miniAhogadas">Ahogadas - $50</button>
+            <button onclick="addToOrder('Mini Mix', 60, 'Empanizadas')" id="miniEmpanizadas">Empanizadas - $60</button>
 
             <h3>Charola Deluxe</h3>
             <p>5 tipos + 1 Manzana con chamoy (incluida)</p>
-            <select id="deluxeGummies" onchange="updateSelection('deluxe')">
-                <option value="">Selecciona un tipo de gomita</option>
-                <option value="Corazones">❤️ Corazones</option>
-                <option value="Xtreme">🔥 Xtreme</option>
-                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                <option value="Manguitos">🥭 Manguitos</option>
-                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                <option value="Delfines">🐬 Delfines</option>
-                <option value="Pingüinos">🐧 Pingüinos</option>
-            </select>
-            <div id="deluxeSelected" class="selected-gummies"></div>
-            <button onclick="addToOrder('Charola Deluxe', 90, 'Naturales')">Naturales - $90</button>
-            <button onclick="addToOrder('Charola Deluxe', 100, 'Ahogadas')">Ahogadas - $100</button>
-            <button onclick="addToOrder('Charola Deluxe', 110, 'Empanizadas')">Empanizadas - $110</button>
+            <div class="gummy-select">
+                <label>❤️ Corazones:</label><input type="number" id="deluxeCorazones" min="0" value="0">
+                <label>🔥 Xtreme:</label><input type="number" id="deluxeXtreme" min="0" value="0">
+                <label>🍑 Aros de Durazno:</label><input type="number" id="deluxeDurazno" min="0" value="0">
+                <label>🍏 Aros de Manzana:</label><input type="number" id="deluxeManzana" min="0" value="0">
+                <label>🍓 Frutas Enchiladas:</label><input type="number" id="deluxeFrutas" min="0" value="0">
+                <label>🐛 Orugas y Panditas:</label><input type="number" id="deluxeOrugas" min="0" value="0">
+                <label>🥭 Manguitos:</label><input type="number" id="deluxeManguitos" min="0" value="0">
+                <label>🍊 Gajos de Naranja:</label><input type="number" id="deluxeNaranja" min="0" value="0">
+                <label>🐬 Delfines:</label><input type="number" id="deluxeDelfines" min="0" value="0">
+                <label>🐧 Pingüinos:</label><input type="number" id="deluxePinguinos" min="0" value="0">
+            </div>
+            <button onclick="addToOrder('Charola Deluxe', 90, 'Naturales')" id="deluxeNaturales">Naturales - $90</button>
+            <button onclick="addToOrder('Charola Deluxe', 100, 'Ahogadas')" id="deluxeAhogadas">Ahogadas - $100</button>
+            <button onclick="addToOrder('Charola Deluxe', 110, 'Empanizadas')" id="deluxeEmpanizadas">Empanizadas - $110</button>
 
             <h3>Maxi Mix</h3>
-            <p>Máximo 6 tipos de gomitas</p>
-            <select id="maxiGummies" onchange="updateSelection('maxi')">
-                <option value="">Selecciona un tipo de gomita</option>
-                <option value="Corazones">❤️ Corazones</option>
-                <option value="Xtreme">🔥 Xtreme</option>
-                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                <option value="Manguitos">🥭 Manguitos</option>
-                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                <option value="Delfines">🐬 Delfines</option>
-                <option value="Pingüinos">🐧 Pingüinos</option>
-            </select>
-            <div id="maxiSelected" class="selected-gummies"></div>
-            <select id="maxiApple" onchange="updateAppleExtra('maxi')">
-                <option value="No">Manzana con chamoy: No</option>
-                <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
-            </select>
-            <button onclick="addToOrder('Maxi Mix', 60, 'Naturales')">Naturales - $60</button>
-            <button onclick="addToOrder('Maxi Mix', 70, 'Ahogadas')">Ahogadas - $70</button>
-            <button onclick="addToOrder('Maxi Mix', 80, 'Empanizadas')">Empanizadas - $80</button>
+            <p>Selecciona la cantidad de cada tipo de gomita</p>
+            <div class="gummy-select">
+                <label>❤️ Corazones:</label><input type="number" id="maxiCorazones" min="0" value="0">
+                <label>🔥 Xtreme:</label><input type="number" id="maxiXtreme" min="0" value="0">
+                <label>🍑 Aros de Durazno:</label><input type="number" id="maxiDurazno" min="0" value="0">
+                <label>🍏 Aros de Manzana:</label><input type="number" id="maxiManzana" min="0" value="0">
+                <label>🍓 Frutas Enchiladas:</label><input type="number" id="maxiFrutas" min="0" value="0">
+                <label>🐛 Orugas y Panditas:</label><input type="number" id="maxiOrugas" min="0" value="0">
+                <label>🥭 Manguitos:</label><input type="number" id="maxiManguitos" min="0" value="0">
+                <label>🍊 Gajos de Naranja:</label><input type="number" id="maxiNaranja" min="0" value="0">
+                <label>🐬 Delfines:</label><input type="number" id="maxiDelfines" min="0" value="0">
+                <label>🐧 Pingüinos:</label><input type="number" id="maxiPinguinos" min="0" value="0">
+            </div>
+            <button onclick="addToOrder('Maxi Mix', 60, 'Naturales')" id="maxiNaturales">Naturales - $60</button>
+            <button onclick="addToOrder('Maxi Mix', 70, 'Ahogadas')" id="maxiAhogadas">Ahogadas - $70</button>
+            <button onclick="addToOrder('Maxi Mix', 80, 'Empanizadas')" id="maxiEmpanizadas">Empanizadas - $80</button>
 
             <h3>Mega Deluxe</h3>
-            <p>Máximo 10 tipos de gomitas</p>
-            <select id="megaGummies" onchange="updateSelection('mega')">
-                <option value="">Selecciona un tipo de gomita</option>
-                <option value="Corazones">❤️ Corazones</option>
-                <option value="Xtreme">🔥 Xtreme</option>
-                <option value="Aros de Durazno">🍑 Aros de Durazno</option>
-                <option value="Aros de Manzana">🍏 Aros de Manzana</option>
-                <option value="Frutas Enchiladas">🍓 Frutas Enchiladas</option>
-                <option value="Orugas y Panditas">🐛 Orugas y Panditas</option>
-                <option value="Manguitos">🥭 Manguitos</option>
-                <option value="Gajos de Naranja">🍊 Gajos de Naranja</option>
-                <option value="Delfines">🐬 Delfines</option>
-                <option value="Pingüinos">🐧 Pingüinos</option>
-            </select>
-            <div id="megaSelected" class="selected-gummies"></div>
-            <select id="megaApple" onchange="updateAppleExtra('mega')">
-                <option value="No">Manzana con chamoy: No</option>
-                <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
-            </select>
-            <button onclick="addToOrder('Mega Deluxe', 160, 'Naturales')">Naturales - $160</button>
-            <button onclick="addToOrder('Mega Deluxe', 170, 'Ahogadas')">Ahogadas - $170</button>
-            <button onclick="addToOrder('Mega Deluxe', 180, 'Empanizadas')">Empanizadas - $180</button>
+            <p>Selecciona la cantidad de cada tipo de gomita</p>
+            <div class="gummy-select">
+                <label>❤️ Corazones:</label><input type="number" id="megaCorazones" min="0" value="0">
+                <label>🔥 Xtreme:</label><input type="number" id="megaXtreme" min="0" value="0">
+                <label>🍑 Aros de Durazno:</label><input type="number" id="megaDurazno" min="0" value="0">
+                <label>🍏 Aros de Manzana:</label><input type="number" id="megaManzana" min="0" value="0">
+                <label>🍓 Frutas Enchiladas:</label><input type="number" id="megaFrutas" min="0" value="0">
+                <label>🐛 Orugas y Panditas:</label><input type="number" id="megaOrugas" min="0" value="0">
+                <label>🥭 Manguitos:</label><input type="number" id="megaManguitos" min="0" value="0">
+                <label>🍊 Gajos de Naranja:</label><input type="number" id="megaNaranja" min="0" value="0">
+                <label>🐬 Delfines:</label><input type="number" id="megaDelfines" min="0" value="0">
+                <label>🐧 Pingüinos:</label><input type="number" id="megaPinguinos" min="0" value="0">
+            </div>
+            <button onclick="addToOrder('Mega Deluxe', 160, 'Naturales')" id="megaNaturales">Naturales - $160</button>
+            <button onclick="addToOrder('Mega Deluxe', 170, 'Ahogadas')" id="megaAhogadas">Ahogadas - $170</button>
+            <button onclick="addToOrder('Mega Deluxe', 180, 'Empanizadas')" id="megaEmpanizadas">Empanizadas - $180</button>
+
+            <h3>Extras</h3>
+            <p>Manzana con chamoy (opcional, +$15)</p>
+            <button onclick="addToOrder('Manzana con chamoy', 15, 'Extra')">Añadir Manzana - $15</button>
         </div>
     </section>
 
@@ -241,79 +263,36 @@
 
     <script>
         let orders = JSON.parse(localStorage.getItem('orders')) || [];
-        let selectedGummies = { mini: [], deluxe: [], maxi: [], mega: [] };
-        let appleExtras = { mini: 'No', deluxe: 'Sí', maxi: 'No', mega: 'No' }; // Charola Deluxe incluye manzana por defecto
 
-        function updateSelection(tray) {
-            const select = document.getElementById(`${tray}Gummies`);
-            const selectedDiv = document.getElementById(`${tray}Selected`);
-            const limits = { mini: 4, deluxe: 5, maxi: 6, mega: 10 };
-            const limit = limits[tray];
-
-            if (select.value && !selectedGummies[tray].includes(select.value)) {
-                if (selectedGummies[tray].length < limit) {
-                    selectedGummies[tray].push(select.value);
-                    selectedDiv.innerHTML += `<p>${select.value} <button onclick="removeGummy('${tray}', '${select.value}')">Eliminar</button></p>`;
-                    select.value = "";
-                }
-                if (selectedGummies[tray].length >= limit) {
-                    select.disabled = true;
+        function addToOrder(name, price, variety) {
+            const trayId = name.toLowerCase().replace(/ /g, '').replace(/deluxe/g, 'deluxe');
+            let quantities = {};
+            if (name !== 'Manzana con chamoy') {
+                quantities = {};
+                ['Corazones', 'Xtreme', 'Durazno', 'Manzana', 'Frutas', 'Orugas', 'Manguitos', 'Naranja', 'Delfines', 'Pinguinos'].forEach(gummy => {
+                    const qty = parseInt(document.getElementById(`${trayId}${gummy}`).value) || 0;
+                    if (qty > 0) quantities[gummy] = qty;
+                });
+                if (Object.keys(quantities).length === 0 && name !== 'Manzana con chamoy') {
+                    alert("Por favor, selecciona al menos un tipo de gomita.");
+                    return;
                 }
             }
-
-            Array.from(select.options).forEach(option => {
-                option.disabled = selectedGummies[tray].includes(option.value) && option.value !== "";
-            });
-        }
-
-        function removeGummy(tray, gummy) {
-            selectedGummies[tray] = selectedGummies[tray].filter(g => g !== gummy);
-            document.getElementById(`${tray}Selected`).innerHTML = selectedGummies[tray]
-                .map(g => `<p>${g} <button onclick="removeGummy('${tray}', '${g}')">Eliminar</button></p>`).join('');
-            document.getElementById(`${tray}Gummies`).disabled = false;
-            document.getElementById(`${tray}Gummies`).value = "";
-            Array.from(document.getElementById(`${tray}Gummies`).options).forEach(option => {
-                option.disabled = selectedGummies[tray].includes(option.value) && option.value !== "";
-            });
-        }
-
-        function updateAppleExtra(tray) {
-            const select = document.getElementById(`${tray}Apple`);
-            if (select) appleExtras[tray] = select.value;
-            document.getElementById(`${tray}AppleInfo`).innerHTML = appleExtras[tray] === 'Sí' ? '<p>Manzana con chamoy añadida (+$15)</p>' : '';
-        }
-
-        function addToOrder(name, basePrice, variety) {
-            const tray = name.toLowerCase().replace(/ /g, '').replace(/deluxe/g, 'deluxe');
-            let price = parseFloat(basePrice);
-            let quantities = selectedGummies[tray.replace(/[A-Za-z]*$/, '')]; // Usa el array de gomitas
-
-            if (quantities.length === 0) {
-                alert("Por favor, selecciona al menos un tipo de gomita.");
-                return;
-            }
-
-            // Ajustar precio si incluye manzana (excepto Charola Deluxe que ya la incluye)
-            if (tray.replace(/[A-Za-z]*$/, '') !== 'deluxe' && appleExtras[tray.replace(/[A-Za-z]*$/, '')] === 'Sí') {
-                price += 15;
-            }
-
-            const order = {
-                name: name,
-                price: price,
-                variety: variety,
-                category: 'charola',
-                quantities: quantities,
-                hasApple: (tray.replace(/[A-Za-z]*$/, '') !== 'deluxe' && appleExtras[tray.replace(/[A-Za-z]*$/, '')] === 'Sí') || (tray.replace(/[A-Za-z]*$/, '') === 'deluxe')
-            };
-
-            orders.push(order);
+            orders.push({ name, price: parseFloat(price) || 0, variety, category: variety === 'Extra' ? 'extras' : 'charola', quantities });
             localStorage.setItem('orders', JSON.stringify(orders));
-            console.log("Pedido guardado:", order);
-            setTimeout(() => {
-                window.location.href = 'pedidos.html';
-            }, 300);
+            alert(`${name} (${variety}) ${Object.keys(quantities).length > 0 ? 'con ' + JSON.stringify(quantities) : ''} agregado a pedidos. Total items: ${orders.length}`);
+            if (name !== 'Manzana con chamoy') {
+                ['Corazones', 'Xtreme', 'Durazno', 'Manzana', 'Frutas', 'Orugas', 'Manguitos', 'Naranja', 'Delfines', 'Pinguinos'].forEach(gummy => {
+                    document.getElementById(`${trayId}${gummy}`).value = '0';
+                });
+            }
         }
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
     </script>
 </body>
 </html>
