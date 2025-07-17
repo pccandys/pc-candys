@@ -88,14 +88,6 @@
             color: #1e88e5;
             margin-bottom: 1vw;
         }
-        .menu-item select {
-            width: 90%;
-            padding: 1.5vw;
-            margin: 1vw 0;
-            font-size: 2.5vw;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
         .menu-item button {
             background-color: #4CAF50;
             color: white;
@@ -104,6 +96,7 @@
             border-radius: 5px;
             font-size: 2.5vw;
             cursor: pointer;
+            margin: 1vw 0;
         }
         .menu-item button:hover {
             background-color: #45a049;
@@ -132,7 +125,6 @@
             .page-space { font-size: 16px; }
             .menu-section h1 { font-size: 32px; }
             .menu-item h3 { font-size: 18px; }
-            .menu-item select { font-size: 14px; padding: 8px; }
             .menu-item button { font-size: 14px; padding: 10px 20px; }
             .nav-menu a { font-size: 16px; }
             .social-icons a { font-size: 24px; }
@@ -158,88 +150,53 @@
     <section class="menu-section">
         <h1>🍬 MENÚ 1: BOLSAS DE GOMITAS</h1>
         <div class="menu-item">
-            <h3>✨ Naturales | Ahogadas | Empanizadas</h3>
             <h3>🍑 Aros de Durazno</h3>
-            <select id="duraznoVariety">
-                <option value="Naturales">Naturales</option>
-                <option value="Ahogadas">Ahogadas</option>
-                <option value="Empanizadas">Empanizadas</option>
-            </select>
-            <button onclick="addToOrder('Aros de Durazno', 10, 'duraznoVariety', 4)">4 pzas - $10</button>
-            <button onclick="addToOrder('Aros de Durazno', 15, 'duraznoVariety', 6)">6 pzas - $15</button>
+            <button onclick="addToOrder('Aros de Durazno', 10, 'Naturales', 4)">4 pzas Naturales - $10</button>
+            <button onclick="addToOrder('Aros de Durazno', 10, 'Ahogadas', 4)">4 pzas Ahogadas - $10</button>
+            <button onclick="addToOrder('Aros de Durazno', 15, 'Empanizadas', 4)">4 pzas Empanizadas - $15</button>
+            <button onclick="addToOrder('Aros de Durazno', 15, 'Naturales', 6)">6 pzas Naturales - $15</button>
+            <button onclick="addToOrder('Aros de Durazno', 15, 'Ahogadas', 6)">6 pzas Ahogadas - $15</button>
+            <button onclick="addToOrder('Aros de Durazno', 15, 'Empanizadas', 6)">6 pzas Empanizadas - $15</button>
 
             <h3>🍏 Aros de Manzana</h3>
-            <select id="manzanaVariety">
-                <option value="Naturales">Naturales</option>
-                <option value="Ahogadas">Ahogadas</option>
-                <option value="Empanizadas">Empanizadas</option>
-            </select>
-            <button onclick="addToOrder('Aros de Manzana', 10, 'manzanaVariety', 4)">4 pzas - $10</button>
-            <button onclick="addToOrder('Aros de Manzana', 15, 'manzanaVariety', 6)">6 pzas - $15</button>
+            <button onclick="addToOrder('Aros de Manzana', 10, 'Naturales', 4)">4 pzas Naturales - $10</button>
+            <button onclick="addToOrder('Aros de Manzana', 10, 'Ahogadas', 4)">4 pzas Ahogadas - $10</button>
+            <button onclick="addToOrder('Aros de Manzana', 15, 'Empanizadas', 4)">4 pzas Empanizadas - $15</button>
+            <button onclick="addToOrder('Aros de Manzana', 15, 'Naturales', 6)">6 pzas Naturales - $15</button>
+            <button onclick="addToOrder('Aros de Manzana', 15, 'Ahogadas', 6)">6 pzas Ahogadas - $15</button>
+            <button onclick="addToOrder('Aros de Manzana', 15, 'Empanizadas', 6)">6 pzas Empanizadas - $15</button>
 
             <h3>🐛 Orugas y Panditas</h3>
-            <select id="orugasVariety">
-                <option value="Ahogadas">Ahogadas</option>
-                <option value="Empanizadas">Empanizadas</option>
-            </select>
-            <button onclick="addToOrder('Orugas y Panditas', 10, 'orugasVariety')">Ahogadas - $10</button>
-            <button onclick="addToOrder('Orugas y Panditas', 15, 'orugasVariety')">Empanizadas - $15</button>
+            <button onclick="addToOrder('Orugas y Panditas', 10, 'Ahogadas')">Ahogadas - $10</button>
+            <button onclick="addToOrder('Orugas y Panditas', 15, 'Empanizadas')">Empanizadas - $15</button>
 
             <h3>🍓 Frutas Enchiladas</h3>
-            <select id="frutasVariety">
-                <option value="Ahogadas">Ahogadas</option>
-                <option value="Empanizadas">Empanizadas</option>
-            </select>
-            <button onclick="addToOrder('Frutas Enchiladas', 10, 'frutasVariety')">Ahogadas - $10</button>
-            <button onclick="addToOrder('Frutas Enchiladas', 15, 'frutasVariety')">Empanizadas - $15</button>
+            <button onclick="addToOrder('Frutas Enchiladas', 10, 'Ahogadas')">Ahogadas - $10</button>
+            <button onclick="addToOrder('Frutas Enchiladas', 15, 'Empanizadas')">Empanizadas - $15</button>
 
             <h3>❤️ Corazones</h3>
-            <select id="corazonesVariety">
-                <option value="Ahogadas">Ahogadas</option>
-                <option value="Empanizadas">Empanizadas</option>
-            </select>
-            <button onclick="addToOrder('Corazones', 10, 'corazonesVariety')">Ahogadas - $10</button>
-            <button onclick="addToOrder('Corazones', 15, 'corazonesVariety')">Empanizadas - $15</button>
+            <button onclick="addToOrder('Corazones', 10, 'Ahogadas')">Ahogadas - $10</button>
+            <button onclick="addToOrder('Corazones', 15, 'Empanizadas')">Empanizadas - $15</button>
 
             <h3>🔥 Xtreme</h3>
-            <select id="xtremeVariety">
-                <option value="Ahogadas">Ahogadas</option>
-                <option value="Empanizadas">Empanizadas</option>
-            </select>
-            <button onclick="addToOrder('Xtreme', 10, 'xtremeVariety')">Ahogadas - $10</button>
-            <button onclick="addToOrder('Xtreme', 15, 'xtremeVariety')">Empanizadas - $15</button>
+            <button onclick="addToOrder('Xtreme', 10, 'Ahogadas')">Ahogadas - $10</button>
+            <button onclick="addToOrder('Xtreme', 15, 'Empanizadas')">Empanizadas - $15</button>
 
             <h3>🥭 Manguitos</h3>
-            <select id="manguitosVariety">
-                <option value="Ahogadas">Ahogadas</option>
-                <option value="Empanizadas">Empanizadas</option>
-            </select>
-            <button onclick="addToOrder('Manguitos', 10, 'manguitosVariety')">Ahogadas - $10</button>
-            <button onclick="addToOrder('Manguitos', 15, 'manguitosVariety')">Empanizadas - $15</button>
+            <button onclick="addToOrder('Manguitos', 10, 'Ahogadas')">Ahogadas - $10</button>
+            <button onclick="addToOrder('Manguitos', 15, 'Empanizadas')">Empanizadas - $15</button>
 
             <h3>🍊 Gajos de Naranja</h3>
-            <select id="naranjaVariety">
-                <option value="Ahogadas">Ahogadas</option>
-                <option value="Empanizadas">Empanizadas</option>
-            </select>
-            <button onclick="addToOrder('Gajos de Naranja', 10, 'naranjaVariety')">Ahogadas - $10</button>
-            <button onclick="addToOrder('Gajos de Naranja', 15, 'naranjaVariety')">Empanizadas - $15</button>
+            <button onclick="addToOrder('Gajos de Naranja', 10, 'Ahogadas')">Ahogadas - $10</button>
+            <button onclick="addToOrder('Gajos de Naranja', 15, 'Empanizadas')">Empanizadas - $15</button>
 
             <h3>🐬 Delfines</h3>
-            <select id="delfinesVariety">
-                <option value="Ahogadas">Ahogadas</option>
-                <option value="Empanizadas">Empanizadas</option>
-            </select>
-            <button onclick="addToOrder('Delfines', 10, 'delfinesVariety')">Ahogadas - $10</button>
-            <button onclick="addToOrder('Delfines', 15, 'delfinesVariety')">Empanizadas - $15</button>
+            <button onclick="addToOrder('Delfines', 10, 'Ahogadas')">Ahogadas - $10</button>
+            <button onclick="addToOrder('Delfines', 15, 'Empanizadas')">Empanizadas - $15</button>
 
             <h3>🐧 Pingüinos</h3>
-            <select id="pinguinosVariety">
-                <option value="Ahogadas">Ahogadas</option>
-                <option value="Empanizadas">Empanizadas</option>
-            </select>
-            <button onclick="addToOrder('Pingüinos', 10, 'pinguinosVariety')">Ahogadas - $10</button>
-            <button onclick="addToOrder('Pingüinos', 15, 'pinguinosVariety')">Empanizadas - $15</button>
+            <button onclick="addToOrder('Pingüinos', 10, 'Ahogadas')">Ahogadas - $10</button>
+            <button onclick="addToOrder('Pingüinos', 15, 'Empanizadas')">Empanizadas - $15</button>
         </div>
     </section>
 
@@ -256,11 +213,10 @@
     <script>
         let orders = JSON.parse(localStorage.getItem('orders')) || [];
 
-        function addToOrder(name, price, varietyId, quantity) {
-            const variety = document.getElementById(varietyId).value;
+        function addToOrder(name, price, variety, quantity) {
             orders.push({ name, price: parseFloat(price) || 0, variety, category: 'gomitas', quantity });
             localStorage.setItem('orders', JSON.stringify(orders));
-            alert(`${name} (${variety}, ${quantity} pzas) agregado a pedidos. Total items: ${orders.length}`);
+            alert(`${name} (${variety}, ${quantity ? quantity + ' pzas' : ''}) agregado a pedidos. Total items: ${orders.length}`);
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
