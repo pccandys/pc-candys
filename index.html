@@ -3,77 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Próximamente - P&C Candys</title>
+    <title>Inicio - P&C Candys</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background-color: #fff8f6;
             color: #333;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
         header {
             background-color: #f44336;
-            padding: 10px;
+            padding: 15px;
             text-align: center;
-            border-bottom: 2px solid #d32f2f;
-        }
-        .logo {
-            font-size: 4vw;
-            font-weight: bold;
             color: white;
+            font-size: 24px;
+            font-weight: bold;
         }
-        .coming-soon-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .welcome-section {
             text-align: center;
-            padding: 5vw;
+            padding: 40px 20px;
+            background-color: #ffebee;
         }
-        .coming-soon-section h1 {
-            color: #1e88e5;
-            font-size: 5vw;
-            margin-bottom: 2vw;
+        .welcome-section h1 {
+            font-size: 36px;
+            color: #d32f2f;
+            margin-bottom: 10px;
         }
-        .coming-soon-section p {
-            color: #757575;
-            font-size: 3vw;
-            margin-bottom: 4vw;
-            max-width: 90vw;
+        .welcome-section p {
+            font-size: 18px;
+            color: #555;
+        }
+        /* Carrusel */
+        .carousel {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-images img {
+            width: 100%;
+            flex-shrink: 0;
+        }
+        .carousel-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .carousel-buttons button {
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: white;
+            font-size: 24px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        /* Sección ¿Quiénes somos? */
+        .about-section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .about-section h2 {
+            font-size: 28px;
+            color: #e53935;
+        }
+        .about-section p {
+            max-width: 700px;
+            margin: 10px auto;
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+        /* Sección categorías */
+        .categories-section {
+            padding: 30px 20px;
+            background: #fff3e0;
+            text-align: center;
+        }
+        .categories-section h2 {
+            font-size: 28px;
+            color: #fb8c00;
+            margin-bottom: 20px;
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .category-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+        }
+        .category-card a {
+            text-decoration: none;
+            color: #e53935;
+        }
+        /* Próximamente */
+        .coming-soon {
+            text-align: center;
+            background: #fce4ec;
+            padding: 30px 20px;
+            margin: 20px 0;
+        }
+        .coming-soon h2 {
+            font-size: 26px;
+            color: #d81b60;
         }
         footer {
             background-color: #1976d2;
             color: white;
-            padding: 3vw;
             text-align: center;
+            padding: 20px;
         }
         .social-icons a {
             color: white;
-            margin: 0 2vw;
+            margin: 0 10px;
             text-decoration: none;
-            font-size: 4vw;
+            font-size: 18px;
         }
-        @media (min-width: 768px) {
-            .logo { font-size: 24px; }
-            .coming-soon-section h1 { font-size: 32px; }
-            .coming-soon-section p { font-size: 18px; }
-            .social-icons a { font-size: 24px; }
+        @media (max-width: 768px) {
+            .welcome-section h1 { font-size: 28px; }
+            .about-section h2 { font-size: 24px; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">🍭 P&C Candys</div>
-    </header>
+    <header>🍭 Bienvenidos a P&C Candys</header>
 
-    <section class="coming-soon-section">
-        <h1>¡Próximamente!</h1>
-        <p>Estamos trabajando para ofrecerte un mejor servicio y una experiencia más dulce. ¡Mantente al tanto de nuestras novedades en redes sociales!</p>
+    <section class="welcome-section">
+        <h1>¡Dulzura y creatividad en cada bocado!</h1>
+        <p>Tu tienda favorita de gomitas enchiladas, postres y mucho más. ❤</p>
+    </section>
+
+    <!-- Carrusel -->
+    <div class="carousel">
+        <div class="carousel-images">
+            <img src="imagen1.jpg" alt="Producto 1">
+            <img src="imagen2.jpg" alt="Producto 2">
+            <img src="imagen3.jpg" alt="Producto 3">
+        </div>
+        <div class="carousel-buttons">
+            <button onclick="moveSlide(-1)">&#10094;</button>
+            <button onclick="moveSlide(1)">&#10095;</button>
+        </div>
+    </div>
+
+    <!-- Quiénes somos -->
+    <section class="about-section">
+        <h2>¿Quiénes somos?</h2>
+        <p>
+            <strong>P&C Candys</strong> es un emprendimiento hecho con amor por Paulo y Carol, donde combinamos sabor, creatividad y pasión.
+            Empezamos con nuestras deliciosas gomitas enchiladas y vamos creciendo para ofrecerte productos únicos y variados, siempre con ese toque casero y especial.
+            <br><br>
+            Nos mueve la idea de crear algo diferente, divertido y lleno de cariño. ¡Esto apenas comienza y tú eres parte de esta historia! 💕
+        </p>
+    </section>
+
+    <!-- Categorías -->
+    <section class="categories-section">
+        <h2>¡Ya disponibles!</h2>
+        <div class="categories-grid">
+            <div class="category-card"><a href="bolsa_de_gomitas.html">Bolsas de Gomitas</a></div>
+            <div class="category-card"><a href="charolas.html">Charolas</a></div>
+            <div class="category-card"><a href="mini_hot_cakes.html">Mini Hot Cakes</a></div>
+            <div class="category-card"><a href="fresas_con_crema.html">Fresas con Crema</a></div>
+            <div class="category-card">¡Y mucho más próximamente!</div>
+        </div>
+    </section>
+
+    <!-- Próximamente -->
+    <section class="coming-soon">
+        <h2>¡Próximamente más sorpresas para ti! 🎉</h2>
+        <p>Estamos trabajando en nuevos productos y servicios para endulzar tus días.</p>
     </section>
 
     <footer>
@@ -85,5 +203,22 @@
             <a href="#">TikTok</a>
         </div>
     </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-images img');
+        const totalSlides = slides.length;
+
+        function moveSlide(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            const offset = -currentSlide * 100;
+            document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
+        }
+
+        // Cambio automático cada 4 segundos
+        setInterval(() => {
+            moveSlide(1);
+        }, 4000);
+    </script>
 </body>
 </html>
