@@ -18,90 +18,99 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #d32f2f;
             position: relative;
             z-index: 1000;
         }
         .logo {
-            font-size: 4vw;
+            font-size: 24px;
             font-weight: bold;
             color: white;
-            margin-left: 10px;
         }
         .menu-toggle {
-            font-size: 4vw;
+            font-size: 28px;
             background: none;
             border: none;
             color: white;
             cursor: pointer;
             display: none;
-            margin-right: 10px;
-            z-index: 1001;
         }
         .nav-menu {
             list-style: none;
             padding: 0;
             margin: 0;
             display: flex;
-            align-items: center;
-            z-index: 1000;
         }
         .nav-menu li {
-            margin-left: 2vw;
+            margin-left: 20px;
         }
         .nav-menu a {
             color: white;
             text-decoration: none;
-            font-size: 3vw;
+            font-size: 18px;
+            transition: color 0.3s;
         }
-        .nav-menu.active {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background-color: #f44336;
-            padding: 10px 0;
-            z-index: 1000;
+        .nav-menu a:hover {
+            color: #ffe082;
         }
+
+        /* Estilos para móvil */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                background-color: #f44336;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                padding: 15px 0;
+                text-align: center;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .nav-menu li {
+                margin: 10px 0;
+            }
+        }
+
         .order-section {
-            padding: 5vw;
+            padding: 20px;
             text-align: center;
         }
         .order-section h1 {
             color: #1e88e5;
-            font-size: 5vw;
-            margin-bottom: 2vw;
         }
         .order-form {
-            max-width: 90vw;
+            max-width: 500px;
             margin: 0 auto;
             background-color: white;
-            padding: 3vw;
+            padding: 15px;
             border-radius: 5px;
             border: 1px solid #ddd;
         }
         .order-form label {
             display: block;
-            font-size: 2.5vw;
-            margin-bottom: 1vw;
+            font-weight: bold;
+            margin-bottom: 5px;
             color: #1e88e5;
-            text-align: left;
         }
         .order-form input,
         .order-form select {
-            width: 90%;
-            padding: 1.5vw;
-            margin-bottom: 2vw;
-            font-size: 2.5vw;
+            width: 95%;
+            padding: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
         #map {
-            width: 90%;
-            height: 400px;
-            margin: 2vw auto;
+            width: 95%;
+            height: 300px;
+            margin: 10px auto;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -109,72 +118,33 @@
             background-color: #4caf50;
             color: white;
             border: none;
-            padding: 2vw 4vw;
+            padding: 10px 20px;
             border-radius: 5px;
-            font-size: 2.5vw;
+            font-size: 16px;
             cursor: pointer;
         }
         .order-form button:hover {
             background-color: #45a049;
         }
-        #orderItems {
-            margin: 2vw 0;
-            text-align: left;
-            max-width: 90vw;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        #orderItems h3 {
-            font-size: 3vw;
-            margin-bottom: 1vw;
-            color: #1976d2;
-        }
-        #orderItems p {
-            font-size: 2.5vw;
-            margin: 1vw 0;
-        }
-        #orderItems ul {
-            padding-left: 1.5em;
-        }
-        #orderItems li {
-            margin-bottom: 1vw;
-            font-size: 2.5vw;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            list-style: disc inside;
-        }
-        #orderItems li button {
-            background: #f44336;
-            border: none;
-            color: white;
-            border-radius: 50%;
-            width: 2.5em;
-            height: 2.5em;
-            font-size: 2vw;
-            cursor: pointer;
-            line-height: 1;
-            margin-left: 1em;
-        }
         footer {
             background-color: #1976d2;
             color: white;
-            padding: 3vw;
+            padding: 15px;
             text-align: center;
-            margin-top: 5vw;
+            margin-top: 20px;
         }
         .social-icons a {
             color: white;
-            margin: 0 2vw;
+            margin: 0 10px;
             text-decoration: none;
-            font-size: 4vw;
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
 <header>
     <div class="logo">P&C Candys</div>
-    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    <button class="menu-toggle">☰</button>
     <ul class="nav-menu">
         <li><a href="index.html">Inicio</a></li>
         <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
@@ -229,6 +199,7 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+// --- Código JavaScript para mapa y pedidos (igual que antes) ---
 let orders = JSON.parse(localStorage.getItem('orders')) || [];
 let map, marker;
 
@@ -338,6 +309,7 @@ function submitOrder() {
     }
 }
 
+// --- Menú responsive ---
 document.querySelector('.menu-toggle').addEventListener('click', () => {
     document.querySelector('.nav-menu').classList.toggle('active');
 });
