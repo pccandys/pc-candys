@@ -166,10 +166,11 @@
 
     <section class="menu-section">
         <h1>🍭 MENÚ 2: CHAROLAS</h1>
+        <h3>✨ Naturales | Ahogadas | Empanizadas</h3>
 
         <!-- Mini Mix -->
         <div class="menu-item">
-            <h3>Mini Mix (Máximo 4 tipos de gomitas)</h3>
+            <h3>Mini Mix (1 a 4 tipos de gomitas)</h3>
             <div>
                 <select id="miniGummies1" onchange="updateSelection('mini', 1)">
                     <option value="">Selecciona Gomita 1</option>
@@ -243,7 +244,7 @@
 
         <!-- Charola Deluxe -->
         <div class="menu-item">
-            <h3>Charola Deluxe (5 tipos + Manzana incluida)</h3>
+            <h3>Charola Deluxe (5 tipos + 1 Manzana con chamoy)</h3>
             <div>
                 <select id="deluxeGummies1" onchange="updateSelection('deluxe', 1)">
                     <option value="">Selecciona Gomita 1</option>
@@ -329,7 +330,7 @@
 
         <!-- Maxi Mix -->
         <div class="menu-item">
-            <h3>Maxi Mix (Máximo 6 tipos de gomitas)</h3>
+            <h3>Maxi Mix (4 a 6 tipos de gomitas)</h3>
             <div>
                 <select id="maxiGummies1" onchange="updateSelection('maxi', 1)">
                     <option value="">Selecciona Gomita 1</option>
@@ -429,7 +430,7 @@
 
         <!-- Mega Deluxe -->
         <div class="menu-item">
-            <h3>Mega Deluxe (Máximo 10 tipos de gomitas)</h3>
+            <h3>Mega Deluxe (10 tipos + 1 Manzana con chamoy o extra)</h3>
             <div>
                 <select id="megaGummies1" onchange="updateSelection('mega', 1)">
                     <option value="">Selecciona Gomita 1</option>
@@ -572,8 +573,8 @@
             </div>
             <div>
                 <select id="megaApple" onchange="updateAppleExtra('mega')">
-                    <option value="No">Manzana con chamoy: No</option>
-                    <option value="Sí">Manzana con chamoy: Sí (+$15)</option>
+                    <option value="Incluida">Manzana con chamoy: Incluida</option>
+                    <option value="Extra">Manzana con chamoy: Extra (+$15)</option>
                 </select>
             </div>
             <button onclick="addToOrder('Mega Deluxe')" id="megaAdd">Agregar a Pedidos</button>
@@ -608,7 +609,7 @@
             mini: 'No',
             deluxe: 'Sí', // Incluida por defecto
             maxi: 'No',
-            mega: 'No'
+            mega: 'Incluida'
         };
 
         function updateSelection(tray, index) {
@@ -663,7 +664,7 @@
 
         function updateVariety(tray) {
             const select = document.getElementById(`${tray}Variety`);
-            varieties[tray] = select.value;
+            varieties[tray] = select.value.split(' - ')[0]; // Extrae solo el nombre de la variedad
         }
 
         function updateAppleExtra(tray) {
@@ -697,8 +698,10 @@
             };
             price = priceMap[tray][variety];
 
-            // Ajustar precio si incluye manzana extra (excepto Charola Deluxe)
-            if (tray !== 'deluxe' && appleExtras[tray] === 'Sí') {
+            // Ajustar precio si incluye manzana extra (excepto Charola Deluxe y Mega Deluxe por defecto)
+            if (tray !== 'deluxe' && tray !== 'mega') {
+                if (appleExtras[tray] === 'Sí') extraPrice = 15;
+            } else if (tray === 'mega' && appleExtras[tray] === 'Extra') {
                 extraPrice = 15;
             }
 
@@ -708,13 +711,12 @@
                 variety: variety,
                 category: 'charola',
                 quantities: quantities,
-                hasApple: (tray !== 'deluxe' && appleExtras[tray] === 'Sí') || (tray === 'deluxe')
+                hasApple: (tray === 'deluxe' || (tray === 'mega' && appleExtras[tray] === 'Incluida') || appleExtras[tray] === 'Sí' || appleExtras[tray] === 'Extra')
             };
 
             orders.push(order);
             localStorage.setItem('orders', JSON.stringify(orders));
-            console.log("Pedido guardado:", order);
-            alert(`${name} (${variety}) con ${quantities.join(', ')}${order.hasApple ? ' + Manzana' : ''} agregado a pedidos.`);
+            alert(`${name} (${variety}${order.hasApple ? ' + Manzana' : ''}) con ${quantities.join(', ')} agregado a pedidos. Total items: ${orders.length}`);
             setTimeout(() => {
                 window.location.href = 'pedidos.html';
             }, 300);
