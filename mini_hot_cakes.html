@@ -24,10 +24,12 @@
             position: relative;
         }
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            user-select: none;
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            max-height: 50px; /* Ajusta el tamaño del logo */
+            width: auto;
         }
         .menu-toggle {
             font-size: 24px;
@@ -90,6 +92,9 @@
             nav a {
                 font-size: 18px;
             }
+            .logo img {
+                max-height: 40px; /* Tamaño del logo en dispositivos móviles */
+            }
         }
 
         main {
@@ -117,7 +122,9 @@
 </head>
 <body>
     <header>
-        <div class="logo">🍭 P&C Candys</div>
+        <div class="logo">
+            <img src="HF.png" alt="P&C Candys Logo">
+        </div>
         <button class="menu-toggle" aria-label="Mostrar menú">☰</button>
         <nav>
             <ul class="nav-menu">
