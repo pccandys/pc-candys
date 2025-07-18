@@ -28,7 +28,7 @@
         margin-left: 10px;
     }
     .logo img {
-        max-height: 50px; /* Ajusta el tamaño del logo */
+        max-height: 50px;
         width: auto;
     }
     .page-space {
@@ -122,7 +122,6 @@
         padding: 3vw;
         text-align: center;
         margin-top: 5vw;
-        margin-bottom: 0;
     }
     .social-icons a {
         color: white;
@@ -134,12 +133,10 @@
         .menu-toggle { display: block; }
         .nav-menu { display: none; }
         .nav-menu li { margin: 2vw 0; }
-        .logo img {
-            max-height: 40px; /* Tamaño del logo en dispositivos móviles */
-        }
+        .logo img { max-height: 40px; }
     }
     @media (min-width: 768px) {
-        .logo img { max-height: 50px; } /* Tamaño del logo en escritorio */
+        .logo img { max-height: 50px; }
         .page-space { font-size: 16px; }
         .menu-section h1 { font-size: 32px; }
         .menu-item h3 { font-size: 18px; }
@@ -173,14 +170,15 @@
     <h1>🍭 MENÚ 2: CHAROLAS</h1>
     <div class="menu-item">
         <h3>✨ Naturales | Ahogadas | Empanizadas</h3>
-        
+
         <!-- MINI MIX -->
         <h3>Mini Mix</h3>
+        <p><strong>Precio:</strong> Naturales $40 | Ahogadas $50 | Empanizadas $60</p>
         <p>1 a 4 tipos de gomitas.</p>
         <select id="miniMixVariety">
-            <option value="Naturales">Naturales</option>
-            <option value="Ahogadas">Ahogadas</option>
-            <option value="Empanizadas">Empanizadas</option>
+            <option value="Naturales">Naturales $40</option>
+            <option value="Ahogadas">Ahogadas $50</option>
+            <option value="Empanizadas">Empanizadas $60</option>
         </select>
         <p>Selecciona tus gomitas:</p>
         <select id="miniMixGomitas" multiple size="6" data-max="4">
@@ -199,11 +197,12 @@
 
         <!-- CHAROLA DELUXE -->
         <h3>Charola Deluxe</h3>
-        <p>5 tipos + 1 Manzana con chamoy.</p>
+        <p><strong>Precio:</strong> Naturales $90 | Ahogadas $100 | Empanizadas $110</p>
+        <p>5 tipos de gomitas y una manzana con chamoy.</p>
         <select id="deluxeVariety">
-            <option value="Naturales">Naturales</option>
-            <option value="Ahogadas">Ahogadas</option>
-            <option value="Empanizadas">Empanizadas</option>
+            <option value="Naturales">Naturales $90</option>
+            <option value="Ahogadas">Ahogadas $100</option>
+            <option value="Empanizadas">Empanizadas $110</option>
         </select>
         <p>Selecciona 5 gomitas:</p>
         <select id="deluxeGomitas" multiple size="6" data-max="5">
@@ -222,11 +221,12 @@
 
         <!-- MAXI MIX -->
         <h3>Maxi Mix</h3>
+        <p><strong>Precio:</strong> Naturales $60 | Ahogadas $70 | Empanizadas $80</p>
         <p>4 a 6 tipos de gomitas.</p>
         <select id="maxiMixVariety">
-            <option value="Naturales">Naturales</option>
-            <option value="Ahogadas">Ahogadas</option>
-            <option value="Empanizadas">Empanizadas</option>
+            <option value="Naturales">Naturales $60</option>
+            <option value="Ahogadas">Ahogadas $70</option>
+            <option value="Empanizadas">Empanizadas $80</option>
         </select>
         <p>Selecciona tus gomitas:</p>
         <select id="maxiMixGomitas" multiple size="6" data-max="6">
@@ -245,11 +245,12 @@
 
         <!-- MEGA DELUXE -->
         <h3>Mega Deluxe</h3>
-        <p>10 tipos + 1 Manzana con chamoy o extra.</p>
+        <p><strong>Precio:</strong> Naturales $160 | Ahogadas $170 | Empanizadas $180</p>
+        <p>10 tipos de gomitas y una manzana con chamoy o extra.</p>
         <select id="megaDeluxeVariety">
-            <option value="Naturales">Naturales</option>
-            <option value="Ahogadas">Ahogadas</option>
-            <option value="Empanizadas">Empanizadas</option>
+            <option value="Naturales">Naturales $160</option>
+            <option value="Ahogadas">Ahogadas $170</option>
+            <option value="Empanizadas">Empanizadas $180</option>
         </select>
         <p>Selecciona 10 gomitas:</p>
         <select id="megaDeluxeGomitas" multiple size="6" data-max="10">
@@ -279,9 +280,6 @@
 </footer>
 
 <script>
-/* -----------------------
-   Configuración de precios
------------------------- */
 const priceMap = {
     'Mini Mix':         { Naturales: 40, Ahogadas: 50, Empanizadas: 60 },
     'Charola Deluxe':   { Naturales: 90, Ahogadas: 100, Empanizadas: 110 },
@@ -289,27 +287,18 @@ const priceMap = {
     'Mega Deluxe':      { Naturales: 160, Ahogadas: 170, Empanizadas: 180 }
 };
 
-/* -----------------------
-   Reglas de cantidad
------------------------- */
 const charolaRules = {
-    'Mini Mix':       { min: 1,  max: 4,  exact: false },
-    'Charola Deluxe': { min: 5,  max: 5,  exact: true,  extra: 'Manzana con chamoy' },
-    'Maxi Mix':       { min: 4,  max: 6,  exact: false },
+    'Mini Mix':       { min: 1,  max: 4 },
+    'Charola Deluxe': { min: 5,  max: 5, exact: true,  extra: 'Manzana con chamoy' },
+    'Maxi Mix':       { min: 4,  max: 6 },
     'Mega Deluxe':    { min: 10, max: 10, exact: true,  extra: 'Manzana con chamoy o extra' }
 };
 
-/* -----------------------
-   Persistencia
------------------------- */
 let orders = JSON.parse(localStorage.getItem('orders')) || [];
 function saveOrders() {
     localStorage.setItem('orders', JSON.stringify(orders));
 }
 
-/* -----------------------
-   Utilidades
------------------------- */
 function getSelectedOptions(selectId) {
     const sel = document.getElementById(selectId);
     return Array.from(sel.selectedOptions).map(opt => opt.text.trim());
@@ -334,29 +323,21 @@ function validateGomitas(charolaName, gomitas) {
     return { ok: true };
 }
 
-/* -----------------------
-   Agregar al pedido
------------------------- */
 function addCharola(charolaName, varietySelectId, gomitasSelectId) {
-    const variety = document.getElementById(varietySelectId).value;
+    const varietyText = document.getElementById(varietySelectId).value;
+    const variety = varietyText.split(" ")[0]; // Solo "Naturales", "Ahogadas", etc.
     const gomitas = getSelectedOptions(gomitasSelectId);
 
-    // Validación cantidad (por seguridad)
     const validation = validateGomitas(charolaName, gomitas);
     if (!validation.ok) {
         alert(validation.msg);
         return;
     }
 
-    // Precio según variedad
     const price = priceMap[charolaName]?.[variety] ?? 0;
-
-    // Extras automáticos (Deluxe / Mega)
     const rule = charolaRules[charolaName];
     let extras = [];
-    if (rule && rule.extra) {
-        extras.push(rule.extra);
-    }
+    if (rule && rule.extra) extras.push(rule.extra);
 
     orders.push({
         name: charolaName,
@@ -372,15 +353,10 @@ function addCharola(charolaName, varietySelectId, gomitasSelectId) {
     alert(`${charolaName} (${variety}) agregado con ${gomitas.length} gomitas. Total pedidos: ${orders.length}`);
 }
 
-/* -----------------------
-   Límite de selección en selects múltiples
-   data-max en el <select> define el máximo.
------------------------- */
 function attachLimitedMultiSelect(selectEl) {
     const max = parseInt(selectEl.dataset.max, 10);
     if (!max) return;
 
-    // Para saber cuál fue la última opción clickeada usamos mousedown
     let lastClickedOption = null;
     selectEl.addEventListener('mousedown', (e) => {
         if (e.target.tagName === 'OPTION') {
@@ -388,11 +364,9 @@ function attachLimitedMultiSelect(selectEl) {
         }
     });
 
-    // En change verificamos
     selectEl.addEventListener('change', () => {
         const selected = Array.from(selectEl.selectedOptions);
         if (selected.length > max) {
-            // si se pasó, desmarcamos la última clickeada (o la última del array)
             if (lastClickedOption) {
                 lastClickedOption.selected = false;
             } else {
@@ -403,24 +377,13 @@ function attachLimitedMultiSelect(selectEl) {
     });
 }
 
-/* -----------------------
-   Activar límites al cargar
------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
-    [
-        'miniMixGomitas',
-        'deluxeGomitas',
-        'maxiMixGomitas',
-        'megaDeluxeGomitas'
-    ].forEach(id => {
+    ['miniMixGomitas', 'deluxeGomitas', 'maxiMixGomitas', 'megaDeluxeGomitas'].forEach(id => {
         const el = document.getElementById(id);
         if (el) attachLimitedMultiSelect(el);
     });
 });
 
-/* -----------------------
-   Menú responsive
------------------------- */
 const menuToggle = document.querySelector('.menu-toggle');
 const navMenu = document.querySelector('.nav-menu');
 menuToggle.addEventListener('click', () => {
