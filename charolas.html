@@ -23,10 +23,13 @@
         position: relative;
     }
     .logo {
-        font-size: 4vw;
-        font-weight: bold;
-        color: white;
+        display: flex;
+        align-items: center;
         margin-left: 10px;
+    }
+    .logo img {
+        max-height: 50px; /* Ajusta el tamaño del logo */
+        width: auto;
     }
     .page-space {
         margin-right: 10px;
@@ -104,9 +107,9 @@
         background-color: #4CAF40;
         color: white;
         border: none;
-        padding: 1.5vw 3vw; /* más chico */
+        padding: 1.5vw 3vw;
         border-radius: 5px;
-        font-size: 2vw;    /* más chico */
+        font-size: 2vw;
         cursor: pointer;
         margin-top: 1vw;
     }
@@ -131,15 +134,18 @@
         .menu-toggle { display: block; }
         .nav-menu { display: none; }
         .nav-menu li { margin: 2vw 0; }
+        .logo img {
+            max-height: 40px; /* Tamaño del logo en dispositivos móviles */
+        }
     }
     @media (min-width: 768px) {
-        .logo { font-size: 24px; }
+        .logo img { max-height: 50px; } /* Tamaño del logo en escritorio */
         .page-space { font-size: 16px; }
         .menu-section h1 { font-size: 32px; }
         .menu-item h3 { font-size: 18px; }
         .menu-item p { font-size: 16px; }
         .menu-item select { font-size: 14px; padding: 8px; }
-        .menu-item button { font-size: 12px; padding: 6px 14px; } /* más chico desktop */
+        .menu-item button { font-size: 12px; padding: 6px 14px; }
         .nav-menu a { font-size: 16px; }
         .social-icons a { font-size: 24px; }
     }
@@ -147,7 +153,9 @@
 </head>
 <body>
 <header>
-    <div class="logo">🍭 P&C Candys</div>
+    <div class="logo">
+        <img src="G.png" alt="P&C Candys Logo">
+    </div>
     <div class="page-space"></div>
     <button class="menu-toggle">☰</button>
     <ul class="nav-menu">
