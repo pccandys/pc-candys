@@ -14,72 +14,25 @@
         }
         header {
             background-color: #f44336;
-            padding: 10px 20px;
+            padding: 15px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            border-bottom: 2px solid #d32f2f;
-        }
-        .logo {
+            color: white;
             font-size: 24px;
             font-weight: bold;
-            color: white;
         }
-        nav {
+        .logo {
             display: flex;
             align-items: center;
         }
-        .nav-menu {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
+        .logo img {
+            max-height: 50px; /* Ajusta el tamaño del logo */
+            width: auto;
         }
-        .nav-menu li {
-            margin-left: 15px;
-        }
-        .nav-menu a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        .nav-menu a:hover {
-            text-decoration: underline;
-        }
-        /* Botón menú responsive */
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            color: white;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                flex-direction: column;
-                background-color: #f44336;
-                position: absolute;
-                top: 60px;
-                right: 0;
-                width: 100%;
-                text-align: center;
-            }
-            .nav-menu li {
-                margin: 10px 0;
-            }
-            .nav-menu.active {
-                display: flex;
-            }
-            .menu-toggle {
-                display: block;
-            }
-        }
-        /* Sección bienvenida */
         .welcome-section {
             text-align: center;
-            padding: 30px 20px;
+            padding: 40px 20px;
             background-color: #ffebee;
         }
         .welcome-section h1 {
@@ -91,27 +44,11 @@
             font-size: 18px;
             color: #555;
         }
-        /* Sección ¿Quiénes somos? */
-        .about-section {
-            padding: 30px 20px;
-            text-align: center;
-        }
-        .about-section h2 {
-            font-size: 28px;
-            color: #e53935;
-        }
-        .about-section p {
-            max-width: 700px;
-            margin: 10px auto;
-            font-size: 18px;
-            color: #555;
-            line-height: 1.6;
-        }
         /* Carrusel */
         .carousel {
             position: relative;
-            width: 80%;
-            max-width: 600px;
+            width: 90%;
+            max-width: 900px;
             margin: 20px auto;
             overflow: hidden;
             border-radius: 12px;
@@ -141,7 +78,23 @@
             padding: 10px;
             cursor: pointer;
         }
-        /* Categorías disponibles */
+        /* Sección ¿Quiénes somos? */
+        .about-section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .about-section h2 {
+            font-size: 28px;
+            color: #e53935;
+        }
+        .about-section p {
+            max-width: 700px;
+            margin: 10px auto;
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+        /* Sección categorías */
         .categories-section {
             padding: 30px 20px;
             background: #fff3e0;
@@ -183,10 +136,6 @@
             font-size: 26px;
             color: #d81b60;
         }
-        .coming-soon .categories-grid .category-card {
-            background: #fff;
-            color: #d81b60;
-        }
         footer {
             background-color: #1976d2;
             color: white;
@@ -199,23 +148,21 @@
             text-decoration: none;
             font-size: 18px;
         }
+        @media (max-width: 768px) {
+            .welcome-section h1 { font-size: 28px; }
+            .about-section h2 { font-size: 24px; }
+            .logo img { max-height: 40px; } /* Tamaño del logo en dispositivos móviles */
+        }
+        @media (min-width: 769px) {
+            .logo img { max-height: 50px; } /* Tamaño del logo en escritorio */
+        }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">🍭 P&C Candys</div>
-        <button class="menu-toggle">☰</button>
-        <nav>
-            <ul class="nav-menu">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
-                <li><a href="charolas.html">Charolas</a></li>
-                <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
-                <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
-                <li><a href="extras.html">Extras</a></li>
-                <li><a href="pedidos.html">Pedidos</a></li>
-            </ul>
-        </nav>
+        <div class="logo">
+            <img src="G.png" alt="P&C Candys Logo">
+        </div>
     </header>
 
     <section class="welcome-section">
@@ -223,6 +170,24 @@
         <p>Tu tienda favorita de gomitas enchiladas, postres y mucho más. ❤</p>
     </section>
 
+    <!-- Carrusel -->
+    <div class="carousel">
+        <div class="carousel-images">
+            <img src="BolsaGomitas1.jpg" alt="Bolsa de Gomitas 1">
+            <img src="BolsaGomitas2.jpg" alt="Bolsa de Gomitas 2">
+            <img src="BolsaGomitas3.jpg" alt="Bolsa de Gomitas 3">
+            <img src="BolsaGomitas4.jpg" alt="Bolsa de Gomitas 4">
+            <img src="Hotcakes.jpg" alt="Mini Hot Cakes">
+            <img src="Maximix.jpg" alt="Maxi Mix">
+            <img src="Deluxe.jpg" alt="Charola Deluxe">
+        </div>
+        <div class="carousel-buttons">
+            <button onclick="moveSlide(-1)">❮</button>
+            <button onclick="moveSlide(1)">❯</button>
+        </div>
+    </div>
+
+    <!-- Quiénes somos -->
     <section class="about-section">
         <h2>¿Quiénes somos?</h2>
         <p>
@@ -233,48 +198,35 @@
         </p>
     </section>
 
-    <div class="carousel">
-        <div class="carousel-images">
-            <img src="imagen1.jpg" alt="Producto 1">
-            <img src="imagen2.jpg" alt="Producto 2">
-            <img src="imagen3.jpg" alt="Producto 3">
-        </div>
-        <div class="carousel-buttons">
-            <button onclick="moveSlide(-1)">&#10094;</button>
-            <button onclick="moveSlide(1)">&#10095;</button>
-        </div>
-    </div>
-
+    <!-- Categorías -->
     <section class="categories-section">
         <h2>¡Ya disponibles!</h2>
         <div class="categories-grid">
             <div class="category-card"><a href="bolsa_de_gomitas.html">Bolsas de Gomitas</a></div>
             <div class="category-card"><a href="charolas.html">Charolas</a></div>
-            <div class="category-card"><a href="extras.html">Extras</a></div>
+            <div class="category-card"><a href="mini_hot_cakes.html">Mini Hot Cakes</a></div>
+            <div class="category-card"><a href="fresas_con_crema.html">Fresas con Crema</a></div>
+            <div class="category-card">¡Y mucho más próximamente!</div>
         </div>
     </section>
 
+    <!-- Próximamente -->
     <section class="coming-soon">
-        <h2>¡Próximamente más delicias! 🎉</h2>
-        <div class="categories-grid">
-            <div class="category-card">Mini Hot Cakes</div>
-            <div class="category-card">Fresas con Crema</div>
-            <div class="category-card">¡Y otros más!</div>
-        </div>
+        <h2>¡Próximamente más sorpresas para ti! 🎉</h2>
+        <p>Estamos trabajando en nuevos productos y servicios para endulzar tus días.</p>
     </section>
 
     <footer>
         <h3>Síguenos en Redes Sociales</h3>
         <div class="social-icons">
-            <a href="#">Facebook</a>
-            <a href="#">Instagram</a>
-            <a href="#">WhatsApp</a>
-            <a href="#">TikTok</a>
+            <a href="https://facebook.com/PyCCandys">Facebook</a>
+            <a href="https://instagram.com/PyCCandys">Instagram</a>
+            <a href="https://wa.me/524481012425">WhatsApp</a>
+            <a href="https://tiktok.com/@PyCCandys">TikTok</a>
         </div>
     </footer>
 
     <script>
-        // Carrusel
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-images img');
         const totalSlides = slides.length;
@@ -285,16 +237,10 @@
             document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
         }
 
+        // Cambio automático cada 4 segundos
         setInterval(() => {
             moveSlide(1);
         }, 4000);
-
-        // Menú responsive
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
     </script>
 </body>
 </html>
