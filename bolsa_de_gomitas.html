@@ -26,10 +26,13 @@
             flex-shrink: 0;
         }
         .logo {
-            font-size: 5vw;
-            font-weight: bold;
-            color: white;
+            display: flex;
+            align-items: center;
             margin-left: 10px;
+        }
+        .logo img {
+            max-height: 50px; /* Ajusta el tamaño del logo */
+            width: auto;
         }
         .page-space {
             margin-right: 10px;
@@ -97,9 +100,9 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 1.5vw 3vw; /* antes: 2vw 4vw */
+            padding: 1.5vw 3vw;
             border-radius: 5px;
-            font-size: 3vw; /* antes: 3.5vw */
+            font-size: 3vw;
             cursor: pointer;
             margin: 1vw;
             display: inline-block;
@@ -126,13 +129,15 @@
             .nav-menu li { margin: 2vw 0; }
             /* Reafirmamos tamaño reducido para móviles */
             .menu-item button { padding: 1.5vw 3vw; font-size: 3vw; }
+            .logo img {
+                max-height: 40px; /* Tamaño del logo en dispositivos móviles */
+            }
         }
         @media (min-width: 768px) {
-            .logo { font-size: 24px; }
+            .logo img { max-height: 50px; } /* Tamaño del logo en escritorio */
             .nav-menu a { font-size: 16px; }
             .menu-section h1 { font-size: 32px; }
             .menu-item h3 { font-size: 18px; }
-            /* Más chico en escritorio que antes */
             .menu-item button { padding: 6px 12px; font-size: 13px; }
             .social-icons a { font-size: 24px; }
         }
@@ -140,7 +145,9 @@
 </head>
 <body>
     <header>
-        <div class="logo">🍭 P&C Candys</div>
+        <div class="logo">
+            <img src="G.png" alt="P&C Candys Logo">
+        </div>
         <div class="page-space"></div>
         <button class="menu-toggle">☰</button>
         <ul class="nav-menu">
@@ -239,8 +246,7 @@
             };
             orders.push(order);
             localStorage.setItem('orders', JSON.stringify(orders));
-            alert(`${name} (${variety}${quantity ? ', ' + quantity + ' pzas' : ''}) agregado. Total artículos: ${orders.length}`);
-            /* Se quitó la redirección automática a pedidos.html */
+            alert(`${name} (${variety}${quantity ? ', ' + quantity + ' pzas' : ''}) agregado කැත්තු. Total artículos: ${orders.length}`);
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
