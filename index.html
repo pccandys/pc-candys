@@ -14,7 +14,7 @@
         }
         header {
             background-color: #f44336;
-            padding: 10px; /* Reducido para un encabezado más compacto */
+            padding: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,28 +27,49 @@
             align-items: center;
         }
         .logo img {
-            max-height: 40px; /* Tamaño más pequeño para el logo */
+            max-height: 40px;
             width: auto;
+        }
+        /* Barra de navegación */
+        nav {
+            background-color: #d32f2f;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .nav-button {
+            background-color: #ffffff;
+            color: #d32f2f;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #ffebee;
+            color: #b71c1c;
         }
         .welcome-section {
             text-align: center;
-            padding: 30px 20px; /* Reducido para menos espacio */
+            padding: 30px 20px;
             background-color: #ffebee;
         }
         .welcome-section h1 {
-            font-size: 32px; /* Ligeramente más pequeño */
+            font-size: 32px;
             color: #d32f2f;
             margin-bottom: 8px;
         }
         .welcome-section p {
-            font-size: 16px; /* Ligeramente más pequeño */
+            font-size: 16px;
             color: #555;
         }
-        /* Carrusel */
         .carousel {
             position: relative;
-            width: 80%; /* Reducido para un carrusel más pequeño */
-            max-width: 700px; /* Tamaño máximo más pequeño */
+            width: 80%;
+            max-width: 700px;
             margin: 15px auto;
             overflow: hidden;
             border-radius: 10px;
@@ -60,8 +81,8 @@
         }
         .carousel-images img {
             width: 100%;
-            max-height: 200px; /* Tamaño más pequeño para las imágenes del carrusel */
-            object-fit: contain; /* Mantiene proporciones sin distorsión */
+            max-height: 200px;
+            object-fit: contain;
             flex-shrink: 0;
         }
         .carousel-buttons {
@@ -76,42 +97,40 @@
             background: rgba(0,0,0,0.5);
             border: none;
             color: white;
-            font-size: 20px; /* Botones más pequeños */
+            font-size: 20px;
             padding: 8px;
             cursor: pointer;
         }
-        /* Sección ¿Quiénes somos? */
         .about-section {
-            padding: 30px 20px; /* Reducido */
+            padding: 30px 20px;
             text-align: center;
         }
         .about-section h2 {
-            font-size: 24px; /* Ligeramente más pequeño */
+            font-size: 24px;
             color: #e53935;
         }
         .about-section p {
-            max-width: 600px; /* Reducido */
+            max-width: 600px;
             margin: 8px auto;
-            font-size: 16px; /* Ligeramente más pequeño */
+            font-size: 16px;
             color: #555;
             line-height: 1.5;
         }
-        /* Sección categorías */
         .categories-section {
-            padding: 20px 20px; /* Reducido */
+            padding: 20px 20px;
             background: #fff3e0;
             text-align: center;
         }
         .categories-section h2 {
-            font-size: 24px; /* Ligeramente más pequeño */
+            font-size: 24px;
             color: #fb8c00;
             margin-bottom: 15px;
         }
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Cuadrícula más pequeña */
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 15px;
-            max-width: 800px; /* Reducido */
+            max-width: 800px;
             margin: 0 auto;
         }
         .category-card {
@@ -119,7 +138,7 @@
             border-radius: 6px;
             padding: 10px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            font-size: 14px; /* Ligeramente más pequeño */
+            font-size: 14px;
             font-weight: bold;
             color: #555;
         }
@@ -127,28 +146,27 @@
             text-decoration: none;
             color: #e53935;
         }
-        /* Próximamente */
         .coming-soon {
             text-align: center;
             background: #fce4ec;
-            padding: 20px 20px; /* Reducido */
+            padding: 20px 20px;
             margin: 15px 0;
         }
         .coming-soon h2 {
-            font-size: 22px; /* Ligeramente más pequeño */
+            font-size: 22px;
             color: #d81b60;
         }
         footer {
             background-color: #1976d2;
             color: white;
             text-align: center;
-            padding: 15px; /* Reducido */
+            padding: 15px;
         }
         .social-icons a {
             color: white;
             margin: 0 8px;
             text-decoration: none;
-            font-size: 16px; /* Ligeramente más pequeño */
+            font-size: 16px;
         }
         @media (max-width: 768px) {
             .welcome-section h1 { font-size: 24px; }
@@ -158,12 +176,20 @@
             .categories-section h2 { font-size: 20px; }
             .category-card { font-size: 12px; }
             .coming-soon h2 { font-size: 18px; }
-            .carousel-images img { max-height: 150px; } /* Más pequeño en móviles */
-            .logo img { max-height: 30px; } /* Logo más pequeño en móviles */
+            .carousel-images img { max-height: 150px; }
+            .logo img { max-height: 30px; }
             .carousel-buttons button { font-size: 16px; padding: 6px; }
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .nav-button {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
         }
         @media (min-width: 769px) {
-            .logo img { max-height: 40px; } /* Logo más pequeño en escritorio */
+            .logo img { max-height: 40px; }
         }
     </style>
 </head>
@@ -174,12 +200,18 @@
         </div>
     </header>
 
+    <!-- Barra de navegación -->
+    <nav>
+        <a href="index.html" class="nav-button">Inicio</a>
+        <a href="menu.html" class="nav-button">Menú</a>
+        <a href="contacto.html" class="nav-button">Contacto</a>
+    </nav>
+
     <section class="welcome-section">
         <h1>¡Dulzura y creatividad en cada bocado!</h1>
         <p>Tu tienda favorita de gomitas enchiladas, postres y mucho más. ❤</p>
     </section>
 
-    <!-- Carrusel -->
     <div class="carousel">
         <div class="carousel-images">
             <img src="BolsaGomitas1.jpeg" alt="Bolsa de Gomitas 1">
@@ -196,7 +228,6 @@
         </div>
     </div>
 
-    <!-- Quiénes somos -->
     <section class="about-section">
         <h2>¿Quiénes somos?</h2>
         <p>
@@ -207,7 +238,6 @@
         </p>
     </section>
 
-    <!-- Categorías -->
     <section class="categories-section">
         <h2>¡Ya disponibles!</h2>
         <div class="categories-grid">
@@ -219,7 +249,6 @@
         </div>
     </section>
 
-    <!-- Próximamente -->
     <section class="coming-soon">
         <h2>¡Próximamente más sorpresas para ti! 🎉</h2>
         <p>Estamos trabajando en nuevos productos y servicios para endulzar tus días.</p>
@@ -246,7 +275,6 @@
             document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
         }
 
-        // Cambio automático cada 4 segundos
         setInterval(() => {
             moveSlide(1);
         }, 4000);
