@@ -14,7 +14,7 @@
         }
         header {
             background-color: #f44336;
-            padding: 15px;
+            padding: 10px; /* Reducido para un encabezado más compacto */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,32 +27,32 @@
             align-items: center;
         }
         .logo img {
-            max-height: 50px; /* Ajusta el tamaño del logo */
+            max-height: 40px; /* Tamaño más pequeño para el logo */
             width: auto;
         }
         .welcome-section {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px; /* Reducido para menos espacio */
             background-color: #ffebee;
         }
         .welcome-section h1 {
-            font-size: 36px;
+            font-size: 32px; /* Ligeramente más pequeño */
             color: #d32f2f;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .welcome-section p {
-            font-size: 18px;
+            font-size: 16px; /* Ligeramente más pequeño */
             color: #555;
         }
         /* Carrusel */
         .carousel {
             position: relative;
-            width: 90%;
-            max-width: 900px;
-            margin: 20px auto;
+            width: 80%; /* Reducido para un carrusel más pequeño */
+            max-width: 700px; /* Tamaño máximo más pequeño */
+            margin: 15px auto;
             overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
         }
         .carousel-images {
             display: flex;
@@ -60,6 +60,8 @@
         }
         .carousel-images img {
             width: 100%;
+            max-height: 200px; /* Tamaño más pequeño para las imágenes del carrusel */
+            object-fit: contain; /* Mantiene proporciones sin distorsión */
             flex-shrink: 0;
         }
         .carousel-buttons {
@@ -74,50 +76,50 @@
             background: rgba(0,0,0,0.5);
             border: none;
             color: white;
-            font-size: 24px;
-            padding: 10px;
+            font-size: 20px; /* Botones más pequeños */
+            padding: 8px;
             cursor: pointer;
         }
         /* Sección ¿Quiénes somos? */
         .about-section {
-            padding: 40px 20px;
+            padding: 30px 20px; /* Reducido */
             text-align: center;
         }
         .about-section h2 {
-            font-size: 28px;
+            font-size: 24px; /* Ligeramente más pequeño */
             color: #e53935;
         }
         .about-section p {
-            max-width: 700px;
-            margin: 10px auto;
-            font-size: 18px;
+            max-width: 600px; /* Reducido */
+            margin: 8px auto;
+            font-size: 16px; /* Ligeramente más pequeño */
             color: #555;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         /* Sección categorías */
         .categories-section {
-            padding: 30px 20px;
+            padding: 20px 20px; /* Reducido */
             background: #fff3e0;
             text-align: center;
         }
         .categories-section h2 {
-            font-size: 28px;
+            font-size: 24px; /* Ligeramente más pequeño */
             color: #fb8c00;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            max-width: 900px;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Cuadrícula más pequeña */
+            gap: 15px;
+            max-width: 800px; /* Reducido */
             margin: 0 auto;
         }
         .category-card {
             background: white;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            font-size: 16px;
+            border-radius: 6px;
+            padding: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            font-size: 14px; /* Ligeramente más pequeño */
             font-weight: bold;
             color: #555;
         }
@@ -129,39 +131,46 @@
         .coming-soon {
             text-align: center;
             background: #fce4ec;
-            padding: 30px 20px;
-            margin: 20px 0;
+            padding: 20px 20px; /* Reducido */
+            margin: 15px 0;
         }
         .coming-soon h2 {
-            font-size: 26px;
+            font-size: 22px; /* Ligeramente más pequeño */
             color: #d81b60;
         }
         footer {
             background-color: #1976d2;
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 15px; /* Reducido */
         }
         .social-icons a {
             color: white;
-            margin: 0 10px;
+            margin: 0 8px;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 16px; /* Ligeramente más pequeño */
         }
         @media (max-width: 768px) {
-            .welcome-section h1 { font-size: 28px; }
-            .about-section h2 { font-size: 24px; }
-            .logo img { max-height: 40px; } /* Tamaño del logo en dispositivos móviles */
+            .welcome-section h1 { font-size: 24px; }
+            .welcome-section p { font-size: 14px; }
+            .about-section h2 { font-size: 20px; }
+            .about-section p { font-size: 14px; }
+            .categories-section h2 { font-size: 20px; }
+            .category-card { font-size: 12px; }
+            .coming-soon h2 { font-size: 18px; }
+            .carousel-images img { max-height: 150px; } /* Más pequeño en móviles */
+            .logo img { max-height: 30px; } /* Logo más pequeño en móviles */
+            .carousel-buttons button { font-size: 16px; padding: 6px; }
         }
         @media (min-width: 769px) {
-            .logo img { max-height: 50px; } /* Tamaño del logo en escritorio */
+            .logo img { max-height: 40px; } /* Logo más pequeño en escritorio */
         }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">
-            <img src="G.png" alt="P&C Candys Logo">
+            <img src="son.JPEG" alt="P&C Candys Logo">
         </div>
     </header>
 
@@ -173,13 +182,13 @@
     <!-- Carrusel -->
     <div class="carousel">
         <div class="carousel-images">
-            <img src="BolsaGomitas1.jpeg" alt="Bolsa de Gomitas 1">
-            <img src="BolsaGomitas2.jpeg" alt="Bolsa de Gomitas 2">
-            <img src="BolsaGomitas3.jpeg" alt="Bolsa de Gomitas 3">
-            <img src="BolsaGomitas4.jpeg" alt="Bolsa de Gomitas 4">
-            <img src="Hotcakes.jpeg" alt="Mini Hot Cakes">
-            <img src="Maximix.jpeg" alt="Maxi Mix">
-            <img src="Deluxe.jpeg" alt="Charola Deluxe">
+            <img src="BolsaGomitas1.jpg" alt="Bolsa de Gomitas 1">
+            <img src="BolsaGomitas2.jpg" alt="Bolsa de Gomitas 2">
+            <img src="BolsaGomitas3.jpg" alt="Bolsa de Gomitas 3">
+            <img src="BolsaGomitas4.jpg" alt="Bolsa de Gomitas 4">
+            <img src="Hotcakes.jpg" alt="Mini Hot Cakes">
+            <img src="Maximix.jpg" alt="Maxi Mix">
+            <img src="Deluxe.jpg" alt="Charola Deluxe">
         </div>
         <div class="carousel-buttons">
             <button onclick="moveSlide(-1)">❮</button>
