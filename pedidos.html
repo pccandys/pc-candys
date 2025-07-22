@@ -199,7 +199,7 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// --- Código JavaScript para mapa y pedidos (igual que antes) ---
+// --- Código JavaScript para mapa y pedidos ---
 let orders = JSON.parse(localStorage.getItem('orders')) || [];
 let map, marker;
 
@@ -214,8 +214,13 @@ function updateOrderList() {
         let ul = document.createElement('ul');
         orders.forEach((item, index) => {
             let li = document.createElement('li');
-            let text = `${item.name}`;
-            if (item.variety) text += ` (${item.variety})`;
+            let text = `${item.name} (${item.variety || 'No especificado'})`;
+            if (item.gomitas && item.gomitas.length > 0) {
+                text += ` - Gomitas: ${item.gomitas.join(', ')}`;
+            }
+            if (item.extras && item.extras.length > 0) {
+                text += ` - Extras: ${item.extras.join(', ')}`;
+            }
             text += ` - $${item.price}`;
             li.textContent = text;
             let btnDelete = document.createElement('button');
@@ -294,7 +299,14 @@ function submitOrder() {
     const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
     let productDetails = '';
     orders.forEach(item => {
-        productDetails += `${item.name} (${item.variety || 'No especificado'}) - $${item.price}\n`;
+        productDetails += `${item.name} (${item.variety || 'No especificado'})\n`;
+        if (item.gomitas && item.gomitas.length > 0) {
+            productDetails += `  Gomitas: ${item.gomitas.join(', ')}\n`;
+        }
+        if (item.extras && item.extras.length > 0) {
+            productDetails += `  Extras: ${item.extras.join(', ')}\n`;
+        }
+        productDetails += `  Precio: $${item.price}\n`;
     });
 
     const confirmMsg = `¿Tu pedido está correcto?\n\n📅 Fecha: ${orderDate}\n📍 Dirección: ${address}\n👤 ${clientName}\n☎ ${phone}\n💳 Pago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}\n\n¿Deseas enviarlo?`;
@@ -304,6 +316,9 @@ function submitOrder() {
         const whatsappNumber = "524481012425";
         const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(url, '_blank');
+        orders = []; // Limpiar pedidos después de enviar
+        localStorage.setItem('orders', JSON.stringify(orders)); // Actualizar localStorage
+        updateOrderList(); // Actualizar la lista de pedidos en la página
     } else {
         alert("Puedes modificar tu pedido antes de enviarlo.");
     }
