@@ -1,319 +1,317 @@
  <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - P&C Candys</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #fff8f6;
-            color: #333;
-        }
-        header {
-            background-color: #f44336;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            position: relative;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        .page-space {
-            flex-grow: 1;
-        }
-        .menu-toggle {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            display: none; /* Oculto en pantallas grandes */
-        }
-        .nav-menu {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 20px;
-        }
-        .nav-menu li {
-            margin: 0;
-        }
-        .nav-menu a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 8px 12px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .nav-menu a:hover {
-            background-color: #d32f2f;
-        }
-        .welcome-section {
-            text-align: center;
-            padding: 30px 20px;
-            background-color: #ffebee;
-        }
-        .welcome-section h1 {
-            font-size: 32px;
-            color: #d32f2f;
-            margin-bottom: 8px;
-        }
-        .welcome-section p {
-            font-size: 16px;
-            color: #555;
-        }
-        .carousel {
-            position: relative;
-            width: 80%;
-            max-width: 700px;
-            margin: 15px auto;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-        }
-        .carousel-images {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel-images img {
-            width: 100%;
-            max-height: 200px;
-            object-fit: contain;
-            flex-shrink: 0;
-        }
-        .carousel-buttons {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            transform: translateY(-50%);
-        }
-        .carousel-buttons button {
-            background: rgba(0,0,0,0.5);
-            border: none;
-            color: white;
-            font-size: 20px;
-            padding: 8px;
-            cursor: pointer;
-        }
-        .about-section {
-            padding: 30px 20px;
-            text-align: center;
-        }
-        .about-section h2 {
-            font-size: 24px;
-            color: #e53935;
-        }
-        .about-section p {
-            max-width: 600px;
-            margin: 8px auto;
-            font-size: 16px;
-            color: #555;
-            line-height: 1.5;
-        }
-        .categories-section {
-            padding: 20px 20px;
-            background: #fff3e0;
-            text-align: center;
-        }
-        .categories-section h2 {
-            font-size: 24px;
-            color: #fb8c00;
-            margin-bottom: 15px;
-        }
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .category-card {
-            background: white;
-            border-radius: 6px;
-            padding: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            font-size: 14px;
-            font-weight: bold;
-            color: #555;
-        }
-        .category-card a {
-            text-decoration: none;
-            color: #e53935;
-        }
-        .coming-soon {
-            text-align: center;
-            background: #fce4ec;
-            padding: 20px 20px;
-            margin: 15px 0;
-        }
-        .coming-soon h2 {
-            font-size: 22px;
-            color: #d81b60;
-        }
-        footer {
-            background-color: #1976d2;
-            color: white;
-            text-align: center;
-            padding: 15px;
-        }
-        .social-icons a {
-            color: white;
-            margin: 0 8px;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block; /* Visible en móviles */
-            }
-            .nav-menu {
-                display: none; /* Oculta por defecto */
-                flex-direction: column;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background-color: #f44336;
-                padding: 10px;
-                z-index: 1000;
-            }
-            .nav-menu.active {
-                display: flex; /* Mostrar cuando está activo */
-            }
-            .nav-menu li {
-                margin: 5px 0;
-            }
-            .nav-menu a {
-                display: block;
-                padding: 10px;
-            }
-            .welcome-section h1 { font-size: 24px; }
-            .welcome-section p { font-size: 14px; }
-            .about-section h2 { font-size: 20px; }
-            .about-section p { font-size: 14px; }
-            .categories-section h2 { font-size: 20px; }
-            .category-card { font-size: 12px; }
-            .coming-soon h2 { font-size: 18px; }
-            .carousel-images img { max-height: 150px; }
-            .carousel-buttons button { font-size: 16px; padding: 6px; }
-        }
-        @media (min-width: 769px) {
-            .logo { font-size: 24px; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicio - P&C Candys</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff8f6;
+      color: #333;
+    }
+    header {
+      background-color: #f44336;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      position: relative;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .page-space {
+      flex-grow: 1;
+    }
+    .menu-toggle {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+      z-index: 2000; /* corregido */
+    }
+    .nav-menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+    }
+    .nav-menu li {
+      margin: 0;
+    }
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .nav-menu a:hover {
+      background-color: #d32f2f;
+    }
+
+    .welcome-section {
+      text-align: center;
+      padding: 30px 20px;
+      background-color: #ffebee;
+    }
+    .welcome-section h1 {
+      font-size: 32px;
+      color: #d32f2f;
+      margin-bottom: 8px;
+    }
+    .welcome-section p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .carousel {
+      position: relative;
+      width: 80%;
+      max-width: 700px;
+      margin: 15px auto;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .carousel-images img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .carousel-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+    .carousel-buttons button {
+      background: rgba(0,0,0,0.5);
+      border: none;
+      color: white;
+      font-size: 20px;
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    .about-section {
+      padding: 30px 20px;
+      text-align: center;
+    }
+    .about-section h2 {
+      font-size: 24px;
+      color: #e53935;
+    }
+    .about-section p {
+      max-width: 600px;
+      margin: 8px auto;
+      font-size: 16px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .categories-section {
+      padding: 20px 20px;
+      background: #fff3e0;
+      text-align: center;
+    }
+    .categories-section h2 {
+      font-size: 24px;
+      color: #fb8c00;
+      margin-bottom: 15px;
+    }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .category-card {
+      background: white;
+      border-radius: 6px;
+      padding: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+    }
+    .category-card a {
+      text-decoration: none;
+      color: #e53935;
+    }
+
+    .coming-soon {
+      text-align: center;
+      background: #fce4ec;
+      padding: 20px 20px;
+      margin: 15px 0;
+    }
+    .coming-soon h2 {
+      font-size: 22px;
+      color: #d81b60;
+    }
+
+    footer {
+      background-color: #1976d2;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+    .social-icons a {
+      color: white;
+      margin: 0 8px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background-color: #f44336;
+        padding: 10px;
+        z-index: 1000;
+      }
+      .nav-menu.active {
+        display: flex;
+      }
+      .nav-menu li {
+        margin: 5px 0;
+      }
+      .nav-menu a {
+        display: block;
+        padding: 10px;
+      }
+      .welcome-section h1 { font-size: 24px; }
+      .welcome-section p { font-size: 14px; }
+      .about-section h2 { font-size: 20px; }
+      .about-section p { font-size: 14px; }
+      .categories-section h2 { font-size: 20px; }
+      .category-card { font-size: 12px; }
+      .coming-soon h2 { font-size: 18px; }
+      .carousel-images img { max-height: 150px; }
+      .carousel-buttons button { font-size: 16px; padding: 6px; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">🍭 P&C Candys</div>
-        <div class="page-space"></div>
-        <button class="menu-toggle">☰</button>
-        <ul class="nav-menu">
-       <ul class="nav-menu">
-    <li><a href="index.html">Inicio</a></li>
-    <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
-    <li><a href="charolas.html">Charolas</a></li>
-    <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
-    <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
-    <li><a href="waffles.html">Waffles</a></li>
-    <li><a href="crepas.html">Crepas</a></li>
-    <li><a href="mini_donas.html">Mini Donas</a></li>
-    <li><a href="extras.html">Extras</a></li>
-    <li><a href="pedidos.html">Pedidos</a></li>
-</ul>
-        </ul>
-    </header>
+  <header>
+    <div class="logo">🍭 P&C Candys</div>
+    <div class="page-space"></div>
+    <button class="menu-toggle">☰</button>
+    <ul class="nav-menu">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
+      <li><a href="charolas.html">Charolas</a></li>
+      <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
+      <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
+      <li><a href="waffles.html">Waffles</a></li>
+      <li><a href="crepas.html">Crepas</a></li>
+      <li><a href="mini_donas.html">Mini Donas</a></li>
+      <li><a href="extras.html">Extras</a></li>
+      <li><a href="pedidos.html">Pedidos</a></li>
+    </ul>
+  </header>
 
-    <section class="welcome-section">
-        <h1>¡Dulzura y creatividad en cada bocado!</h1>
-        <p>Tu tienda favorita de gomitas enchiladas, postres y mucho más. ❤</p>
-    </section>
+  <section class="welcome-section">
+    <h1>¡Dulzura y creatividad en cada bocado!</h1>
+    <p>Tu tienda favorita de gomitas enchiladas, postres y mucho más. ❤</p>
+  </section>
 
-    <div class="carousel">
-        <div class="carousel-images">
-            <img src="BolsaGomitas1.jpeg" alt="Bolsa de Gomitas 1">
-            <img src="BolsaGomitas2.jpeg" alt="Bolsa de Gomitas 2">
-            <img src="BolsaGomitas3.jpeg" alt="Bolsa de Gomitas 3">
-            <img src="BolsaGomitas4.jpeg" alt="Bolsa de Gomitas 4">
-            <img src="Hotcakes.jpeg" alt="Mini Hot Cakes">
-            <img src="maximix.jpeg" alt="Maxi Mix">
-            <img src="Deluxe.jpeg" alt="Charola Deluxe">
-        </div>
-        <div class="carousel-buttons">
-            <button onclick="moveSlide(-1)">❮</button>
-            <button onclick="moveSlide(1)">❯</button>
-        </div>
+  <div class="carousel">
+    <div class="carousel-images">
+      <img src="BolsaGomitas1.jpeg" alt="Bolsa de Gomitas 1" />
+      <img src="BolsaGomitas2.jpeg" alt="Bolsa de Gomitas 2" />
+      <img src="BolsaGomitas3.jpeg" alt="Bolsa de Gomitas 3" />
+      <img src="BolsaGomitas4.jpeg" alt="Bolsa de Gomitas 4" />
+      <img src="Hotcakes.jpeg" alt="Mini Hot Cakes" />
+      <img src="maximix.jpeg" alt="Maxi Mix" />
+      <img src="Deluxe.jpeg" alt="Charola Deluxe" />
     </div>
+    <div class="carousel-buttons">
+      <button onclick="moveSlide(-1)">❮</button>
+      <button onclick="moveSlide(1)">❯</button>
+    </div>
+  </div>
 
-    <section class="about-section">
-        <h2>¿Quiénes somos?</h2>
-        <p>
-            <strong>P&C Candys</strong> es un emprendimiento hecho con amor por Paulo y Carol, donde combinamos sabor, creatividad y pasión.
-            Empezamos con nuestras deliciosas gomitas enchiladas y vamos creciendo para ofrecerte productos únicos y variados, siempre con ese toque casero y especial.
-            <br><br>
-            Nos mueve la idea de crear algo diferente, divertido y lleno de cariño. ¡Esto apenas comienza y tú eres parte de esta historia! 💕
-        </p>
-    </section>
+  <section class="about-section">
+    <h2>¿Quiénes somos?</h2>
+    <p><strong>P&C Candys</strong> es un emprendimiento hecho con amor por Paulo y Carol, donde combinamos sabor, creatividad y pasión. Empezamos con nuestras deliciosas gomitas enchiladas y vamos creciendo para ofrecerte productos únicos y variados, siempre con ese toque casero y especial. <br><br>Nos mueve la idea de crear algo diferente, divertido y lleno de cariño. ¡Esto apenas comienza y tú eres parte de esta historia! 💕</p>
+  </section>
 
-    <section class="categories-section">
-        <h2>¡Ya disponibles!</h2>
-        <div class="categories-grid">
-            <div class="category-card"><a href="bolsa_de_gomitas.html">Bolsas de Gomitas</a></div>
-            <div class="category-card"><a href="charolas.html">Charolas</a></div>
-            <div class="category-card"><a href="mini_hot_cakes.html">Mini Hot Cakes</a></div>
-            <div class="category-card"><a href="fresas_con_crema.html">Fresas con Crema</a></div>
-            <div class="category-card">¡Y mucho más próximamente!</div>
-        </div>
-    </section>
+  <section class="categories-section">
+    <h2>¡Ya disponibles!</h2>
+    <div class="categories-grid">
+      <div class="category-card"><a href="bolsa_de_gomitas.html">Bolsas de Gomitas</a></div>
+      <div class="category-card"><a href="charolas.html">Charolas</a></div>
+      <div class="category-card"><a href="mini_hot_cakes.html">Mini Hot Cakes</a></div>
+      <div class="category-card"><a href="fresas_con_crema.html">Fresas con Crema</a></div>
+      <div class="category-card">¡Y mucho más próximamente!</div>
+    </div>
+  </section>
 
-    <section class="coming-soon">
-        <h2>¡Próximamente más sorpresas para ti! 🎉</h2>
-        <p>Estamos trabajando en nuevos productos y servicios para endulzar tus días, como Waffles, Crepas y Mini Donas.</p>
-    </section>
+  <section class="coming-soon">
+    <h2>¡Próximamente más sorpresas para ti! 🎉</h2>
+    <p>Estamos trabajando en nuevos productos y servicios para endulzar tus días, como Waffles, Crepas y Mini Donas.</p>
+  </section>
 
-    <footer>
-        <h3>Síguenos en Redes Sociales</h3>
-        <div class="social-icons">
-            <a href="https://facebook.com/PyCCandys">Facebook</a>
-            <a href="https://instagram.com/PyCCandys">Instagram</a>
-            <a href="https://wa.me/524481012425">WhatsApp</a>
-            <a href="https://tiktok.com/@PyCCandys">TikTok</a>
-        </div>
-    </footer>
+  <footer>
+    <h3>Síguenos en Redes Sociales</h3>
+    <div class="social-icons">
+      <a href="https://facebook.com/PyCCandys">Facebook</a>
+      <a href="https://instagram.com/PyCCandys">Instagram</a>
+      <a href="https://wa.me/524481012425">WhatsApp</a>
+      <a href="https://tiktok.com/@PyCCandys">TikTok</a>
+    </div>
+  </footer>
 
-    <script>
-        // Script para el carrusel
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-images img');
-        const totalSlides = slides.length;
+  <script>
+    // Carrusel
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-images img');
+    const totalSlides = slides.length;
 
-        function moveSlide(direction) {
-            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-            const offset = -currentSlide * 100;
-            document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
-        }
+    function moveSlide(direction) {
+      currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+      const offset = -currentSlide * 100;
+      document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
+    }
 
-        setInterval(() => {
-            moveSlide(1);
-        }, 4000);
+    setInterval(() => {
+      moveSlide(1);
+    }, 4000);
 
-        // Script para el menú hamburguesa
-        document.querySelector('.menu-toggle').addEventListener('click', () => {
-            document.querySelector('.nav-menu').classList.toggle('active');
-        });
-    </script>
+    // Menú hamburguesa
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+      document.querySelector('.nav-menu').classList.toggle('active');
+    });
+  </script>
 </body>
 </html>
