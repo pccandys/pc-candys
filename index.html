@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -37,7 +37,7 @@
       font-size: 24px;
       cursor: pointer;
       display: none;
-      z-index: 2000; /* corregido */
+      z-index: 2000;
     }
     .nav-menu {
       list-style: none;
@@ -184,6 +184,74 @@
       font-size: 16px;
     }
 
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 3000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: #fff8f6;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #d32f2f;
+    }
+    .modal-close-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+    .modal-close-btn:hover {
+      background-color: #d32f2f;
+    }
+    .modal-content h2 {
+      color: #e53935;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    .modal-content p {
+      color: #555;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .modal-content ul {
+      text-align: left;
+      margin: 15px 0;
+      padding-left: 20px;
+      color: #555;
+    }
+    .modal-content a {
+      color: #e53935;
+      text-decoration: none;
+    }
+    .modal-content a:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 768px) {
       .menu-toggle {
         display: block;
@@ -218,10 +286,42 @@
       .coming-soon h2 { font-size: 18px; }
       .carousel-images img { max-height: 150px; }
       .carousel-buttons button { font-size: 16px; padding: 6px; }
+      .modal-content {
+        padding: 15px;
+      }
+      .modal-content h2 {
+        font-size: 20px;
+      }
+      .modal-content p,
+      .modal-content ul {
+        font-size: 14px;
+      }
+      .modal-close-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Modal -->
+  <div id="welcomeModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>¡Bienvenidos a P&C Candys! 🍭</h2>
+      <p>Estamos emocionados de tenerte aquí. Sigue estos pasos para hacer tu pedido:</p>
+      <ul>
+        <li><strong>Explora nuestros productos:</strong> Navega por las categorías como Bolsas de Gomitas, Charolas, Mini Hot Cakes y más.</li>
+        <li><strong>Elige tu favorito:</strong> Selecciona los productos que desees desde nuestras páginas de categorías.</li>
+        <li><strong>Haz tu pedido:</strong> Visita la sección de <a href="pedidos.html">Pedidos</a> y completa el formulario con los detalles de tu orden.</li>
+        <li><strong>Contáctanos:</strong> Envía tu pedido vía <a href="https://wa.me/524481012425">WhatsApp</a> o contáctanos en nuestras redes sociales (<a href="https://facebook.com/PyCCandys">Facebook</a>, <a href="https://instagram.com/PyCCandys">Instagram</a>, <a href="https://tiktok.com/@PyCCandys">TikTok</a>).</li>
+        <li><strong>Confirma:</strong> Te responderemos para confirmar los detalles y coordinar la entrega.</li>
+      </ul>
+      <p>¡Es hora de disfrutar de la dulzura! 💕</p>
+      <button class="modal-close-btn">Entendido</button>
+    </div>
+  </div>
+
   <header>
     <div class="logo">🍭 P&C Candys</div>
     <div class="page-space"></div>
@@ -293,7 +393,34 @@
   </footer>
 
   <script>
-    // Carrusel
+    // Modal functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('welcomeModal');
+      const closeModalBtn = document.querySelector('.modal-close-btn');
+      const closeModalSpan = document.querySelector('.close-modal');
+
+      // Show modal on page load
+      modal.style.display = 'flex';
+
+      // Close modal when clicking the close button
+      closeModalBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      // Close modal when clicking the close span (X)
+      closeModalSpan.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      // Close modal when clicking outside the modal content
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
+
+    // Carousel
     let currentSlide = 0;
     const slides = document.querySelectorAll('.carousel-images img');
     const totalSlides = slides.length;
@@ -308,7 +435,7 @@
       moveSlide(1);
     }, 4000);
 
-    // Menú hamburguesa
+    // Hamburger menu
     document.querySelector('.menu-toggle').addEventListener('click', () => {
       document.querySelector('.nav-menu').classList.toggle('active');
     });
