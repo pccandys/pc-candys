@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>P&C Candys - Pedidos</title>
+    <title>P&C Candys - Mini Hot Cakes</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -104,7 +104,7 @@
             padding: 40px 20px;
             text-align: center;
         }
-        .orders-container {
+        .menu-container {
             max-width: 600px;
             background: white;
             padding: 30px 25px;
@@ -114,26 +114,66 @@
             color: #555;
             line-height: 1.5;
         }
-        .orders-container h2 {
+        .menu-container h2 {
             color: #f44336;
             margin-bottom: 20px;
             font-size: 24px;
+            text-align: center;
         }
-        .order-item {
+        .menu-item, .toppings, .spreads {
             margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
         }
-        .order-item h3 {
+        .menu-item h3, .toppings h3, .spreads h3 {
             color: #f44336;
             font-size: 20px;
             margin-bottom: 10px;
         }
-        .order-item p {
+        .menu-item p, .toppings p, .spreads p {
             margin: 5px 0;
         }
-        .clear-orders {
+        .menu-item strong {
+            color: #f44336;
+        }
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .option-group input[type="radio"], .option-group input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .toppings, .spreads {
+            margin-top: 30px;
+            display: none; /* Hidden by default */
+        }
+        .toppings.active, .spreads.active {
+            display: block; /* Shown when active */
+        }
+        .toppings p, .spreads p {
+            font-style: italic;
+            color: #777;
+        }
+        #order-summary {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            display: none;
+        }
+        #order-summary h3 {
+            color: #f44336;
+            margin-bottom: 10px;
+        }
+        #order-summary p {
+            margin: 5px 0;
+        }
+        button#confirm-order {
             background-color: #f44336;
             color: white;
             border: none;
@@ -146,12 +186,12 @@
             margin-left: auto;
             margin-right: auto;
         }
-        .clear-orders:hover {
+        button#confirm-order:hover {
             background-color: #d32f2f;
         }
-        .no-orders {
-            font-style: italic;
-            color: #777;
+        button#confirm-order:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -178,18 +218,72 @@
     </header>
 
     <main>
-        <div class="orders-container">
-            <h2>Tus Pedidos</h2>
-            <div id="orders-list"></div>
-            <button class="clear-orders">Limpiar Pedidos</button>
+        <div class="menu-container">
+            <h2>Mini Hot Cakes</h2>
+            <div class="menu-item">
+                <h3>Selecciona el tipo de Mini Hot Cakes</h3>
+                <div class="option-group">
+                    <label>
+                        <input type="radio" name="hotcakes" value="15 piezas - $45" data-price="45">
+                        Mini Hot Cakes (15 piezas) - $45
+                    </label>
+                    <label>
+                        <input type="radio" name="hotcakes" value="25 piezas - $60" data-price="60">
+                        Mini Hot Cakes (25 piezas) - $60
+                    </label>
+                </div>
+                <p>Deliciosos mini hot cakes suaves y esponjosos, perfectos para compartir o disfrutar solo.</p>
+            </div>
+            <div class="toppings">
+                <h3>Toppings ($2 cada uno)</h3>
+                <p>Selecciona tus toppings favoritos para personalizar tus mini hot cakes.</p>
+                <div class="option-group">
+                    <label><input type="checkbox" name="topping" value="Chispas de chocolate" data-price="2"> Chispas de chocolate</label>
+                    <label><input type="checkbox" name="topping" value="Chochitos de colores" data-price="2"> Chochitos de colores</label>
+                    <label><input type="checkbox" name="topping" value="Chochitos de chocolate" data-price="2"> Chochitos de chocolate</label>
+                    <label><input type="checkbox" name="topping" value="Coco rayado" data-price="2"> Coco rayado</label>
+                    <label><input type="checkbox" name="topping" value="Granola" data-price="2"> Granola</label>
+                    <label><input type="checkbox" name="topping" value="Nuez" data-price="2"> Nuez</label>
+                    <label><input type="checkbox" name="topping" value="Almendra" data-price="2"> Almendra</label>
+                    <label><input type="checkbox" name="topping" value="Chispas de chocolate blanco" data-price="2"> Chispas de chocolate blanco</label>
+                </div>
+            </div>
+            <div class="spreads">
+                <h3>Untables ($2 cada uno)</h3>
+                <p>Elige tus untables preferidos para darle un toque especial.</p>
+                <div class="option-group">
+                    <label><input type="checkbox" name="spread" value="Nutella" data-price="2"> Nutella</label>
+                    <label><input type="checkbox" name="spread" value="Caramelo" data-price="2"> Caramelo</label>
+                    <label><input type="checkbox" name="spread" value="Lechera" data-price="2"> Lechera</label>
+                    <label><input type="checkbox" name="spread" value="Cajeta" data-price="2"> Cajeta</label>
+                    <label><input type="checkbox" name="spread" value="Mermelada" data-price="2"> Mermelada</label>
+                    <label><input type="checkbox" name="spread" value="Jarabe de chocolate" data-price="2"> Jarabe de chocolate</label>
+                    <label><input type="checkbox" name="spread" value="Jarabe de fresa" data-price="2"> Jarabe de fresa</label>
+                </div>
+            </div>
+            <div id="order-summary">
+                <h3>Resumen del Pedido</h3>
+                <p id="selected-hotcakes"></p>
+                <p id="selected-toppings"></p>
+                <p id="selected-spreads"></p>
+                <p id="total-price"></p>
+            </div>
+            <button id="confirm-order" disabled>Confirmar y Agregar a Pedidos</button>
         </div>
     </main>
 
     <script>
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
-        const ordersList = document.querySelector('#orders-list');
-        const clearOrdersButton = document.querySelector('.clear-orders');
+        const hotcakeRadios = document.querySelectorAll('input[name="hotcakes"]');
+        const toppingsSection = document.querySelector('.toppings');
+        const spreadsSection = document.querySelector('.spreads');
+        const confirmButton = document.querySelector('#confirm-order');
+        const orderSummary = document.querySelector('#order-summary');
+        const selectedHotcakes = document.querySelector('#selected-hotcakes');
+        const selectedToppings = document.querySelector('#selected-toppings');
+        const selectedSpreads = document.querySelector('#selected-spreads');
+        const totalPrice = document.querySelector('#total-price');
 
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
@@ -201,40 +295,95 @@
             }
         });
 
-        function displayOrders() {
-            const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            ordersList.innerHTML = '';
+        hotcakeRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.checked) {
+                    toppingsSection.classList.add('active');
+                    spreadsSection.classList.add('active');
+                    updateOrderSummary();
+                }
+            });
+        });
 
-            if (orders.length === 0) {
-                ordersList.innerHTML = '<p class="no-orders">No hay pedidos registrados.</p>';
-                clearOrdersButton.style.display = 'none';
+        const toppingsCheckboxes = document.querySelectorAll('input[name="topping"]');
+        const spreadsCheckboxes = document.querySelectorAll('input[name="spread"]');
+
+        [...toppingsCheckboxes, ...spreadsCheckboxes].forEach(checkbox => {
+            checkbox.addEventListener('change', updateOrderSummary);
+        });
+
+        function updateOrderSummary() {
+            const selectedHotcake = document.querySelector('input[name="hotcakes"]:checked');
+            let price = 0;
+
+            if (!selectedHotcake) {
+                toppingsSection.classList.remove('active');
+                spreadsSection.classList.remove('active');
+                orderSummary.style.display = 'none';
+                confirmButton.disabled = true;
                 return;
             }
 
-            orders.forEach(order => {
-                const orderElement = document.createElement('div');
-                orderElement.classList.add('order-item');
-                orderElement.innerHTML = `
-                    <h3>Pedido #${order.id}</h3>
-                    <p>Mini Hot Cakes: ${order.hotcakes}</p>
-                    <p>Toppings: ${order.toppings.join(', ')}</p>
-                    <p>Untables: ${order.spreads.join(', ')}</p>
-                    <p>Total: $${order.total.toFixed(2)}</p>
-                `;
-                ordersList.appendChild(orderElement);
-            });
-            clearOrdersButton.style.display = 'block';
+            price += parseInt(selectedHotcake.dataset.price);
+            const selectedToppingsList = Array.from(toppingsCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            const selectedSpreadsList = Array.from(spreadsCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+
+            // Add $2 for each topping and spread
+            price += selectedToppingsList.length * 2;
+            price += selectedSpreadsList.length * 2;
+
+            selectedHotcakes.innerHTML = `Mini Hot Cakes: ${selectedHotcake.value}`;
+            selectedToppings.innerHTML = `Toppings: ${selectedToppingsList.length > 0 ? selectedToppingsList.join(', ') : 'Ninguno'}`;
+            selectedSpreads.innerHTML = `Untables: ${selectedSpreadsList.length > 0 ? selectedSpreadsList.join(', ') : 'Ninguno'}`;
+            totalPrice.innerHTML = `Total: $${price.toFixed(2)}`;
+
+            orderSummary.style.display = 'block';
+            confirmButton.disabled = false;
         }
 
-        clearOrdersButton.addEventListener('click', () => {
-            if (confirm('¿Estás seguro de que deseas limpiar todos los pedidos?')) {
-                localStorage.removeItem('orders');
-                displayOrders();
+        confirmButton.addEventListener('click', () => {
+            const selectedHotcake = document.querySelector('input[name="hotcakes"]:checked');
+            if (!selectedHotcake) {
+                alert('Por favor, selecciona un tipo de Mini Hot Cakes.');
+                return;
             }
-        });
 
-        // Display orders on page load
-        displayOrders();
+            const selectedToppingsList = Array.from(toppingsCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            const selectedSpreadsList = Array.from(spreadsCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            let price = parseInt(selectedHotcake.dataset.price);
+            price += selectedToppingsList.length * 2;
+            price += selectedSpreadsList.length * 2;
+
+            const order = {
+                id: Date.now(), // Unique ID based on timestamp
+                hotcakes: selectedHotcake.value,
+                toppings: selectedToppingsList.length > 0 ? selectedToppingsList : ['Ninguno'],
+                spreads: selectedSpreadsList.length > 0 ? selectedSpreadsList : ['Ninguno'],
+                total: price
+            };
+
+            // Save order to localStorage
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            alert('¡Pedido agregado con éxito!\n' +
+                  `Mini Hot Cakes: ${order.hotcakes}\n` +
+                  `Toppings: ${order.toppings.join(', ')}\n` +
+                  `Untables: ${order.spreads.join(', ')}\n` +
+                  `Total: $${order.total.toFixed(2)}`);
+
+            // Redirect to pedidos.html
+            window.location.href = 'pedidos.html';
+        });
     </script>
 </body>
 </html>
