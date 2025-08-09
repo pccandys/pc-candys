@@ -28,7 +28,7 @@
             align-items: center;
         }
         .logo img {
-            max-height: 50px; /* Ajusta el tamaño del logo */
+            max-height: 50px;
             width: auto;
         }
         .menu-toggle {
@@ -93,10 +93,9 @@
                 font-size: 18px;
             }
             .logo img {
-                max-height: 40px; /* Tamaño del logo en dispositivos móviles */
+                max-height: 40px;
             }
         }
-
         main {
             flex-grow: 1;
             display: flex;
@@ -105,7 +104,7 @@
             padding: 40px 20px;
             text-align: center;
         }
-        .message {
+        .menu-container {
             max-width: 600px;
             background: white;
             padding: 30px 25px;
@@ -115,8 +114,31 @@
             color: #555;
             line-height: 1.5;
         }
-        .message strong {
+        .menu-container h2 {
             color: #f44336;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .menu-item {
+            margin-bottom: 20px;
+        }
+        .menu-item p {
+            margin: 5px 0;
+        }
+        .menu-item strong {
+            color: #f44336;
+        }
+        .toppings, .spreads {
+            margin-top: 30px;
+        }
+        .toppings h3, .spreads h3 {
+            color: #f44336;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .toppings p, .spreads p {
+            font-style: italic;
+            color: #777;
         }
     </style>
 </head>
@@ -128,26 +150,39 @@
         <button class="menu-toggle" aria-label="Mostrar menú">☰</button>
         <nav>
             <ul class="nav-menu">
-                 <li><a href="index.html">Inicio</a></li>
-      <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
-      <li><a href="charolas.html">Charolas</a></li>
-      <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
-      <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
-      <li><a href="waffles.html">Waffles</a></li>
-      <li><a href="crepas.html">Crepas</a></li>
-      <li><a href="mini_donas.html">Mini Donas</a></li>
-      <li><a href="extras.html">Extras</a></li>
-      <li><a href="pedidos.html">Pedidos</a></li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
+                <li><a href="charolas.html">Charolas</a></li>
+                <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
+                <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
+                <li><a href="waffles.html">Waffles</a></li>
+                <li><a href="crepas.html">Crepas</a></li>
+                <li><a href="mini_donas.html">Mini Donas</a></li>
+                <li><a href="extras.html">Extras</a></li>
+                <li><a href="pedidos.html">Pedidos</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <div class="message">
-            <p><strong>La sección de Mini Hot Cakes está en construcción.</strong></p>
-            <p>Estamos trabajando para ofrecerte las mejores opciones y un servicio delicioso.</p>
-            <p>Gracias por tu paciencia y preferencia.</p>
-            <p>— P&C Candys</p>
+        <div class="menu-container">
+            <h2>Mini Hot Cakes</h2>
+            <div class="menu-item">
+                <p><strong>Mini Hot Cakes (15 piezas)</strong> - $45</p>
+                <p>Deliciosos mini hot cakes suaves y esponjosos, perfectos para compartir o disfrutar solo.</p>
+            </div>
+            <div class="menu-item">
+                <p><strong>Mini Hot Cakes (25 piezas)</strong> - $60</p>
+                <p>Una porción más grande de nuestros mini hot cakes, ideales para cualquier ocasión.</p>
+            </div>
+            <div class="toppings">
+                <h3>Toppings</h3>
+                <p>Selecciona tus toppings favoritos para personalizar tus mini hot cakes (próximamente).</p>
+            </div>
+            <div class="spreads">
+                <h3>Untables</h3>
+                <p>Elige tus untables preferidos para darle un toque especial (próximamente).</p>
+            </div>
         </div>
     </main>
 
@@ -159,7 +194,6 @@
             navMenu.classList.toggle('active');
         });
 
-        // Cerrar menú si haces click fuera (opcional)
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
                 navMenu.classList.remove('active');
