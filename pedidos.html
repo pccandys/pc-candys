@@ -52,8 +52,6 @@
         .nav-menu a:hover {
             color: #ffe082;
         }
-
-        /* Estilos para móvil */
         @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
@@ -76,7 +74,6 @@
                 margin: 10px 0;
             }
         }
-
         .order-section {
             padding: 20px;
             text-align: center;
@@ -232,14 +229,26 @@ function updateOrderList() {
         let ul = document.createElement('ul');
         orders.forEach((item, index) => {
             let li = document.createElement('li');
-            let text = `${item.name} (${item.variety || 'No especificado'})`;
-            if (item.gomitas && item.gomitas.length > 0) {
-                text += ` - Gomitas: ${item.gomitas.join(', ')}`;
+            let text = '';
+            if (item.hotcakes) { // Check if it's a Mini Hot Cakes order
+                text = `Mini Hot Cakes: ${item.hotcakes}`;
+                if (item.toppings && item.toppings.length > 0 && item.toppings[0] !== 'Ninguno') {
+                    text += ` - Toppings: ${item.toppings.join(', ')}`;
+                }
+                if (item.spreads && item.spreads.length > 0 && item.spreads[0] !== 'Ninguno') {
+                    text += ` - Untables: ${item.spreads.join(', ')}`;
+                }
+                text += ` - $${item.total}`;
+            } else { // Handle other types of orders (e.g., gomitas)
+                text = `${item.name || 'Producto'} (${item.variety || 'No especificado'})`;
+                if (item.gomitas && item.gomitas.length > 0) {
+                    text += ` - Gomitas: ${item.gomitas.join(', ')}`;
+                }
+                if (item.extras && item.extras.length > 0) {
+                    text += ` - Extras: ${item.extras.join(', ')}`;
+                }
+                text += ` - $${item.price || item.total}`;
             }
-            if (item.extras && item.extras.length > 0) {
-                text += ` - Extras: ${item.extras.join(', ')}`;
-            }
-            text += ` - $${item.price}`;
             li.textContent = text;
             let btnDelete = document.createElement('button');
             btnDelete.textContent = '×';
@@ -301,8 +310,6 @@ function toggleDeliveryFields() {
     const deliveryFields = document.getElementById('deliveryFields');
     const orderDateInput = document.getElementById('orderDate');
     const addressInput = document.getElementById('address');
-    const latInput = document.getElementById('latitud');
-    const lngInput = document.getElementById('longitud');
 
     if (deliveryMethod === 'pickup') {
         deliveryFields.classList.add('hidden');
@@ -344,17 +351,28 @@ function submitOrder() {
     }
 
     // Calculate total and prepare product details
-    const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
+    const total = orders.reduce((sum, item) => sum + (parseFloat(item.total || item.price) || 0), 0).toFixed(2);
     let productDetails = '';
     orders.forEach(item => {
-        productDetails += `${item.name} (${item.variety || 'No especificado'})\n`;
-        if (item.gomitas && item.gomitas.length > 0) {
-            productDetails += `  Gomitas: ${item.gomitas.join(', ')}\n`;
+        if (item.hotcakes) { // Mini Hot Cakes order
+            productDetails += `Mini Hot Cakes: ${item.hotcakes}\n`;
+            if (item.toppings && item.toppings.length > 0 && item.toppings[0] !== 'Ninguno') {
+                productDetails += `  Toppings: ${item.toppings.join(', ')}\n`;
+            }
+            if (item.spreads && item.spreads.length > 0 && item.spreads[0] !== 'Ninguno') {
+                productDetails += `  Untables: ${item.spreads.join(', ')}\n`;
+            }
+            productDetails += `  Precio: $${item.total}\n`;
+        } else { // Other types of orders
+            productDetails += `${item.name || 'Producto'} (${item.variety || 'No especificado'})\n`;
+            if (item.gomitas && item.gomitas.length > 0) {
+                productDetails += `  Gomitas: ${item.gomitas.join(', ')}\n`;
+            }
+            if (item.extras && item.extras.length > 0) {
+                productDetails += `  Extras: ${item.extras.join(', ')}\n`;
+            }
+            productDetails += `  Precio: $${item.price || item.total}\n`;
         }
-        if (item.extras && item.extras.length > 0) {
-            productDetails += `  Extras: ${item.extras.join(', ')}\n`;
-        }
-        productDetails += `  Precio: $${item.price}\n`;
     });
 
     // Prepare WhatsApp message based on delivery method
