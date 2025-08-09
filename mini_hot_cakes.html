@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>P&C Candys - Mini Hot Cakes</title>
+    <title>P&C Candys - Pedidos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -104,7 +104,7 @@
             padding: 40px 20px;
             text-align: center;
         }
-        .menu-container {
+        .orders-container {
             max-width: 600px;
             background: white;
             padding: 30px 25px;
@@ -114,29 +114,42 @@
             color: #555;
             line-height: 1.5;
         }
-        .menu-container h2 {
+        .orders-container h2 {
             color: #f44336;
             margin-bottom: 20px;
             font-size: 24px;
         }
-        .menu-item {
+        .order-item {
             margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
         }
-        .menu-item p {
-            margin: 5px 0;
-        }
-        .menu-item strong {
-            color: #f44336;
-        }
-        .toppings, .spreads {
-            margin-top: 30px;
-        }
-        .toppings h3, .spreads h3 {
+        .order-item h3 {
             color: #f44336;
             font-size: 20px;
             margin-bottom: 10px;
         }
-        .toppings p, .spreads p {
+        .order-item p {
+            margin: 5px 0;
+        }
+        .clear-orders {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .clear-orders:hover {
+            background-color: #d32f2f;
+        }
+        .no-orders {
             font-style: italic;
             color: #777;
         }
@@ -165,30 +178,18 @@
     </header>
 
     <main>
-        <div class="menu-container">
-            <h2>Mini Hot Cakes</h2>
-            <div class="menu-item">
-                <p><strong>Mini Hot Cakes (15 piezas)</strong> - $45</p>
-                <p>Deliciosos mini hot cakes suaves y esponjosos, perfectos para compartir o disfrutar solo.</p>
-            </div>
-            <div class="menu-item">
-                <p><strong>Mini Hot Cakes (25 piezas)</strong> - $60</p>
-                <p>Una porción más grande de nuestros mini hot cakes, ideales para cualquier ocasión.</p>
-            </div>
-            <div class="toppings">
-                <h3>Toppings</h3>
-                <p>Selecciona tus toppings favoritos para personalizar tus mini hot cakes (próximamente).</p>
-            </div>
-            <div class="spreads">
-                <h3>Untables</h3>
-                <p>Elige tus untables preferidos para darle un toque especial (próximamente).</p>
-            </div>
+        <div class="orders-container">
+            <h2>Tus Pedidos</h2>
+            <div id="orders-list"></div>
+            <button class="clear-orders">Limpiar Pedidos</button>
         </div>
     </main>
 
     <script>
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
+        const ordersList = document.querySelector('#orders-list');
+        const clearOrdersButton = document.querySelector('.clear-orders');
 
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
@@ -199,6 +200,41 @@
                 navMenu.classList.remove('active');
             }
         });
+
+        function displayOrders() {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            ordersList.innerHTML = '';
+
+            if (orders.length === 0) {
+                ordersList.innerHTML = '<p class="no-orders">No hay pedidos registrados.</p>';
+                clearOrdersButton.style.display = 'none';
+                return;
+            }
+
+            orders.forEach(order => {
+                const orderElement = document.createElement('div');
+                orderElement.classList.add('order-item');
+                orderElement.innerHTML = `
+                    <h3>Pedido #${order.id}</h3>
+                    <p>Mini Hot Cakes: ${order.hotcakes}</p>
+                    <p>Toppings: ${order.toppings.join(', ')}</p>
+                    <p>Untables: ${order.spreads.join(', ')}</p>
+                    <p>Total: $${order.total.toFixed(2)}</p>
+                `;
+                ordersList.appendChild(orderElement);
+            });
+            clearOrdersButton.style.display = 'block';
+        }
+
+        clearOrdersButton.addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que deseas limpiar todos los pedidos?')) {
+                localStorage.removeItem('orders');
+                displayOrders();
+            }
+        });
+
+        // Display orders on page load
+        displayOrders();
     </script>
 </body>
 </html>
