@@ -139,6 +139,12 @@
             text-decoration: none;
             font-size: 20px;
         }
+        .delivery-fields {
+            display: block;
+        }
+        .delivery-fields.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -146,16 +152,16 @@
     <div class="logo">P&C Candys</div>
     <button class="menu-toggle">☰</button>
     <ul class="nav-menu">
-       <li><a href="index.html">Inicio</a></li>
-      <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
-      <li><a href="charolas.html">Charolas</a></li>
-      <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
-      <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
-      <li><a href="waffles.html">Waffles</a></li>
-      <li><a href="crepas.html">Crepas</a></li>
-      <li><a href="mini_donas.html">Mini Donas</a></li>
-      <li><a href="extras.html">Extras</a></li>
-      <li><a href="pedidos.html">Pedidos</a></li>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
+        <li><a href="charolas.html">Charolas</a></li>
+        <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
+        <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
+        <li><a href="waffles.html">Waffles</a></li>
+        <li><a href="crepas.html">Crepas</a></li>
+        <li><a href="mini_donas.html">Mini Donas</a></li>
+        <li><a href="extras.html">Extras</a></li>
+        <li><a href="pedidos.html">Pedidos</a></li>
     </ul>
 </header>
 
@@ -166,15 +172,23 @@
             <h3>Productos Seleccionados:</h3>
             <p id="orderList">No has seleccionado productos aún.</p>
         </div>
-        <label for="orderDate">Pedido programado para:</label>
-        <input type="date" id="orderDate" required />
-        <label for="address">Entrega en:</label>
-        <input type="text" id="address" placeholder="Dirección" required />
-        <label>Selecciona tu ubicación:</label>
-        <button type="button" onclick="getLocation()">Usar mi ubicación actual</button>
-        <div id="map"></div>
-        <input type="hidden" id="latitud" />
-        <input type="hidden" id="longitud" />
+        <label for="deliveryMethod">Método de entrega:</label>
+        <select id="deliveryMethod" onchange="toggleDeliveryFields()" required>
+            <option value="">Selecciona</option>
+            <option value="delivery">A domicilio</option>
+            <option value="pickup">Recojo en tienda</option>
+        </select>
+        <div class="delivery-fields" id="deliveryFields">
+            <label for="orderDate">Pedido programado para:</label>
+            <input type="date" id="orderDate" required />
+            <label for="address">Entrega en:</label>
+            <input type="text" id="address" placeholder="Dirección" required />
+            <label>Selecciona tu ubicación:</label>
+            <button type="button" onclick="getLocation()">Usar mi ubicación actual</button>
+            <div id="map"></div>
+            <input type="hidden" id="latitud" />
+            <input type="hidden" id="longitud" />
+        </div>
         <label for="clientName">Nombre:</label>
         <input type="text" id="clientName" placeholder="Tu nombre" required />
         <label for="phone">Número de teléfono:</label>
@@ -209,6 +223,7 @@ let map, marker;
 window.onload = function () {
     updateOrderList();
     initMap();
+    toggleDeliveryFields(); // Initialize form based on default delivery method
 };
 
 function updateOrderList() {
@@ -281,7 +296,27 @@ function getLocation() {
     }
 }
 
+function toggleDeliveryFields() {
+    const deliveryMethod = document.getElementById('deliveryMethod').value;
+    const deliveryFields = document.getElementById('deliveryFields');
+    const orderDateInput = document.getElementById('orderDate');
+    const addressInput = document.getElementById('address');
+    const latInput = document.getElementById('latitud');
+    const lngInput = document.getElementById('longitud');
+
+    if (deliveryMethod === 'pickup') {
+        deliveryFields.classList.add('hidden');
+        orderDateInput.removeAttribute('required');
+        addressInput.removeAttribute('required');
+    } else {
+        deliveryFields.classList.remove('hidden');
+        orderDateInput.setAttribute('required', '');
+        addressInput.setAttribute('required', '');
+    }
+}
+
 function submitOrder() {
+    const deliveryMethod = document.getElementById('deliveryMethod').value;
     const orderDate = document.getElementById('orderDate').value;
     const address = document.getElementById('address').value.trim();
     const latitude = document.getElementById('latitud').value;
@@ -290,15 +325,25 @@ function submitOrder() {
     const phone = document.getElementById('phone').value.trim();
     const paymentMethod = document.getElementById('paymentMethod').value;
 
-    if (!orderDate || !address || !latitude || !longitude || !clientName || !phone || !paymentMethod) {
-        alert('Por favor, completa todos los campos y selecciona ubicación.');
+    // Validation
+    if (!deliveryMethod) {
+        alert('Por favor, selecciona un método de entrega.');
+        return;
+    }
+    if (!clientName || !phone || !paymentMethod) {
+        alert('Por favor, completa los campos de nombre, teléfono y método de pago.');
         return;
     }
     if (orders.length === 0) {
         alert('No has seleccionado productos para tu pedido.');
         return;
     }
+    if (deliveryMethod === 'delivery' && (!orderDate || !address || !latitude || !longitude)) {
+        alert('Por favor, completa todos los campos de entrega y selecciona ubicación.');
+        return;
+    }
 
+    // Calculate total and prepare product details
     const total = orders.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0).toFixed(2);
     let productDetails = '';
     orders.forEach(item => {
@@ -312,16 +357,23 @@ function submitOrder() {
         productDetails += `  Precio: $${item.price}\n`;
     });
 
-    const confirmMsg = `¿Tu pedido está correcto?\n\n📅 Fecha: ${orderDate}\n📍 Dirección: ${address}\n👤 ${clientName}\n☎ ${phone}\n💳 Pago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}\n\n¿Deseas enviarlo?`;
+    // Prepare WhatsApp message based on delivery method
+    let message;
+    if (deliveryMethod === 'pickup') {
+        message = `Hola, me gustaría hacer un pedido para recoger en tienda:\n\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
+    } else {
+        message = `Hola, me gustaría hacer un pedido a domicilio:\n\nFecha: ${orderDate}\nDirección: ${address}\nUbicación: https://www.google.com/maps?q=${latitude},${longitude}\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
+    }
 
+    // Confirm order
+    const confirmMsg = `¿Tu pedido está correcto?\n\n${deliveryMethod === 'pickup' ? 'Método: Recojo en tienda' : 'Método: A domicilio'}\n${message}\n\n¿Deseas enviarlo?`;
     if (confirm(confirmMsg)) {
-        const message = `Hola, me gustaría hacer un pedido:\n\nFecha: ${orderDate}\nDirección: ${address}\nUbicación: https://www.google.com/maps?q=${latitude},${longitude}\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
         const whatsappNumber = "524481012425";
         const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(url, '_blank');
-        orders = []; // Limpiar pedidos después de enviar
-        localStorage.setItem('orders', JSON.stringify(orders)); // Actualizar localStorage
-        updateOrderList(); // Actualizar la lista de pedidos en la página
+        orders = []; // Clear orders after sending
+        localStorage.setItem('orders', JSON.stringify(orders));
+        updateOrderList();
     } else {
         alert("Puedes modificar tu pedido antes de enviarlo.");
     }
