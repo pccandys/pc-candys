@@ -230,7 +230,7 @@ function updateOrderList() {
         orders.forEach((item, index) => {
             let li = document.createElement('li');
             let text = '';
-            if (item.hotcakes) { // Check if it's a Mini Hot Cakes order
+            if (item.hotcakes) { // Mini Hot Cakes order
                 text = `Mini Hot Cakes: ${item.hotcakes}`;
                 if (item.toppings && item.toppings.length > 0 && item.toppings[0] !== 'Ninguno') {
                     text += ` - Toppings: ${item.toppings.join(', ')}`;
@@ -239,7 +239,16 @@ function updateOrderList() {
                     text += ` - Untables: ${item.spreads.join(', ')}`;
                 }
                 text += ` - $${item.total}`;
-            } else { // Handle other types of orders (e.g., gomitas)
+            } else if (item.fresas) { // Fresas con Crema order
+                text = `Fresas con Crema: ${item.fresas}`;
+                if (item.toppings && item.toppings.length > 0 && item.toppings[0] !== 'Ninguno') {
+                    text += ` - Toppings: ${item.toppings.join(', ')}`;
+                }
+                if (item.spreads && item.spreads.length > 0 && item.spreads[0] !== 'Ninguno') {
+                    text += ` - Untables: ${item.spreads.join(', ')}`;
+                }
+                text += ` - $${item.total}`;
+            } else { // Other types of orders (e.g., gomitas)
                 text = `${item.name || 'Producto'} (${item.variety || 'No especificado'})`;
                 if (item.gomitas && item.gomitas.length > 0) {
                     text += ` - Gomitas: ${item.gomitas.join(', ')}`;
@@ -356,6 +365,15 @@ function submitOrder() {
     orders.forEach(item => {
         if (item.hotcakes) { // Mini Hot Cakes order
             productDetails += `Mini Hot Cakes: ${item.hotcakes}\n`;
+            if (item.toppings && item.toppings.length > 0 && item.toppings[0] !== 'Ninguno') {
+                productDetails += `  Toppings: ${item.toppings.join(', ')}\n`;
+            }
+            if (item.spreads && item.spreads.length > 0 && item.spreads[0] !== 'Ninguno') {
+                productDetails += `  Untables: ${item.spreads.join(', ')}\n`;
+            }
+            productDetails += `  Precio: $${item.total}\n`;
+        } else if (item.fresas) { // Fresas con Crema order
+            productDetails += `Fresas con Crema: ${item.fresas}\n`;
             if (item.toppings && item.toppings.length > 0 && item.toppings[0] !== 'Ninguno') {
                 productDetails += `  Toppings: ${item.toppings.join(', ')}\n`;
             }
