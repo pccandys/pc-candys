@@ -28,7 +28,7 @@
             align-items: center;
         }
         .logo img {
-            max-height: 50px; /* Ajusta el tamaño del logo */
+            max-height: 50px;
             width: auto;
         }
         .menu-toggle {
@@ -93,10 +93,9 @@
                 font-size: 18px;
             }
             .logo img {
-                max-height: 40px; /* Tamaño del logo en dispositivos móviles */
+                max-height: 40px;
             }
         }
-
         main {
             flex-grow: 1;
             display: flex;
@@ -105,7 +104,7 @@
             padding: 40px 20px;
             text-align: center;
         }
-        .message {
+        .menu-container {
             max-width: 600px;
             background: white;
             padding: 30px 25px;
@@ -115,8 +114,84 @@
             color: #555;
             line-height: 1.5;
         }
-        .message strong {
+        .menu-container h2 {
             color: #f44336;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+        .menu-item, .toppings, .spreads {
+            margin-bottom: 20px;
+        }
+        .menu-item h3, .toppings h3, .spreads h3 {
+            color: #f44336;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .menu-item p, .toppings p, .spreads p {
+            margin: 5px 0;
+        }
+        .menu-item strong {
+            color: #f44336;
+        }
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .option-group input[type="radio"], .option-group input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .toppings, .spreads {
+            margin-top: 30px;
+            display: none; /* Hidden by default */
+        }
+        .toppings.active, .spreads.active {
+            display: block; /* Shown when active */
+        }
+        .toppings p, .spreads p {
+            font-style: italic;
+            color: #777;
+        }
+        #order-summary {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            display: none;
+        }
+        #order-summary h3 {
+            color: #f44336;
+            margin-bottom: 10px;
+        }
+        #order-summary p {
+            margin: 5px 0;
+        }
+        button#confirm-order {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button#confirm-order:hover {
+            background-color: #d32f2f;
+        }
+        button#confirm-order:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -128,42 +203,187 @@
         <button class="menu-toggle" aria-label="Mostrar menú">☰</button>
         <nav>
             <ul class="nav-menu">
-               <li><a href="index.html">Inicio</a></li>
-      <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
-      <li><a href="charolas.html">Charolas</a></li>
-      <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
-      <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
-      <li><a href="waffles.html">Waffles</a></li>
-      <li><a href="crepas.html">Crepas</a></li>
-      <li><a href="mini_donas.html">Mini Donas</a></li>
-      <li><a href="extras.html">Extras</a></li>
-      <li><a href="pedidos.html">Pedidos</a></li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
+                <li><a href="charolas.html">Charolas</a></li>
+                <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
+                <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
+                <li><a href="waffles.html">Waffles</a></li>
+                <li><a href="crepas.html">Crepas</a></li>
+                <li><a href="mini_donas.html">Mini Donas</a></li>
+                <li><a href="extras.html">Extras</a></li>
+                <li><a href="pedidos.html">Pedidos</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <div class="message">
-            <p><strong>La sección de Fresas con Crema está en construcción.</strong></p>
-            <p>Estamos preparando opciones deliciosas para ti.</p>
-            <p>Gracias por tu paciencia y preferencia.</p>
-            <p>— P&C Candys</p>
+        <div class="menu-container">
+            <h2>Fresas con Crema</h2>
+            <div class="menu-item">
+                <h3>Selecciona el tamaño de Fresas con Crema</h3>
+                <div class="option-group">
+                    <label>
+                        <input type="radio" name="fresas" value="Vaso chico (7oz) - $45" data-price="45">
+                        Vaso chico (7oz) - $45
+                    </label>
+                    <label>
+                        <input type="radio" name="fresas" value="Vaso mediano (12oz) - $60" data-price="60">
+                        Vaso mediano (12oz) - $60
+                    </label>
+                </div>
+                <p>Deliciosas fresas frescas con crema suave, perfectas para un postre refrescante.</p>
+            </div>
+            <div class="toppings">
+                <h3>Toppings (el primero gratis, $2 cada adicional)</h3>
+                <p>Selecciona tus toppings favoritos para personalizar tus fresas con crema.</p>
+                <div class="option-group">
+                    <label><input type="checkbox" name="topping" value="Chispas de chocolate" data-price="2"> Chispas de chocolate</label>
+                    <label><input type="checkbox" name="topping" value="Chochitos de colores" data-price="2"> Chochitos de colores</label>
+                    <label><input type="checkbox" name="topping" value="Chochitos de chocolate" data-price="2"> Chochitos de chocolate</label>
+                    <label><input type="checkbox" name="topping" value="Coco rayado" data-price="2"> Coco rayado</label>
+                    <label><input type="checkbox" name="topping" value="Granola" data-price="2"> Granola</label>
+                    <label><input type="checkbox" name="topping" value="Nuez" data-price="2"> Nuez</label>
+                    <label><input type="checkbox" name="topping" value="Almendra" data-price="2"> Almendra</label>
+                    <label><input type="checkbox" name="topping" value="Chispas de chocolate blanco" data-price="2"> Chispas de chocolate blanco</label>
+                </div>
+            </div>
+            <div class="spreads">
+                <h3>Untables (el primero gratis, $2 cada adicional)</h3>
+                <p>Elige tus untables preferidos para darle un toque especial.</p>
+                <div class="option-group">
+                    <label><input type="checkbox" name="spread" value="Nutella" data-price="2"> Nutella</label>
+                    <label><input type="checkbox" name="spread" value="Caramelo" data-price="2"> Caramelo</label>
+                    <label><input type="checkbox" name="spread" value="Lechera" data-price="2"> Lechera</label>
+                    <label><input type="checkbox" name="spread" value="Cajeta" data-price="2"> Cajeta</label>
+                    <label><input type="checkbox" name="spread" value="Mermelada" data-price="2"> Mermelada</label>
+                    <label><input type="checkbox" name="spread" value="Jarabe de chocolate" data-price="2"> Jarabe de chocolate</label>
+                    <label><input type="checkbox" name="spread" value="Jarabe de fresa" data-price="2"> Jarabe de fresa</label>
+                </div>
+            </div>
+            <div id="order-summary">
+                <h3>Resumen del Pedido</h3>
+                <p id="selected-fresas"></p>
+                <p id="selected-toppings"></p>
+                <p id="selected-spreads"></p>
+                <p id="total-price"></p>
+            </div>
+            <button id="confirm-order" disabled>Confirmar y Agregar a Pedidos</button>
         </div>
     </main>
 
     <script>
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
+        const fresasRadios = document.querySelectorAll('input[name="fresas"]');
+        const toppingsSection = document.querySelector('.toppings');
+        const spreadsSection = document.querySelector('.spreads');
+        const confirmButton = document.querySelector('#confirm-order');
+        const orderSummary = document.querySelector('#order-summary');
+        const selectedFresas = document.querySelector('#selected-fresas');
+        const selectedToppings = document.querySelector('#selected-toppings');
+        const selectedSpreads = document.querySelector('#selected-spreads');
+        const totalPrice = document.querySelector('#total-price');
 
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
         });
 
-        // Cerrar menú si haces click fuera (opcional)
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
                 navMenu.classList.remove('active');
             }
+        });
+
+        fresasRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.checked) {
+                    toppingsSection.classList.add('active');
+                    spreadsSection.classList.add('active');
+                    updateOrderSummary();
+                }
+            });
+        });
+
+        const toppingsCheckboxes = document.querySelectorAll('input[name="topping"]');
+        const spreadsCheckboxes = document.querySelectorAll('input[name="spread"]');
+
+        [...toppingsCheckboxes, ...spreadsCheckboxes].forEach(checkbox => {
+            checkbox.addEventListener('change', updateOrderSummary);
+        });
+
+        function updateOrderSummary() {
+            const selectedFresa = document.querySelector('input[name="fresas"]:checked');
+            let price = 0;
+
+            if (!selectedFresa) {
+                toppingsSection.classList.remove('active');
+                spreadsSection.classList.remove('active');
+                orderSummary.style.display = 'none';
+                confirmButton.disabled = true;
+                return;
+            }
+
+            price += parseInt(selectedFresa.dataset.price);
+            const selectedToppingsList = Array.from(toppingsCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            const selectedSpreadsList = Array.from(spreadsCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+
+            // Add $2 for each additional topping and spread (first is free)
+            price += Math.max(0, selectedToppingsList.length - 1) * 2;
+            price += Math.max(0, selectedSpreadsList.length - 1) * 2;
+
+            selectedFresas.innerHTML = `Fresas con Crema: ${selectedFresa.value}`;
+            selectedToppings.innerHTML = `Toppings: ${selectedToppingsList.length > 0 ? selectedToppingsList.join(', ') : 'Ninguno'}`;
+            selectedSpreads.innerHTML = `Untables: ${selectedSpreadsList.length > 0 ? selectedSpreadsList.join(', ') : 'Ninguno'}`;
+            totalPrice.innerHTML = `Total: $${price.toFixed(2)}`;
+
+            orderSummary.style.display = 'block';
+            confirmButton.disabled = false;
+        }
+
+        confirmButton.addEventListener('click', () => {
+            const selectedFresa = document.querySelector('input[name="fresas"]:checked');
+            if (!selectedFresa) {
+                alert('Por favor, selecciona un tamaño de Fresas con Crema.');
+                return;
+            }
+
+            const selectedToppingsList = Array.from(toppingsCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            const selectedSpreadsList = Array.from(spreadsCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            let price = parseInt(selectedFresa.dataset.price);
+            // Add $2 for each additional topping and spread (first is free)
+            price += Math.max(0, selectedToppingsList.length - 1) * 2;
+            price += Math.max(0, selectedSpreadsList.length - 1) * 2;
+
+            const order = {
+                id: Date.now(), // Unique ID based on timestamp
+                fresas: selectedFresa.value,
+                toppings: selectedToppingsList.length > 0 ? selectedToppingsList : ['Ninguno'],
+                spreads: selectedSpreadsList.length > 0 ? selectedSpreadsList : ['Ninguno'],
+                total: price
+            };
+
+            // Save order to localStorage
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            alert('¡Pedido agregado con éxito!\n' +
+                  `Fresas con Crema: ${order.fresas}\n` +
+                  `Toppings: ${order.toppings.join(', ')}\n` +
+                  `Untables: ${order.spreads.join(', ')}\n` +
+                  `Total: $${order.total.toFixed(2)}`);
+
+            // Redirect to pedidos.html
+            window.location.href = 'pedidos.html';
         });
     </script>
 </body>
