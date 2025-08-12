@@ -223,7 +223,7 @@ window.onload = function () {
     updateOrderList();
     initMap();
     toggleDeliveryFields();
-    setMinDate(); // Set minimum date for orderDate
+    setMinDate();
 };
 
 function setMinDate() {
@@ -339,15 +339,6 @@ function toggleDeliveryFields() {
     }
 }
 
-function isMondayAvailable(date) {
-    const selectedDate = new Date(date);
-    const isMonday = selectedDate.getDay() === 1;
-    if (!isMonday) return true; // Not a Monday, always available
-    // Example: Open every other Monday (e.g., based on week number)
-    const weekNumber = Math.floor(selectedDate.getTime() / (1000 * 60 * 60 * 24 * 7));
-    return weekNumber % 2 === 0; // Open on even-numbered weeks
-}
-
 function submitOrder() {
     const deliveryMethod = document.getElementById('deliveryMethod').value;
     const orderDate = document.getElementById('orderDate').value;
@@ -372,15 +363,9 @@ function submitOrder() {
         alert('No has seleccionado productos para tu pedido.');
         return;
     }
-    if (deliveryMethod === 'delivery') {
-        if (!orderDate || !address || !latitude || !longitude) {
-            alert('Por favor, completa todos los campos de entrega y selecciona ubicación.');
-            return;
-        }
-        if (!isMondayAvailable(orderDate)) {
-            alert('Lo sentimos, no estamos disponibles para entregas este lunes.');
-            return;
-        }
+    if (deliveryMethod === 'delivery' && (!orderDate || !address || !latitude || !longitude)) {
+        alert('Por favor, completa todos los campos de entrega y selecciona ubicación.');
+        return;
     }
 
     // Calculate total and prepare product details
