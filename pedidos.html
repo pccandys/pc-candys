@@ -176,8 +176,10 @@
             <option value="pickup">Recojo pedido</option>
         </select>
         <div class="delivery-fields" id="deliveryFields">
-            <label for="orderDate">Pedido programado para:</label>
+            <label for="orderDate">Fecha de entrega:</label>
             <input type="date" id="orderDate" required />
+            <label for="deliveryTime">Hora de entrega (opcional):</label>
+            <input type="time" id="deliveryTime" />
             <label for="address">Entrega en:</label>
             <input type="text" id="address" placeholder="Dirección" required />
             <label>Selecciona tu ubicación:</label>
@@ -220,8 +222,14 @@ let map, marker;
 window.onload = function () {
     updateOrderList();
     initMap();
-    toggleDeliveryFields(); // Initialize form based on default delivery method
+    toggleDeliveryFields();
+    setMinDate(); // Set minimum date for orderDate
 };
+
+function setMinDate() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('orderDate').setAttribute('min', today);
+}
 
 function updateOrderList() {
     const orderList = document.getElementById('orderList');
@@ -230,7 +238,7 @@ function updateOrderList() {
         orders.forEach((item, index) => {
             let li = document.createElement('li');
             let text = '';
-            if (item.hotcakes) { // Mini Hot Cakes order
+            if (item.hotcakes) {
                 text = `Mini Hot Cakes: ${item.hotcakes}`;
                 if (item.toppings && item.toppings.length > 0 && item.toppings[0] !== 'Ninguno') {
                     text += ` - Toppings: ${item.toppings.join(', ')}`;
@@ -239,7 +247,7 @@ function updateOrderList() {
                     text += ` - Untables: ${item.spreads.join(', ')}`;
                 }
                 text += ` - $${item.total}`;
-            } else if (item.fresas) { // Fresas con Crema order
+            } else if (item.fresas) {
                 text = `Fresas con Crema: ${item.fresas}`;
                 if (item.toppings && item.toppings.length > 0 && item.toppings[0] !== 'Ninguno') {
                     text += ` - Toppings: ${item.toppings.join(', ')}`;
@@ -248,7 +256,7 @@ function updateOrderList() {
                     text += ` - Untables: ${item.spreads.join(', ')}`;
                 }
                 text += ` - $${item.total}`;
-            } else { // Other types of orders (e.g., gomitas)
+            } else {
                 text = `${item.name || 'Producto'} (${item.variety || 'No especificado'})`;
                 if (item.gomitas && item.gomitas.length > 0) {
                     text += ` - Gomitas: ${item.gomitas.join(', ')}`;
@@ -331,9 +339,19 @@ function toggleDeliveryFields() {
     }
 }
 
+function isMondayAvailable(date) {
+    const selectedDate = new Date(date);
+    const isMonday = selectedDate.getDay() === 1;
+    if (!isMonday) return true; // Not a Monday, always available
+    // Example: Open every other Monday (e.g., based on week number)
+    const weekNumber = Math.floor(selectedDate.getTime() / (1000 * 60 * 60 * 24 * 7));
+    return weekNumber % 2 === 0; // Open on even-numbered weeks
+}
+
 function submitOrder() {
     const deliveryMethod = document.getElementById('deliveryMethod').value;
     const orderDate = document.getElementById('orderDate').value;
+    const deliveryTime = document.getElementById('deliveryTime').value;
     const address = document.getElementById('address').value.trim();
     const latitude = document.getElementById('latitud').value;
     const longitude = document.getElementById('longitud').value;
@@ -354,16 +372,22 @@ function submitOrder() {
         alert('No has seleccionado productos para tu pedido.');
         return;
     }
-    if (deliveryMethod === 'delivery' && (!orderDate || !address || !latitude || !longitude)) {
-        alert('Por favor, completa todos los campos de entrega y selecciona ubicación.');
-        return;
+    if (deliveryMethod === 'delivery') {
+        if (!orderDate || !address || !latitude || !longitude) {
+            alert('Por favor, completa todos los campos de entrega y selecciona ubicación.');
+            return;
+        }
+        if (!isMondayAvailable(orderDate)) {
+            alert('Lo sentimos, no estamos disponibles para entregas este lunes.');
+            return;
+        }
     }
 
     // Calculate total and prepare product details
     const total = orders.reduce((sum, item) => sum + (parseFloat(item.total || item.price) || 0), 0).toFixed(2);
     let productDetails = '';
     orders.forEach(item => {
-        if (item.hotcakes) { // Mini Hot Cakes order
+        if (item.hotcakes) {
             productDetails += `Mini Hot Cakes: ${item.hotcakes}\n`;
             if (item.toppings && item.toppings.length > 0 && item.toppings[0] !== 'Ninguno') {
                 productDetails += `  Toppings: ${item.toppings.join(', ')}\n`;
@@ -372,7 +396,7 @@ function submitOrder() {
                 productDetails += `  Untables: ${item.spreads.join(', ')}\n`;
             }
             productDetails += `  Precio: $${item.total}\n`;
-        } else if (item.fresas) { // Fresas con Crema order
+        } else if (item.fresas) {
             productDetails += `Fresas con Crema: ${item.fresas}\n`;
             if (item.toppings && item.toppings.length > 0 && item.toppings[0] !== 'Ninguno') {
                 productDetails += `  Toppings: ${item.toppings.join(', ')}\n`;
@@ -381,7 +405,7 @@ function submitOrder() {
                 productDetails += `  Untables: ${item.spreads.join(', ')}\n`;
             }
             productDetails += `  Precio: $${item.total}\n`;
-        } else { // Other types of orders
+        } else {
             productDetails += `${item.name || 'Producto'} (${item.variety || 'No especificado'})\n`;
             if (item.gomitas && item.gomitas.length > 0) {
                 productDetails += `  Gomitas: ${item.gomitas.join(', ')}\n`;
@@ -393,12 +417,12 @@ function submitOrder() {
         }
     });
 
-    // Prepare WhatsApp message based on delivery method
+    // Prepare WhatsApp message
     let message;
     if (deliveryMethod === 'pickup') {
         message = `Hola, me gustaría hacer un pedido para recoger en tienda:\n\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
     } else {
-        message = `Hola, me gustaría hacer un pedido a domicilio:\n\nFecha: ${orderDate}\nDirección: ${address}\nUbicación: https://www.google.com/maps?q=${latitude},${longitude}\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
+        message = `Hola, me gustaría hacer un pedido a domicilio:\n\nFecha: ${orderDate}${deliveryTime ? `\nHora: ${deliveryTime}` : ''}\nDirección: ${address}\nUbicación: https://www.google.com/maps?q=${latitude},${longitude}\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
     }
 
     // Confirm order
@@ -407,7 +431,7 @@ function submitOrder() {
         const whatsappNumber = "524481012425";
         const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(url, '_blank');
-        orders = []; // Clear orders after sending
+        orders = [];
         localStorage.setItem('orders', JSON.stringify(orders));
         updateOrderList();
     } else {
