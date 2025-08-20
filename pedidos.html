@@ -214,7 +214,7 @@
                 <option value="Otra">Otra</option>
             </select>
             <div id="customSchoolField" class="hidden">
-                <label for="customSchool">Nombre de la escuela:</label>
+                <label for="customSchool">Nombre de la escuela (opcional):</label>
                 <input type="text" id="customSchool" placeholder="Ingresa el nombre de tu escuela" />
             </div>
             <p><strong>Nota:</strong> Te confirmaremos el horario de entrega en tu escuela.</p>
@@ -393,7 +393,7 @@ function toggleCustomSchoolField() {
     const customSchoolInput = document.getElementById('customSchool');
     if (schoolSelect === 'Otra') {
         customSchoolField.classList.remove('hidden');
-        customSchoolInput.setAttribute('required', '');
+        customSchoolInput.removeAttribute('required'); // Custom school is optional
     } else {
         customSchoolField.classList.add('hidden');
         customSchoolInput.removeAttribute('required');
@@ -434,10 +434,7 @@ function submitOrder() {
         alert('Por favor, selecciona una escuela.');
         return;
     }
-    if (deliveryMethod === 'school' && schoolSelect === 'Otra' && !customSchool) {
-        alert('Por favor, ingresa el nombre de tu escuela.');
-        return;
-    }
+    // Removed validation for customSchool when "Otra" is selected
 
     // Calculate total and prepare product details
     const total = orders.reduce((sum, item) => sum + (parseFloat(item.total || item.price) || 0), 0).toFixed(2);
@@ -478,7 +475,7 @@ function submitOrder() {
     if (deliveryMethod === 'pickup') {
         message = `Hola, me gustaría hacer un pedido para recoger en tienda:\n\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
     } else if (deliveryMethod === 'school') {
-        const schoolName = schoolSelect === 'Otra' ? customSchool : schoolSelect;
+        const schoolName = schoolSelect === 'Otra' && customSchool ? customSchool : schoolSelect;
         message = `Hola, me gustaría hacer un pedido para entrega en escuela:\n\nEscuela: ${schoolName}\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\nNota: Confirmar horario de entrega\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
     } else {
         message = `Hola, me gustaría hacer un pedido a domicilio:\n\nFecha: ${orderDate}${deliveryTime ? `\nHora: ${deliveryTime}` : ''}\nDirección: ${address}\nUbicación: https://www.google.com/maps?q=${latitude},${longitude}\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
