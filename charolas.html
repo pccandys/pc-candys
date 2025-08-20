@@ -1,397 +1,405 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Charolas - P&C Candys</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f5f5f5;
-        color: #333;
-    }
-    header {
-        background-color: #f44336;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 2px solid #d32f2f;
-        position: relative;
-    }
-    .logo {
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-    }
-    .logo img {
-        max-height: 50px;
-        width: auto;
-    }
-    .page-space {
-        margin-right: 10px;
-    }
-    .menu-toggle {
-        font-size: 4vw;
-        background: none;
-        border: none;
-        color: white;
-        cursor: pointer;
-        display: none;
-        margin-right: 10px;
-    }
-    .nav-menu {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        align-items: center;
-    }
-    .nav-menu li {
-        margin-left: 2vw;
-    }
-    .nav-menu a {
-        color: white;
-        text-decoration: none;
-        font-size: 3vw;
-    }
-    .nav-menu.active {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #f44336;
-        padding: 10px 0;
-    }
-    .menu-section {
-        padding: 5vw;
-        text-align: center;
-    }
-    .menu-section h1 {
-        color: #1e88e5;
-        font-size: 5vw;
-        margin-bottom: 2vw;
-    }
-    .menu-item {
-        background-color: white;
-        padding: 3vw;
-        margin: 2vw auto;
-        max-width: 90vw;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-    .menu-item h3 {
-        font-size: 3vw;
-        color: #1e88e5;
-        margin-bottom: 1vw;
-    }
-    .menu-item p {
-        margin: 0 0 1vw 0;
-        font-size: 2.8vw;
-    }
-    .menu-item select {
-        width: 90%;
-        padding: 1.5vw;
-        margin: 1vw 0;
-        font-size: 2.5vw;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
-    .menu-item button {
-        background-color: #4CAF40;
-        color: white;
-        border: none;
-        padding: 1.5vw 3vw;
-        border-radius: 5px;
-        font-size: 2vw;
-        cursor: pointer;
-        margin-top: 1vw;
-    }
-    .menu-item button:hover {
-        background-color: #45a049;
-    }
-    footer {
-        background-color: #1976d2;
-        color: white;
-        padding: 3vw;
-        text-align: center;
-        margin-top: 5vw;
-    }
-    .social-icons a {
-        color: white;
-        margin: 0 2vw;
-        text-decoration: none;
-        font-size: 4vw;
-    }
-    @media (max-width: 767px) {
-        .menu-toggle { display: block; }
-        .nav-menu { display: none; }
-        .nav-menu li { margin: 2vw 0; }
-        .logo img { max-height: 40px; }
-    }
-    @media (min-width: 768px) {
-        .logo img { max-height: 50px; }
-        .page-space { font-size: 16px; }
-        .menu-section h1 { font-size: 32px; }
-        .menu-item h3 { font-size: 18px; }
-        .menu-item p { font-size: 16px; }
-        .menu-item select { font-size: 14px; padding: 8px; }
-        .menu-item button { font-size: 12px; padding: 6px 14px; }
-        .nav-menu a { font-size: 16px; }
-        .social-icons a { font-size: 24px; }
-    }
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charolas - P&C Candys</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF5E1; /* Logo color as body background */
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #FF8A65; /* Soft coral for header */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #FF7043; /* Darker coral for border */
+            position: relative;
+            flex-shrink: 0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .logo img {
+            max-height: 50px;
+            width: auto;
+        }
+        .page-space {
+            margin-right: 10px;
+        }
+        .menu-toggle {
+            font-size: 4vw;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: none;
+            margin-right: 10px;
+        }
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        .nav-menu li {
+            margin-left: 2vw;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 3vw;
+        }
+        .nav-menu.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #FF8A65; /* Match header color */
+            padding: 10px 0;
+        }
+        .menu-section {
+            padding: 5vw;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .menu-section h1 {
+            color: #D81B60; /* Vibrant pink for headings */
+            font-size: 5vw;
+            margin-bottom: 2vw;
+        }
+        .menu-item {
+            background-color: white;
+            padding: 3vw;
+            margin: 2vw auto;
+            max-width: 90vw;
+            border-radius: 5px;
+            border: 1px solid #E0E0E0; /* Light gray border for contrast */
+            text-align: left;
+        }
+        .menu-item h3 {
+            font-size: 3vw;
+            color: #D81B60; /* Pink for item headings */
+            margin-bottom: 1vw;
+        }
+        .menu-item p {
+            margin: 0 0 1vw 0;
+            font-size: 2.8vw;
+            color: #333333;
+        }
+        .menu-item select {
+            width: 90%;
+            padding: 1.5vw;
+            margin: 1vw 0;
+            font-size: 2.5vw;
+            border: 1px solid #E0E0E0; /* Light gray border */
+            border-radius: 5px;
+            background-color: white;
+            color: #333333;
+        }
+        .menu-item button {
+            background-color: #FFAB91; /* Light peach for buttons */
+            color: #333333; /* Dark text for readability */
+            border: none;
+            padding: 1.5vw 3vw;
+            border-radius: 5px;
+            font-size: 2vw;
+            cursor: pointer;
+            margin-top: 1vw;
+        }
+        .menu-item button:hover {
+            background-color: #FF8A65; /* Darker coral on hover */
+        }
+        footer {
+            background-color: #4A6366; /* Muted teal for footer */
+            color: white;
+            padding: 3vw;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .social-icons a {
+            color: #D81B60; /* Vibrant pink for social links */
+            margin: 0 2vw;
+            text-decoration: none;
+            font-size: 4vw;
+        }
+        @media (max-width: 767px) {
+            .menu-toggle { display: block; }
+            .nav-menu { display: none; }
+            .nav-menu li { margin: 2vw 0; }
+            .logo img { max-height: 40px; }
+        }
+        @media (min-width: 768px) {
+            .logo img { max-height: 50px; }
+            .page-space { font-size: 16px; }
+            .menu-section h1 { font-size: 32px; }
+            .menu-item h3 { font-size: 18px; }
+            .menu-item p { font-size: 16px; }
+            .menu-item select { font-size: 14px; padding: 8px; }
+            .menu-item button { font-size: 12px; padding: 6px 14px; }
+            .nav-menu a { font-size: 16px; }
+            .social-icons a { font-size: 24px; }
+        }
+    </style>
 </head>
 <body>
-<header>
-    <div class="logo">
-        <img src="G.png" alt="P&C Candys Logo">
-    </div>
-    <div class="page-space"></div>
-    <button class="menu-toggle">☰</button>
-    <ul class="nav-menu">
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
-      <li><a href="charolas.html">Charolas</a></li>
-      <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
-      <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
-      <li><a href="waffles.html">Waffles</a></li>
-      <li><a href="crepas.html">Crepas</a></li>
-      <li><a href="mini_donas.html">Mini Donas</a></li>
-      <li><a href="extras.html">Extras</a></li>
-      <li><a href="pedidos.html">Pedidos</a></li>
-    </ul>
-</header>
+    <header>
+        <div class="logo">
+            <img src="G.png" alt="P&C Candys Logo">
+        </div>
+        <div class="page-space"></div>
+        <button class="menu-toggle">☰</button>
+        <ul class="nav-menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
+            <li><a href="charolas.html">Charolas</a></li>
+            <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
+            <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
+            <li><a href="waffles.html">Waffles</a></li>
+            <li><a href="crepas.html">Crepas</a></li>
+            <li><a href="mini_donas.html">Mini Donas</a></li>
+            <li><a href="extras.html">Extras</a></li>
+            <li><a href="pedidos.html">Pedidos</a></li>
+        </ul>
+    </header>
 
-<section class="menu-section">
-    <h1>🍭 MENÚ 2: CHAROLAS</h1>
-    <div class="menu-item">
-        <h3>✨ Naturales | Ahogadas | Empanizadas</h3>
+    <section class="menu-section">
+        <h1>🍭 MENÚ 2: CHAROLAS</h1>
+        <div class="menu-item">
+            <h3>✨ Naturales | Ahogadas | Empanizadas</h3>
 
-        <!-- MINI MIX -->
-        <h3>Mini Mix</h3>
-        <p><strong>Precio:</strong> Naturales $40 | Ahogadas $50 | Empanizadas $60</p>
-        <p>1 a 4 tipos de gomitas.</p>
-        <select id="miniMixVariety">
-            <option value="Naturales">Naturales $40</option>
-            <option value="Ahogadas">Ahogadas $50</option>
-            <option value="Empanizadas">Empanizadas $60</option>
-        </select>
-        <p>Selecciona tus gomitas:</p>
-        <select id="miniMixGomitas" multiple size="6" data-max="4">
-            <option>❤️ Corazones</option>
-            <option>🔥 Xtreme</option>
-            <option>🍑 Aros de durazno</option>
-            <option>🍏 Aros de manzana</option>
-            <option>🍓 Frutas enchiladas</option>
-            <option>🐛 Orugas y panditas</option>
-            <option>🥭 Manguitos</option>
-            <option>🍊 Gajos de naranja</option>
-            <option>🐬 Delfines</option>
-            <option>🐧 Pingüinos</option>
-        </select>
-        <button onclick="addCharola('Mini Mix', 'miniMixVariety', 'miniMixGomitas')">Agregar Mini Mix</button>
+            <!-- MINI MIX -->
+            <h3>Mini Mix</h3>
+            <p><strong>Precio:</strong> Naturales $40 | Ahogadas $50 | Empanizadas $60</p>
+            <p>1 a 4 tipos de gomitas.</p>
+            <select id="miniMixVariety">
+                <option value="Naturales">Naturales $40</option>
+                <option value="Ahogadas">Ahogadas $50</option>
+                <option value="Empanizadas">Empanizadas $60</option>
+            </select>
+            <p>Selecciona tus gomitas:</p>
+            <select id="miniMixGomitas" multiple size="6" data-max="4">
+                <option>❤️ Corazones</option>
+                <option>🔥 Xtreme</option>
+                <option>🍑 Aros de durazno</option>
+                <option>🍏 Aros de manzana</option>
+                <option>🍓 Frutas enchiladas</option>
+                <option>🐛 Orugas y panditas</option>
+                <option>🥭 Manguitos</option>
+                <option>🍊 Gajos de naranja</option>
+                <option>🐬 Delfines</option>
+                <option>🐧 Pingüinos</option>
+            </select>
+            <button onclick="addCharola('Mini Mix', 'miniMixVariety', 'miniMixGomitas')">Agregar Mini Mix</button>
 
-        <!-- CHAROLA DELUXE -->
-        <h3>Charola Deluxe</h3>
-        <p><strong>Precio:</strong> Naturales $90 | Ahogadas $100 | Empanizadas $110</p>
-        <p>5 tipos de gomitas y una manzana con chamoy.</p>
-        <select id="deluxeVariety">
-            <option value="Naturales">Naturales $90</option>
-            <option value="Ahogadas">Ahogadas $100</option>
-            <option value="Empanizadas">Empanizadas $110</option>
-        </select>
-        <p>Selecciona 5 gomitas:</p>
-        <select id="deluxeGomitas" multiple size="6" data-max="5">
-            <option>❤️ Corazones</option>
-            <option>🔥 Xtreme</option>
-            <option>🍑 Aros de durazno</option>
-            <option>🍏 Aros de manzana</option>
-            <option>🍓 Frutas enchiladas</option>
-            <option>🐛 Orugas y panditas</option>
-            <option>🥭 Manguitos</option>
-            <option>🍊 Gajos de naranja</option>
-            <option>🐬 Delfines</option>
-            <option>🐧 Pingüinos</option>
-        </select>
-        <button onclick="addCharola('Charola Deluxe', 'deluxeVariety', 'deluxeGomitas')">Agregar Deluxe</button>
+            <!-- CHAROLA DELUXE -->
+            <h3>Charola Deluxe</h3>
+            <p><strong>Precio:</strong> Naturales $90 | Ahogadas $100 | Empanizadas $110</p>
+            <p>5 tipos de gomitas y una manzana con chamoy.</p>
+            <select id="deluxeVariety">
+                <option value="Naturales">Naturales $90</option>
+                <option value="Ahogadas">Ahogadas $100</option>
+                <option value="Empanizadas">Empanizadas $110</option>
+            </select>
+            <p>Selecciona 5 gomitas:</p>
+            <select id="deluxeGomitas" multiple size="6" data-max="5">
+                <option>❤️ Corazones</option>
+                <option>🔥 Xtreme</option>
+                <option>🍑 Aros de durazno</option>
+                <option>🍏 Aros de manzana</option>
+                <option>🍓 Frutas enchiladas</option>
+                <option>🐛 Orugas y panditas</option>
+                <option>🥭 Manguitos</option>
+                <option>🍊 Gajos de naranja</option>
+                <option>🐬 Delfines</option>
+                <option>🐧 Pingüinos</option>
+            </select>
+            <button onclick="addCharola('Charola Deluxe', 'deluxeVariety', 'deluxeGomitas')">Agregar Deluxe</button>
 
-        <!-- MAXI MIX -->
-        <h3>Maxi Mix</h3>
-        <p><strong>Precio:</strong> Naturales $60 | Ahogadas $70 | Empanizadas $80</p>
-        <p>4 a 6 tipos de gomitas.</p>
-        <select id="maxiMixVariety">
-            <option value="Naturales">Naturales $60</option>
-            <option value="Ahogadas">Ahogadas $70</option>
-            <option value="Empanizadas">Empanizadas $80</option>
-        </select>
-        <p>Selecciona tus gomitas:</p>
-        <select id="maxiMixGomitas" multiple size="6" data-max="6">
-            <option>❤️ Corazones</option>
-            <option>🔥 Xtreme</option>
-            <option>🍑 Aros de durazno</option>
-            <option>🍏 Aros de manzana</option>
-            <option>🍓 Frutas enchiladas</option>
-            <option>🐛 Orugas y panditas</option>
-            <option>🥭 Manguitos</option>
-            <option>🍊 Gajos de naranja</option>
-            <option>🐬 Delfines</option>
-            <option>🐧 Pingüinos</option>
-        </select>
-        <button onclick="addCharola('Maxi Mix', 'maxiMixVariety', 'maxiMixGomitas')">Agregar Maxi Mix</button>
+            <!-- MAXI MIX -->
+            <h3>Maxi Mix</h3>
+            <p><strong>Precio:</strong> Naturales $60 | Ahogadas $70 | Empanizadas $80</p>
+            <p>4 a 6 tipos de gomitas.</p>
+            <select id="maxiMixVariety">
+                <option value="Naturales">Naturales $60</option>
+                <option value="Ahogadas">Ahogadas $70</option>
+                <option value="Empanizadas">Empanizadas $80</option>
+            </select>
+            <p>Selecciona tus gomitas:</p>
+            <select id="maxiMixGomitas" multiple size="6" data-max="6">
+                <option>❤️ Corazones</option>
+                <option>🔥 Xtreme</option>
+                <option>🍑 Aros de durazno</option>
+                <option>🍏 Aros de manzana</option>
+                <option>🍓 Frutas enchiladas</option>
+                <option>🐛 Orugas y panditas</option>
+                <option>🥭 Manguitos</option>
+                <option>🍊 Gajos de naranja</option>
+                <option>🐬 Delfines</option>
+                <option>🐧 Pingüinos</option>
+            </select>
+            <button onclick="addCharola('Maxi Mix', 'maxiMixVariety', 'maxiMixGomitas')">Agregar Maxi Mix</button>
 
-        <!-- MEGA DELUXE -->
-        <h3>Mega Deluxe</h3>
-        <p><strong>Precio:</strong> Naturales $160 | Ahogadas $170 | Empanizadas $180</p>
-        <p>10 tipos de gomitas y una manzana con chamoy o extra.</p>
-        <select id="megaDeluxeVariety">
-            <option value="Naturales">Naturales $160</option>
-            <option value="Ahogadas">Ahogadas $170</option>
-            <option value="Empanizadas">Empanizadas $180</option>
-        </select>
-        <p>Selecciona 10 gomitas:</p>
-        <select id="megaDeluxeGomitas" multiple size="6" data-max="10">
-            <option>❤️ Corazones</option>
-            <option>🔥 Xtreme</option>
-            <option>🍑 Aros de durazno</option>
-            <option>🍏 Aros de manzana</option>
-            <option>🍓 Frutas enchiladas</option>
-            <option>🐛 Orugas y panditas</option>
-            <option>🥭 Manguitos</option>
-            <option>🍊 Gajos de naranja</option>
-            <option>🐬 Delfines</option>
-            <option>🐧 Pingüinos</option>
-        </select>
-        <button onclick="addCharola('Mega Deluxe', 'megaDeluxeVariety', 'megaDeluxeGomitas')">Agregar Mega Deluxe</button>
-    </div>
-</section>
+            <!-- MEGA DELUXE -->
+            <h3>Mega Deluxe</h3>
+            <p><strong>Precio:</strong> Naturales $160 | Ahogadas $170 | Empanizadas $180</p>
+            <p>10 tipos de gomitas y una manzana con chamoy o extra.</p>
+            <select id="megaDeluxeVariety">
+                <option value="Naturales">Naturales $160</option>
+                <option value="Ahogadas">Ahogadas $170</option>
+                <option value="Empanizadas">Empanizadas $180</option>
+            </select>
+            <p>Selecciona 10 gomitas:</p>
+            <select id="megaDeluxeGomitas" multiple size="6" data-max="10">
+                <option>❤️ Corazones</option>
+                <option>🔥 Xtreme</option>
+                <option>🍑 Aros de durazno</option>
+                <option>🍏 Aros de manzana</option>
+                <option>🍓 Frutas enchiladas</option>
+                <option>🐛 Orugas y panditas</option>
+                <option>🥭 Manguitos</option>
+                <option>🍊 Gajos de naranja</option>
+                <option>🐬 Delfines</option>
+                <option>🐧 Pingüinos</option>
+            </select>
+            <button onclick="addCharola('Mega Deluxe', 'megaDeluxeVariety', 'megaDeluxeGomitas')">Agregar Mega Deluxe</button>
+        </div>
+    </section>
 
-<footer>
-    <h3>Redes Sociales</h3>
-    <div class="social-icons">
-        <a href="https://facebook.com/PyCCandys">Facebook</a>
-        <a href="https://instagram.com/PyCCandys">Instagram</a>
-        <a href="https://wa.me/524481012425">WhatsApp</a>
-        <a href="https://tiktok.com/@PyCCandys">TikTok</a>
-    </div>
-</footer>
+    <footer>
+        <h3>Redes Sociales</h3>
+        <div class="social-icons">
+            <a href="https://facebook.com/PyCCandys">Facebook</a>
+            <a href="https://instagram.com/PyCCandys">Instagram</a>
+            <a href="https://wa.me/524481012425">WhatsApp</a>
+            <a href="https://tiktok.com/@PyCCandys">TikTok</a>
+        </div>
+    </footer>
 
-<script>
-const priceMap = {
-    'Mini Mix':         { Naturales: 40, Ahogadas: 50, Empanizadas: 60 },
-    'Charola Deluxe':   { Naturales: 90, Ahogadas: 100, Empanizadas: 110 },
-    'Maxi Mix':         { Naturales: 60, Ahogadas: 70, Empanizadas: 80 },
-    'Mega Deluxe':      { Naturales: 160, Ahogadas: 170, Empanizadas: 180 }
-};
+    <script>
+        const priceMap = {
+            'Mini Mix':         { Naturales: 40, Ahogadas: 50, Empanizadas: 60 },
+            'Charola Deluxe':   { Naturales: 90, Ahogadas: 100, Empanizadas: 110 },
+            'Maxi Mix':         { Naturales: 60, Ahogadas: 70, Empanizadas: 80 },
+            'Mega Deluxe':      { Naturales: 160, Ahogadas: 170, Empanizadas: 180 }
+        };
 
-const charolaRules = {
-    'Mini Mix':       { min: 1,  max: 4 },
-    'Charola Deluxe': { min: 5,  max: 5, exact: true,  extra: 'Manzana con chamoy' },
-    'Maxi Mix':       { min: 4,  max: 6 },
-    'Mega Deluxe':    { min: 10, max: 10, exact: true,  extra: 'Manzana con chamoy o extra' }
-};
+        const charolaRules = {
+            'Mini Mix':       { min: 1,  max: 4 },
+            'Charola Deluxe': { min: 5,  max: 5, exact: true,  extra: 'Manzana con chamoy' },
+            'Maxi Mix':       { min: 4,  max: 6 },
+            'Mega Deluxe':    { min: 10, max: 10, exact: true,  extra: 'Manzana con chamoy o extra' }
+        };
 
-let orders = JSON.parse(localStorage.getItem('orders')) || [];
-function saveOrders() {
-    localStorage.setItem('orders', JSON.stringify(orders));
-}
-
-function getSelectedOptions(selectId) {
-    const sel = document.getElementById(selectId);
-    return Array.from(sel.selectedOptions).map(opt => opt.text.trim());
-}
-
-function validateGomitas(charolaName, gomitas) {
-    const rule = charolaRules[charolaName];
-    if (!rule) return { ok: true };
-
-    if (rule.exact) {
-        if (gomitas.length !== rule.min) {
-            return { ok: false, msg: `Debes elegir exactamente ${rule.min} tipos de gomitas.` };
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+        function saveOrders() {
+            localStorage.setItem('orders', JSON.stringify(orders));
         }
-    } else {
-        if (gomitas.length < rule.min) {
-            return { ok: false, msg: `Elige al menos ${rule.min} tipos de gomitas.` };
+
+        function getSelectedOptions(selectId) {
+            const sel = document.getElementById(selectId);
+            return Array.from(sel.selectedOptions).map(opt => opt.text.trim());
         }
-        if (gomitas.length > rule.max) {
-            return { ok: false, msg: `Solo puedes elegir hasta ${rule.max} tipos de gomitas.` };
-        }
-    }
-    return { ok: true };
-}
 
-function addCharola(charolaName, varietySelectId, gomitasSelectId) {
-    const varietyText = document.getElementById(varietySelectId).value;
-    const variety = varietyText.split(" ")[0]; // Solo "Naturales", "Ahogadas", etc.
-    const gomitas = getSelectedOptions(gomitasSelectId);
+        function validateGomitas(charolaName, gomitas) {
+            const rule = charolaRules[charolaName];
+            if (!rule) return { ok: true };
 
-    const validation = validateGomitas(charolaName, gomitas);
-    if (!validation.ok) {
-        alert(validation.msg);
-        return;
-    }
-
-    const price = priceMap[charolaName]?.[variety] ?? 0;
-    const rule = charolaRules[charolaName];
-    let extras = [];
-    if (rule && rule.extra) extras.push(rule.extra);
-
-    orders.push({
-        name: charolaName,
-        variety,
-        gomitas,
-        extras,
-        price: parseFloat(price) || 0,
-        category: 'charola',
-        timestamp: new Date().toISOString()
-    });
-    saveOrders();
-
-    alert(`${charolaName} (${variety}) agregado con ${gomitas.length} gomitas. Total pedidos: ${orders.length}`);
-}
-
-function attachLimitedMultiSelect(selectEl) {
-    const max = parseInt(selectEl.dataset.max, 10);
-    if (!max) return;
-
-    let lastClickedOption = null;
-    selectEl.addEventListener('mousedown', (e) => {
-        if (e.target.tagName === 'OPTION') {
-            lastClickedOption = e.target;
-        }
-    });
-
-    selectEl.addEventListener('change', () => {
-        const selected = Array.from(selectEl.selectedOptions);
-        if (selected.length > max) {
-            if (lastClickedOption) {
-                lastClickedOption.selected = false;
+            if (rule.exact) {
+                if (gomitas.length !== rule.min) {
+                    return { ok: false, msg: `Debes elegir exactamente ${rule.min} tipos de gomitas.` };
+                }
             } else {
-                selected[selected.length - 1].selected = false;
+                if (gomitas.length < rule.min) {
+                    return { ok: false, msg: `Elige al menos ${rule.min} tipos de gomitas.` };
+                }
+                if (gomitas.length > rule.max) {
+                    return { ok: false, msg: `Solo puedes elegir hasta ${rule.max} tipos de gomitas.` };
+                }
             }
-            alert(`Límite: máximo ${max} tipos de gomitas.`);
+            return { ok: true };
         }
-    });
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-    ['miniMixGomitas', 'deluxeGomitas', 'maxiMixGomitas', 'megaDeluxeGomitas'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) attachLimitedMultiSelect(el);
-    });
-});
+        function addCharola(charolaName, varietySelectId, gomitasSelectId) {
+            const varietyText = document.getElementById(varietySelectId).value;
+            const variety = varietyText.split(" ")[0]; // Solo "Naturales", "Ahogadas", etc.
+            const gomitas = getSelectedOptions(gomitasSelectId);
 
-const menuToggle = document.querySelector('.menu-toggle');
-const navMenu = document.querySelector('.nav-menu');
-menuToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-});
-</script>
+            const validation = validateGomitas(charolaName, gomitas);
+            if (!validation.ok) {
+                alert(validation.msg);
+                return;
+            }
+
+            const price = priceMap[charolaName]?.[variety] ?? 0;
+            const rule = charolaRules[charolaName];
+            let extras = [];
+            if (rule && rule.extra) extras.push(rule.extra);
+
+            orders.push({
+                name: charolaName,
+                variety,
+                gomitas,
+                extras,
+                price: parseFloat(price) || 0,
+                category: 'charola',
+                timestamp: new Date().toISOString()
+            });
+            saveOrders();
+
+            alert(`${charolaName} (${variety}) agregado con ${gomitas.length} gomitas. Total pedidos: ${orders.length}`);
+        }
+
+        function attachLimitedMultiSelect(selectEl) {
+            const max = parseInt(selectEl.dataset.max, 10);
+            if (!max) return;
+
+            let lastClickedOption = null;
+            selectEl.addEventListener('mousedown', (e) => {
+                if (e.target.tagName === 'OPTION') {
+                    lastClickedOption = e.target;
+                }
+            });
+
+            selectEl.addEventListener('change', () => {
+                const selected = Array.from(selectEl.selectedOptions);
+                if (selected.length > max) {
+                    if (lastClickedOption) {
+                        lastClickedOption.selected = false;
+                    } else {
+                        selected[selected.length - 1].selected = false;
+                    }
+                    alert(`Límite: máximo ${max} tipos de gomitas.`);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ['miniMixGomitas', 'deluxeGomitas', 'maxiMixGomitas', 'megaDeluxeGomitas'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) attachLimitedMultiSelect(el);
+            });
+        });
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
