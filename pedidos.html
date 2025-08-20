@@ -391,12 +391,14 @@ function toggleCustomSchoolField() {
     const schoolSelect = document.getElementById('schoolSelect').value;
     const customSchoolField = document.getElementById('customSchoolField');
     const customSchoolInput = document.getElementById('customSchool');
+
     if (schoolSelect === 'Otra') {
         customSchoolField.classList.remove('hidden');
-        customSchoolInput.removeAttribute('required'); // Custom school is optional
+        customSchoolInput.removeAttribute('disabled'); // Enable the input
     } else {
         customSchoolField.classList.add('hidden');
-        customSchoolInput.removeAttribute('required');
+        customSchoolInput.setAttribute('disabled', 'true'); // Disable the input
+        customSchoolInput.value = ''; // Clear the input when hidden
     }
 }
 
