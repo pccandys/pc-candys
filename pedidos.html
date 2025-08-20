@@ -142,6 +142,20 @@
         .delivery-fields.hidden {
             display: none;
         }
+        #schoolFields select,
+        #schoolFields input {
+            width: 95%;
+            padding: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #schoolFields p {
+            font-size: 14px;
+            color: #555;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -174,6 +188,7 @@
             <option value="">Selecciona</option>
             <option value="delivery">A domicilio</option>
             <option value="pickup">Recojo pedido</option>
+            <option value="school">Entrega en escuela</option>
         </select>
         <div class="delivery-fields" id="deliveryFields">
             <label for="orderDate">Fecha de entrega:</label>
@@ -187,6 +202,22 @@
             <div id="map"></div>
             <input type="hidden" id="latitud" />
             <input type="hidden" id="longitud" />
+        </div>
+        <div class="delivery-fields hidden" id="schoolFields">
+            <label for="schoolSelect">Selecciona tu escuela:</label>
+            <select id="schoolSelect" onchange="toggleCustomSchoolField()" required>
+                <option value="">Selecciona una escuela</option>
+                <option value="Cecyteq 83">Cecyteq 83</option>
+                <option value="Cbta 256">Cbta 256</option>
+                <option value="Uaq Pedro Escobedo">Uaq Pedro Escobedo</option>
+                <option value="Cobaq Colorado">Cobaq Colorado</option>
+                <option value="Otra">Otra</option>
+            </select>
+            <div id="customSchoolField" class="hidden">
+                <label for="customSchool">Nombre de la escuela:</label>
+                <input type="text" id="customSchool" placeholder="Ingresa el nombre de tu escuela" />
+            </div>
+            <p><strong>Nota:</strong> Te confirmaremos el horario de entrega en tu escuela.</p>
         </div>
         <label for="clientName">Nombre:</label>
         <input type="text" id="clientName" placeholder="Tu nombre" required />
@@ -325,17 +356,47 @@ function getLocation() {
 function toggleDeliveryFields() {
     const deliveryMethod = document.getElementById('deliveryMethod').value;
     const deliveryFields = document.getElementById('deliveryFields');
+    const schoolFields = document.getElementById('schoolFields');
     const orderDateInput = document.getElementById('orderDate');
     const addressInput = document.getElementById('address');
+    const schoolSelect = document.getElementById('schoolSelect');
+    const customSchoolInput = document.getElementById('customSchool');
 
-    if (deliveryMethod === 'pickup') {
-        deliveryFields.classList.add('hidden');
-        orderDateInput.removeAttribute('required');
-        addressInput.removeAttribute('required');
-    } else {
+    if (deliveryMethod === 'delivery') {
         deliveryFields.classList.remove('hidden');
+        schoolFields.classList.add('hidden');
         orderDateInput.setAttribute('required', '');
         addressInput.setAttribute('required', '');
+        schoolSelect.removeAttribute('required');
+        customSchoolInput.removeAttribute('required');
+    } else if (deliveryMethod === 'school') {
+        deliveryFields.classList.add('hidden');
+        schoolFields.classList.remove('hidden');
+        orderDateInput.removeAttribute('required');
+        addressInput.removeAttribute('required');
+        schoolSelect.setAttribute('required', '');
+        toggleCustomSchoolField(); // Update custom school field visibility
+    } else {
+        // Pickup or no selection
+        deliveryFields.classList.add('hidden');
+        schoolFields.classList.add('hidden');
+        orderDateInput.removeAttribute('required');
+        addressInput.removeAttribute('required');
+        schoolSelect.removeAttribute('required');
+        customSchoolInput.removeAttribute('required');
+    }
+}
+
+function toggleCustomSchoolField() {
+    const schoolSelect = document.getElementById('schoolSelect').value;
+    const customSchoolField = document.getElementById('customSchoolField');
+    const customSchoolInput = document.getElementById('customSchool');
+    if (schoolSelect === 'Otra') {
+        customSchoolField.classList.remove('hidden');
+        customSchoolInput.setAttribute('required', '');
+    } else {
+        customSchoolField.classList.add('hidden');
+        customSchoolInput.removeAttribute('required');
     }
 }
 
@@ -346,6 +407,8 @@ function submitOrder() {
     const address = document.getElementById('address').value.trim();
     const latitude = document.getElementById('latitud').value;
     const longitude = document.getElementById('longitud').value;
+    const schoolSelect = document.getElementById('schoolSelect').value;
+    const customSchool = document.getElementById('customSchool').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const paymentMethod = document.getElementById('paymentMethod').value;
@@ -365,6 +428,14 @@ function submitOrder() {
     }
     if (deliveryMethod === 'delivery' && (!orderDate || !address || !latitude || !longitude)) {
         alert('Por favor, completa todos los campos de entrega y selecciona ubicación.');
+        return;
+    }
+    if (deliveryMethod === 'school' && !schoolSelect) {
+        alert('Por favor, selecciona una escuela.');
+        return;
+    }
+    if (deliveryMethod === 'school' && schoolSelect === 'Otra' && !customSchool) {
+        alert('Por favor, ingresa el nombre de tu escuela.');
         return;
     }
 
@@ -406,12 +477,15 @@ function submitOrder() {
     let message;
     if (deliveryMethod === 'pickup') {
         message = `Hola, me gustaría hacer un pedido para recoger en tienda:\n\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
+    } else if (deliveryMethod === 'school') {
+        const schoolName = schoolSelect === 'Otra' ? customSchool : schoolSelect;
+        message = `Hola, me gustaría hacer un pedido para entrega en escuela:\n\nEscuela: ${schoolName}\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\nNota: Confirmar horario de entrega\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
     } else {
         message = `Hola, me gustaría hacer un pedido a domicilio:\n\nFecha: ${orderDate}${deliveryTime ? `\nHora: ${deliveryTime}` : ''}\nDirección: ${address}\nUbicación: https://www.google.com/maps?q=${latitude},${longitude}\nNombre: ${clientName}\nTel: ${phone}\nPago: ${paymentMethod}\n\nProductos:\n${productDetails}\nTOTAL: $${total}`;
     }
 
     // Confirm order
-    const confirmMsg = `¿Tu pedido está correcto?\n\n${deliveryMethod === 'pickup' ? 'Método: Recojo en tienda' : 'Método: A domicilio'}\n${message}\n\n¿Deseas enviarlo?`;
+    const confirmMsg = `¿Tu pedido está correcto?\n\n${deliveryMethod === 'pickup' ? 'Método: Recojo en tienda' : deliveryMethod === 'school' ? 'Método: Entrega en escuela' : 'Método: A domicilio'}\n${message}\n\n¿Deseas enviarlo?`;
     if (confirm(confirmMsg)) {
         const whatsappNumber = "524481012425";
         const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
