@@ -9,19 +9,19 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: #FFF5E1; /* Logo color as body background */
+            color: #333333;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
         header {
-            background-color: #f44336;
+            background-color: #FF8A65; /* Soft coral for header */
             padding: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #d32f2f;
+            border-bottom: 2px solid #FF7043; /* Darker coral for border */
             position: relative;
             flex-shrink: 0;
         }
@@ -31,7 +31,7 @@
             margin-left: 10px;
         }
         .logo img {
-            max-height: 50px; /* Ajusta el tamaño del logo */
+            max-height: 50px;
             width: auto;
         }
         .page-space {
@@ -68,7 +68,7 @@
             top: 100%;
             left: 0;
             width: 100%;
-            background-color: #f44336;
+            background-color: #FF8A65; /* Match header color */
             padding: 10px 0;
         }
         .menu-section {
@@ -77,7 +77,7 @@
             flex-grow: 1;
         }
         .menu-section h1 {
-            color: #1e88e5;
+            color: #D81B60; /* Vibrant pink for headings */
             font-size: 6vw;
             margin-bottom: 2vw;
         }
@@ -87,18 +87,17 @@
             margin: 2vw auto;
             max-width: 90vw;
             border-radius: 5px;
-            border: 1px solid #ddd;
+            border: 1px solid #E0E0E0; /* Light gray border for contrast */
             text-align: left;
         }
         .menu-item h3 {
             font-size: 4vw;
-            color: #1e88e5;
+            color: #D81B60; /* Pink for item headings */
             margin-bottom: 1vw;
         }
-        /* BOTONES (tamaño reducido) */
         .menu-item button {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #FFAB91; /* Light peach for buttons */
+            color: #333333; /* Dark text for readability */
             border: none;
             padding: 1.5vw 3vw;
             border-radius: 5px;
@@ -108,17 +107,17 @@
             display: inline-block;
         }
         .menu-item button:hover {
-            background-color: #45a049;
+            background-color: #FF8A65; /* Darker coral on hover */
         }
         footer {
-            background-color: #1976d2;
+            background-color: #4A6366; /* Muted teal for footer */
             color: white;
             padding: 3vw;
             text-align: center;
             flex-shrink: 0;
         }
         .social-icons a {
-            color: white;
+            color: #D81B60; /* Vibrant pink for social links */
             margin: 0 2vw;
             text-decoration: none;
             font-size: 4.5vw;
@@ -127,14 +126,13 @@
             .menu-toggle { display: block; }
             .nav-menu { display: none; }
             .nav-menu li { margin: 2vw 0; }
-            /* Reafirmamos tamaño reducido para móviles */
             .menu-item button { padding: 1.5vw 3vw; font-size: 3vw; }
             .logo img {
-                max-height: 40px; /* Tamaño del logo en dispositivos móviles */
+                max-height: 40px;
             }
         }
         @media (min-width: 768px) {
-            .logo img { max-height: 50px; } /* Tamaño del logo en escritorio */
+            .logo img { max-height: 50px; }
             .nav-menu a { font-size: 16px; }
             .menu-section h1 { font-size: 32px; }
             .menu-item h3 { font-size: 18px; }
@@ -151,16 +149,16 @@
         <div class="page-space"></div>
         <button class="menu-toggle">☰</button>
         <ul class="nav-menu">
-             <li><a href="index.html">Inicio</a></li>
-      <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
-      <li><a href="charolas.html">Charolas</a></li>
-      <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
-      <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
-      <li><a href="waffles.html">Waffles</a></li>
-      <li><a href="crepas.html">Crepas</a></li>
-      <li><a href="mini_donas.html">Mini Donas</a></li>
-      <li><a href="extras.html">Extras</a></li>
-      <li><a href="pedidos.html">Pedidos</a></li>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="bolsa_de_gomitas.html">Bolsa de Gomitas</a></li>
+            <li><a href="charolas.html">Charolas</a></li>
+            <li><a href="mini_hot_cakes.html">Mini Hot Cakes</a></li>
+            <li><a href="fresas_con_crema.html">Fresas con Crema</a></li>
+            <li><a href="waffles.html">Waffles</a></li>
+            <li><a href="crepas.html">Crepas</a></li>
+            <li><a href="mini_donas.html">Mini Donas</a></li>
+            <li><a href="extras.html">Extras</a></li>
+            <li><a href="pedidos.html">Pedidos</a></li>
         </ul>
     </header>
 
@@ -249,7 +247,7 @@
             };
             orders.push(order);
             localStorage.setItem('orders', JSON.stringify(orders));
-            alert(`${name} (${variety}${quantity ? ', ' + quantity + ' pzas' : ''}) agregado කැත්තු. Total artículos: ${orders.length}`);
+            alert(`${name} (${variety}${quantity ? ', ' + quantity + ' pzas' : ''}) agregado al carrito. Total artículos: ${orders.length}`);
         }
 
         const menuToggle = document.querySelector('.menu-toggle');
