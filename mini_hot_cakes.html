@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
@@ -8,20 +8,21 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: #FFDDE0; /* Logo color as body background */
+            color: #333333;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
         header {
-            background-color: #f44336;
+            background-color: #FF6F61; /* Coral for header */
             padding: 10px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #d32f2f;
+            border-bottom: 2px solid #FF4D40; /* Darker coral for border */
             position: relative;
+            flex-shrink: 0;
         }
         .logo {
             display: flex;
@@ -61,7 +62,7 @@
             top: 100%;
             left: 0;
             width: 100%;
-            background-color: #f44336;
+            background-color: #FF6F61; /* Match header color */
             padding: 10px 0;
             box-sizing: border-box;
             z-index: 10;
@@ -78,7 +79,7 @@
                 display: none;
                 flex-direction: column;
                 width: 100%;
-                background-color: #f44336;
+                background-color: #FF6F61;
                 position: absolute;
                 top: 100%;
                 left: 0;
@@ -106,16 +107,16 @@
         }
         .menu-container {
             max-width: 600px;
-            background: white;
+            background: #FFFFFF; /* White for menu container */
             padding: 30px 25px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             font-size: 18px;
-            color: #555;
+            color: #333333;
             line-height: 1.5;
         }
         .menu-container h2 {
-            color: #f44336;
+            color: #C2185B; /* Deep pink for headings */
             margin-bottom: 20px;
             font-size: 24px;
             text-align: center;
@@ -124,7 +125,7 @@
             margin-bottom: 20px;
         }
         .menu-item h3, .toppings h3, .spreads h3 {
-            color: #f44336;
+            color: #C2185B; /* Deep pink for item headings */
             font-size: 20px;
             margin-bottom: 10px;
         }
@@ -132,7 +133,7 @@
             margin: 5px 0;
         }
         .menu-item strong {
-            color: #f44336;
+            color: #C2185B; /* Deep pink for strong text */
         }
         .option-group {
             display: flex;
@@ -157,25 +158,26 @@
         }
         .toppings p, .spreads p {
             font-style: italic;
-            color: #777;
+            color: #555555; /* Lighter gray for secondary text */
         }
         #order-summary {
             margin-top: 30px;
             padding: 15px;
-            background-color: #f9f9f9;
+            background-color: #F9E6E8; /* Light pink for summary background */
             border-radius: 5px;
             display: none;
+            border: 1px solid #E0E0E0; /* Light gray border */
         }
         #order-summary h3 {
-            color: #f44336;
+            color: #C2185B; /* Deep pink for summary heading */
             margin-bottom: 10px;
         }
         #order-summary p {
             margin: 5px 0;
         }
         button#confirm-order {
-            background-color: #f44336;
-            color: white;
+            background-color: #FF9999; /* Light coral for button */
+            color: #333333; /* Dark text for readability */
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
@@ -187,10 +189,10 @@
             margin-right: auto;
         }
         button#confirm-order:hover {
-            background-color: #d32f2f;
+            background-color: #FF6F61; /* Darker coral on hover */
         }
         button#confirm-order:disabled {
-            background-color: #cccccc;
+            background-color: #E0E0E0; /* Light gray when disabled */
             cursor: not-allowed;
         }
     </style>
